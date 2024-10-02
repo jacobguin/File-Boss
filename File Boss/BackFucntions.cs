@@ -1,6 +1,6 @@
 ﻿namespace File_Boss;
 
-internal static class BackFucntions
+internal static class BackFunctions
 {
-
+    
 }
