@@ -40,4 +40,43 @@ public static class BackFunctions
         };
         _ = p.Start();
     }
+
+    public static void CreateFile(string FileName)
+    {
+        Directory.CreateDirectory(Path.GetDirectoryName(FileName));
+
+        using (var fs = File.Open(FileName, FileMode.OpenOrCreate))
+        {
+        }
+
+        Console.WriteLine($"File '{FileName}' created successfully");
+
+    }
+
+    public static void DeleteFile(string FileName)
+    {
+        if (File.Exists(FileName))
+        {
+            File.Delete(FileName);
+            Console.WriteLine($"File '{FileName}' deleted successfully.");
+        }
+        else
+        {
+            Console.WriteLine($"File '{FileName}' not found.");
+        }
+    }
+
+    public static void CreateFolder(string FolderName)
+    {
+        if (!Directory.Exists(FolderName))
+        {
+            Directory.CreateDirectory(FolderName);
+            Console.WriteLine($"Folder '{FolderName}' created successfully.");
+        }
+        if (Directory.Exists(FolderName))
+        {
+            Console.WriteLine($"Folder '{FolderName}' already exists.");
+        }
+    }
+
 }
