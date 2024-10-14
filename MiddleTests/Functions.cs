@@ -5,13 +5,36 @@ namespace MiddleTests;
 public class Functions
 {
     [Fact]
+    public void FunctionMaps()
+    {
+        BackFunctions.LoadMaps();
+    }
+    [Fact]
     public void OpenFileWith()
     {
-        BackFunctions.OpenWith("gnome-text-editor", "/home/jacob/Documents/ggg.txt");
+        BackFunctions.OpenWith("notepad.exe", "C:\\Users\\clayp\\Downloads\\Test.txt");
     }
     [Fact]
     public void OpenFile()
     {
-        BackFunctions.Open("/home/jacob/Documents/ggg.txt");
+        BackFunctions.Open("C:\\Users\\clayp\\Downloads\\Test.txt");
+    }
+
+    [Fact]
+    public void testCreate()
+    {
+        BackFunctions.CreateFile("TestFile.txt");
+    }
+
+    [Fact]
+    public void testDelete()
+    {
+        BackFunctions.DeleteFile("TestFile.txt");
+    }
+
+    [Fact]
+    public void testCreateFolder()
+    {
+        BackFunctions.CreateFolder("Folder1");
     }
 }

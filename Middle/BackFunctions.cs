@@ -7,14 +7,20 @@ public static class BackFunctions
     /// <summary>
     /// Testing Dictionary for function will be moved config files after the the user can update it in the UI
     /// </summary>
-    public static Dictionary<string, string> ProgramMap = new()//Testing for now
+    public static Dictionary<string, string> ProgramMap = new();//Testing for now
+
+    public static void LoadMaps()
     {
-#if WINDOWS
-        {"txt", "notepad.exe"}
-#else 
-        {".txt", "gnome-text-editor"}
-#endif
-    };
+        ProgramMap.Clear();
+        if (OperatingSystem.IsWindows())
+        {
+            ProgramMap.Add(".txt", "notepad.exe");
+        }
+        else
+        {
+            ProgramMap.Add(".txt", "gnome-text-editor");
+        }
+    }
 
     public static void Open(string FileToOpen)
     {
@@ -43,13 +49,19 @@ public static class BackFunctions
 
     public static void CreateFile(string FileName)
     {
-        Directory.CreateDirectory(Path.GetDirectoryName(FileName));
-
-        using (var fs = File.Open(FileName, FileMode.OpenOrCreate))
+        if (File.Exists(FileName))
         {
+            Console.WriteLine($"File '{FileName}' already exists");
         }
 
-        Console.WriteLine($"File '{FileName}' created successfully");
+        else
+        {
+            using (var fs = File.Open(FileName, FileMode.OpenOrCreate))
+            {
+            }
+
+            Console.WriteLine($"File '{FileName}' created successfully");
+        }
 
     }
 
