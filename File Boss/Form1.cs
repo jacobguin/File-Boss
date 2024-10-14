@@ -13,7 +13,8 @@ namespace File_Boss
             foreach (FileInfo fi in di.GetFiles())
             {
                 FileDisplay fd = new();
-                fd.LoadFile(fi.FullName);
+                Icon icon = System.Drawing.Icon.ExtractAssociatedIcon(fi.FullName)!;
+                fd.LoadFile(fi.FullName, icon);
                 flowLayoutPanel1.Controls.Add(fd);
             }
         }

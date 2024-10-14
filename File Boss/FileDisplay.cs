@@ -17,10 +17,12 @@ namespace File_Boss
             InitializeComponent();
         }
 
-        public void LoadFile(string File)
+        public void LoadFile(string File, Icon icon)
         {
             FileInfo fi = new(File);
             label1.Text = fi.Name;
+            pictureBox1.Image = icon.ToBitmap();
+
         }
 
     }
