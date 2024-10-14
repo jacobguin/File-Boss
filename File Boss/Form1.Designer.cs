@@ -28,18 +28,30 @@
         /// </summary>
         private void InitializeComponent()
         {
+            flowLayoutPanel1 = new FlowLayoutPanel();
             SuspendLayout();
+            // 
+            // flowLayoutPanel1
+            // 
+            flowLayoutPanel1.Dock = DockStyle.Fill;
+            flowLayoutPanel1.Location = new Point(0, 0);
+            flowLayoutPanel1.Name = "flowLayoutPanel1";
+            flowLayoutPanel1.Size = new Size(800, 450);
+            flowLayoutPanel1.TabIndex = 0;
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(flowLayoutPanel1);
             Name = "Form1";
             Text = "Form1";
             ResumeLayout(false);
         }
 
         #endregion
+
+        private FlowLayoutPanel flowLayoutPanel1;
     }
 }
