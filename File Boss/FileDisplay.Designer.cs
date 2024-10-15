@@ -35,29 +35,32 @@
             // 
             // pictureBox1
             // 
-            pictureBox1.Location = new Point(38, 28);
+            pictureBox1.Location = new Point(33, 21);
+            pictureBox1.Margin = new Padding(3, 2, 3, 2);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(138, 125);
+            pictureBox1.Size = new Size(121, 94);
             pictureBox1.TabIndex = 0;
             pictureBox1.TabStop = false;
             // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(34, 163);
+            label1.Location = new Point(30, 122);
             label1.Name = "label1";
-            label1.Size = new Size(50, 20);
+            label1.Size = new Size(38, 15);
             label1.TabIndex = 1;
             label1.Text = "label1";
+            label1.Click += label1_Click;
             // 
             // FileDisplay
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             Controls.Add(label1);
             Controls.Add(pictureBox1);
+            Margin = new Padding(3, 2, 3, 2);
             Name = "FileDisplay";
-            Size = new Size(218, 203);
+            Size = new Size(191, 152);
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
             PerformLayout();
@@ -66,6 +69,6 @@
         #endregion
 
         private PictureBox pictureBox1;
-        private Label label1;
+        public Label label1;
     }
 }
