@@ -27,8 +27,18 @@ public class BackFunctions
         if (ProgramMap.TryGetValue(FI.Extension.ToLower(), out string? Program)) return Program;
         return null;
     }
-    
-    public required string BasePath { get; set; }
+
+    private string bp = "";
+
+    public required string BasePath
+    {
+        get => bp;
+        set
+        {
+            if (!Path.Exists(value)) throw new DirectoryNotFoundException();
+            bp = value;
+        }
+    }
 
     public void Open(string FileToOpen)
     {
