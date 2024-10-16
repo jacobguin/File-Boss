@@ -1,10 +1,14 @@
 using System.Diagnostics;
+using System.Drawing;
 using System.Reflection;
+using System.Windows.Forms;
+using System.Windows.Forms.VisualStyles;
 
 namespace File_Boss
 {
     public partial class Form1 : Form
     {
+        //TODO Look back at to allow for message to appear when clicking a file in the flow panel
         public Form1()
         {
             //DO NOT TOUCH
@@ -15,10 +19,48 @@ namespace File_Boss
                 FileDisplay fd = new();
                 Icon icon = System.Drawing.Icon.ExtractAssociatedIcon(fi.FullName)!;
                 fd.LoadFile(fi.FullName, icon);
+                fd.Click += Fd_Click;
+                fd.label1.Click += Fd_Click;
                 flowLayoutPanel1.Controls.Add(fd);
             }
         }
 
-       
+        private void Fd_Click(object? sender, EventArgs e)
+        {
+            FileDisplay temp = (FileDisplay)sender;
+            MessageBox.Show(temp.label1.Text);
+        }
+
+        // Add Button which creates a text field for you to input a file name
+        private void button1_Click(object sender, EventArgs e)
+        {
+            TextBox textBox = new TextBox();
+            textBox.Location = new System.Drawing.Point(86, 16);
+            textBox.Size = new System.Drawing.Size(125, 27);
+            this.Controls.Add(textBox);
+            textBox.KeyPress += TextBox_KeyPress;
+        }
+
+        // Once enter is pressed, a file is created and a message box appears
+        // TODO The files need to update the flow layout dynamically
+        private void TextBox_KeyPress(object? sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar != (char)Keys.Enter) return;
+
+            TextBox temp = (TextBox)sender!;
+            Middle.BackFunctions.CreateFile(temp.Text);
+            MessageBox.Show(temp.Text + " was Created!");
+        }
+
+        // Event Handlers, which change the color of the Add Button if it is hovered over or not
+        private void button1_MouseEnter(object sender, EventArgs e)
+        {
+            button1.BackColor = Color.RoyalBlue;
+        }
+
+        private void button1_MouseLeave(object sender, EventArgs e)
+        {
+            button1.BackColor = Color.CornflowerBlue;
+        }
     }
 }
