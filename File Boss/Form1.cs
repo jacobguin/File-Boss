@@ -34,15 +34,15 @@ namespace File_Boss
         // Add Button which creates a text field for you to input a file name
         private void button1_Click(object sender, EventArgs e)
         {
-            //MessageBox.Show("Hello World");
             TextBox textBox = new TextBox();
-            textBox.Location = new System.Drawing.Point(648, 375);
+            textBox.Location = new System.Drawing.Point(86, 16);
             textBox.Size = new System.Drawing.Size(125, 27);
             this.Controls.Add(textBox);
             textBox.KeyPress += TextBox_KeyPress;
         }
 
         // Once enter is pressed, a file is created and a message box appears
+        // TODO The files need to update the flow layout dynamically
         private void TextBox_KeyPress(object? sender, KeyPressEventArgs e)
         {
             if (e.KeyChar != (char)Keys.Enter) return;
@@ -52,14 +52,15 @@ namespace File_Boss
             MessageBox.Show(temp.Text + " was Created!");
         }
 
+        // Event Handlers, which change the color of the Add Button if it is hovered over or not
         private void button1_MouseEnter(object sender, EventArgs e)
         {
-            button1.BackColor = Color.WhiteSmoke;
+            button1.BackColor = Color.RoyalBlue;
         }
 
         private void button1_MouseLeave(object sender, EventArgs e)
         {
-            button1.BackColor = Color.White;
+            button1.BackColor = Color.CornflowerBlue;
         }
     }
 }

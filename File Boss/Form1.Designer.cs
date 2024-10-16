@@ -34,21 +34,23 @@
             // 
             // flowLayoutPanel1
             // 
-            flowLayoutPanel1.Dock = DockStyle.Left;
-            flowLayoutPanel1.Location = new Point(0, 0);
+            flowLayoutPanel1.Dock = DockStyle.Bottom;
+            flowLayoutPanel1.Location = new Point(0, 61);
             flowLayoutPanel1.Name = "flowLayoutPanel1";
-            flowLayoutPanel1.Size = new Size(616, 451);
+            flowLayoutPanel1.Size = new Size(800, 390);
             flowLayoutPanel1.TabIndex = 0;
             // 
             // button1
             // 
-            button1.Location = new Point(667, 407);
+            button1.BackColor = Color.CornflowerBlue;
+            button1.Font = new Font("Arial", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            button1.Location = new Point(0, 0);
             button1.Margin = new Padding(3, 4, 3, 4);
             button1.Name = "button1";
-            button1.Size = new Size(86, 31);
+            button1.Size = new Size(82, 64);
             button1.TabIndex = 1;
-            button1.Text = "Add";
-            button1.UseVisualStyleBackColor = true;
+            button1.Text = "+";
+            button1.UseVisualStyleBackColor = false;
             button1.Click += button1_Click;
             button1.MouseEnter += button1_MouseEnter;
             button1.MouseLeave += button1_MouseLeave;
