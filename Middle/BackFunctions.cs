@@ -172,7 +172,7 @@ public class BackFunctions
         }
     }
 
-    public static void CreateFolder(string FolderName)
+    public void CreateFolder(string FolderName)
     {
         try
         {

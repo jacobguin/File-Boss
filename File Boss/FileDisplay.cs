@@ -17,6 +17,8 @@ namespace File_Boss
             InitializeComponent();
         }
 
+        public event Func<FileDisplay, Task>? OnAllClick; 
+
         public void LoadFile(string File, Icon icon)
         {
             FileInfo fi = new(File);
@@ -25,5 +27,9 @@ namespace File_Boss
 
         }
 
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
