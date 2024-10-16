@@ -4,37 +4,53 @@ namespace MiddleTests;
 
 public class Functions
 {
-    [Fact]
-    public void FunctionMaps()
+    private BackFunctions FunctionHandler;
+
+    public Functions()
     {
-        BackFunctions.LoadMaps();
+        string tempDirectory;
+        while (true)
+        {
+            tempDirectory = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
+
+            if(!File.Exists(tempDirectory) && !Directory.Exists(tempDirectory))
+            {
+                Directory.CreateDirectory(tempDirectory);
+                break;
+            }
+        }
+
+        FunctionHandler = new()
+        {
+            BasePath = tempDirectory
+        };
+    }
+    
+    [Fact]
+    public void testCreate()
+    {
+        FunctionHandler.CreateFile("TestFile.txt");
     }
     [Fact]
     public void OpenFileWith()
     {
-        BackFunctions.OpenWith("notepad.exe", "C:\\Users\\clayp\\Downloads\\Test.txt");
+        FunctionHandler.OpenWith(FunctionHandler.GetProgram("TestFile.txt")!, "TestFile.txt");
     }
     [Fact]
     public void OpenFile()
     {
-        BackFunctions.Open("C:\\Users\\clayp\\Downloads\\Test.txt");
-    }
-
-    [Fact]
-    public void testCreate()
-    {
-        BackFunctions.CreateFile("TestFile.txt");
+        FunctionHandler.Open("TestFile.txt");
     }
 
     [Fact]
     public void testDelete()
     {
-        BackFunctions.DeleteFile("TestFile.txt");
+        FunctionHandler.DeleteFile("TestFile.txt");
     }
 
     [Fact]
     public void testCreateFolder()
     {
-        BackFunctions.CreateFolder("Folder1");
+        FunctionHandler.CreateFolder("Folder1");
     }
 }
