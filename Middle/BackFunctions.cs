@@ -2,16 +2,15 @@ using System.Diagnostics;
 
 namespace Middle;
 
-public static class BackFunctions
+public class BackFunctions
 {
     /// <summary>
     /// Testing Dictionary for function will be moved config files after the the user can update it in the UI
     /// </summary>
-    public static Dictionary<string, string> ProgramMap = new();//Testing for now
+    public Dictionary<string, string> ProgramMap = new();//Testing for now
 
-    public static void LoadMaps()
+    public BackFunctions()
     {
-        ProgramMap.Clear();
         if (OperatingSystem.IsWindows())
         {
             ProgramMap.Add(".txt", "notepad.exe");
@@ -22,8 +21,28 @@ public static class BackFunctions
         }
     }
 
-    public static void Open(string FileToOpen)
+    public string? GetProgram(string FileName)
     {
+        FileInfo FI = new FileInfo(FileName);
+        if (ProgramMap.TryGetValue(FI.Extension.ToLower(), out string? Program)) return Program;
+        return null;
+    }
+
+    private string bp = "";
+
+    public required string BasePath
+    {
+        get => bp;
+        set
+        {
+            if (!Path.Exists(value)) throw new DirectoryNotFoundException();
+            bp = value;
+        }
+    }
+
+    public void Open(string FileToOpen)
+    {
+        FileToOpen = Path.Combine(BasePath, FileToOpen);
         FileInfo FI = new FileInfo(FileToOpen);
         
         if (ProgramMap.TryGetValue(FI.Extension.ToLower(), out string Program))
@@ -34,8 +53,9 @@ public static class BackFunctions
         Process.Start(FileToOpen);
     }
     
-    public static void OpenWith(string Program, string FileToOpen)
+    public void OpenWith(string Program, string FileToOpen)
     {
+        FileToOpen = Path.Combine(BasePath, FileToOpen);
         Process p = new Process()
         {
             StartInfo =
@@ -47,8 +67,9 @@ public static class BackFunctions
         _ = p.Start();
     }
 
-    public static void CreateFile(string FileName)
+    public void CreateFile(string FileName)
     {
+        FileName = Path.Combine(BasePath, FileName);
         if (File.Exists(FileName))
         {
             Console.WriteLine($"File '{FileName}' already exists");
@@ -65,8 +86,9 @@ public static class BackFunctions
 
     }
 
-    public static void DeleteFile(string FileName)
+    public void DeleteFile(string FileName)
     {
+        FileName = Path.Combine(BasePath, FileName);
         if (File.Exists(FileName))
         {
             File.Delete(FileName);
@@ -78,8 +100,9 @@ public static class BackFunctions
         }
     }
 
-    public static void CreateFolder(string FolderName)
+    public void CreateFolder(string FolderName)
     {
+        FolderName = Path.Combine(BasePath, FolderName);
         if (!Directory.Exists(FolderName))
         {
             Directory.CreateDirectory(FolderName);
