@@ -24,12 +24,16 @@ namespace File_Boss
             FileInfo fi = new(File);
             label1.Text = fi.Name;
             pictureBox1.Image = icon.ToBitmap();
-
+            this.Click += label1_Click;
+            pictureBox1.Click += label1_Click;
         }
 
         private void label1_Click(object sender, EventArgs e)
         {
-
+            if (OnAllClick is not null)
+            {
+                OnAllClick.Invoke(this);
+            }
         }
     }
 }
