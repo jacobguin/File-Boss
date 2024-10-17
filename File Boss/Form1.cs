@@ -84,7 +84,7 @@ namespace File_Boss
         /// Backend function in order to display file information
         /// </summary>
         /// <param name="fi"></param>
-        private void addFileDisplay(FileInfo fi)
+        public void addFileDisplay(FileInfo fi)
         {
             FileDisplay fd = new();
             Icon icon = System.Drawing.Icon.ExtractAssociatedIcon(fi.FullName)!;

@@ -1,5 +1,6 @@
 ﻿using Middle;
 using System;
+using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -43,10 +44,16 @@ namespace File_Boss
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
+        
+        //TODO remove file icon after being deleted
         private void deleteToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            functionHandler.DeleteFile(label1.Text);
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
         {
 
         }
-
     }
 }
