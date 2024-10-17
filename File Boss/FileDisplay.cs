@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Middle;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -17,15 +18,16 @@ namespace File_Boss
             InitializeComponent();
         }
 
-        public event Func<FileDisplay, Task>? OnAllClick; 
-
-        public void LoadFile(string File, Icon icon)
+        public event Func<FileDisplay, Task>? OnAllClick;
+        public BackFunctions functionHandler;
+        public void LoadFile(string File, Icon icon, BackFunctions functionHandler)
         {
             FileInfo fi = new(File);
             label1.Text = fi.Name;
             pictureBox1.Image = icon.ToBitmap();
-            this.Click += label1_Click;
-            pictureBox1.Click += label1_Click;
+            this.MouseClick += label1_Click;
+            pictureBox1.MouseClick += label1_Click;
+            this.functionHandler = functionHandler;
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -35,5 +37,16 @@ namespace File_Boss
                 OnAllClick.Invoke(this);
             }
         }
+
+        /// <summary>
+        /// This is the right click menu for the files
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void deleteToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
     }
 }

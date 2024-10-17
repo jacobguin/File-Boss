@@ -88,7 +88,7 @@ namespace File_Boss
         {
             FileDisplay fd = new();
             Icon icon = System.Drawing.Icon.ExtractAssociatedIcon(fi.FullName)!;
-            fd.LoadFile(fi.FullName, icon);
+            fd.LoadFile(fi.FullName, icon, functionHandler);
             fd.OnAllClick += Fd_OnAllClick;
             flowLayoutPanel1.Controls.Add(fd);
         }
