@@ -92,5 +92,15 @@ namespace File_Boss
             fd.OnAllClick += Fd_OnAllClick;
             flowLayoutPanel1.Controls.Add(fd);
         }
+
+
+        public void updateFileDisplay(FileInfo fi)
+        {
+            FileDisplay fd = new();
+            Icon icon = System.Drawing.Icon.ExtractAssociatedIcon(fi.FullName)!;
+            fd.LoadFile(fi.FullName, icon, functionHandler);
+            fd.OnAllClick += Fd_OnAllClick;
+            flowLayoutPanel1.Controls.Remove(fd);
+        }
     }
 }
