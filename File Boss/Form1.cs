@@ -31,7 +31,8 @@ namespace File_Boss
         /// <returns></returns>
         private Task Fd_OnAllClick(FileDisplay arg)
         {
-            MessageBox.Show(arg.label1.Text);
+            string fileName = arg.label1.Text;
+            functionHandler.Open(fileName);
             return Task.CompletedTask;
         }
 
@@ -101,6 +102,11 @@ namespace File_Boss
             fd.LoadFile(fi.FullName, icon, functionHandler);
             fd.OnAllClick += Fd_OnAllClick;
             flowLayoutPanel1.Controls.Remove(fd);
+        }
+
+        public void openFile(FileInfo fi)
+        {
+
         }
     }
 }

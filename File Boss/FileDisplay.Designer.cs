@@ -31,6 +31,7 @@
             components = new System.ComponentModel.Container();
             pictureBox1 = new PictureBox();
             contextMenuStrip1 = new ContextMenuStrip(components);
+            openWithToolStripMenuItem = new ToolStripMenuItem();
             deleteToolStripMenuItem = new ToolStripMenuItem();
             label1 = new Label();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
@@ -51,14 +52,22 @@
             // 
             // contextMenuStrip1
             // 
-            contextMenuStrip1.Items.AddRange(new ToolStripItem[] { deleteToolStripMenuItem });
+            contextMenuStrip1.Items.AddRange(new ToolStripItem[] { openWithToolStripMenuItem, deleteToolStripMenuItem });
             contextMenuStrip1.Name = "contextMenuStrip1";
-            contextMenuStrip1.Size = new Size(108, 26);
+            contextMenuStrip1.Size = new Size(141, 48);
+            // 
+            // openWithToolStripMenuItem
+            // 
+            openWithToolStripMenuItem.Name = "openWithToolStripMenuItem";
+            openWithToolStripMenuItem.Size = new Size(140, 22);
+            openWithToolStripMenuItem.Text = "Open With...";
+            openWithToolStripMenuItem.Click += openWithToolStripMenuItem_Click;
+            openWithToolStripMenuItem.MouseHover += openWithToolStripMenuItem_MouseHover;
             // 
             // deleteToolStripMenuItem
             // 
             deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
-            deleteToolStripMenuItem.Size = new Size(107, 22);
+            deleteToolStripMenuItem.Size = new Size(140, 22);
             deleteToolStripMenuItem.Text = "Delete";
             deleteToolStripMenuItem.Click += deleteToolStripMenuItem_Click;
             // 
@@ -95,5 +104,6 @@
         public Label label1;
         private ContextMenuStrip contextMenuStrip1;
         private ToolStripMenuItem deleteToolStripMenuItem;
+        private ToolStripMenuItem openWithToolStripMenuItem;
     }
 }
