@@ -1,3 +1,4 @@
+using Middle;
 using System.Diagnostics;
 using System.Drawing;
 using System.Reflection;
@@ -8,30 +9,38 @@ namespace File_Boss
 {
     public partial class Form1 : Form
     {
-        //TODO Look back at to allow for message to appear when clicking a file in the flow panel
         public Form1()
         {
             //DO NOT TOUCH
             InitializeComponent();
+            functionHandler = new() {BasePath = Directory.GetCurrentDirectory() };
             DirectoryInfo di = new DirectoryInfo(Directory.GetCurrentDirectory());
             foreach (FileInfo fi in di.GetFiles())
             {
-                FileDisplay fd = new();
-                Icon icon = System.Drawing.Icon.ExtractAssociatedIcon(fi.FullName)!;
-                fd.LoadFile(fi.FullName, icon);
-                fd.Click += Fd_Click;
-                fd.label1.Click += Fd_Click;
-                flowLayoutPanel1.Controls.Add(fd);
+                addFileDisplay(fi);
             }
         }
 
-        private void Fd_Click(object? sender, EventArgs e)
+        ///Allows for the creation of files
+        public BackFunctions functionHandler;
+
+        /// <summary>
+        /// New on click function to select files in the flowLayoutPanel1
+        /// </summary>
+        /// <param name="arg"></param>
+        /// <returns></returns>
+        private Task Fd_OnAllClick(FileDisplay arg)
         {
-            FileDisplay temp = (FileDisplay)sender;
-            MessageBox.Show(temp.label1.Text);
+            string fileName = arg.label1.Text;
+            functionHandler.Open(fileName);
+            return Task.CompletedTask;
         }
 
-        // Add Button which creates a text field for you to input a file name
+        /// <summary>
+        /// Add Button which creates a text field for you to input a file name
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void button1_Click(object sender, EventArgs e)
         {
             TextBox textBox = new TextBox();
@@ -41,18 +50,27 @@ namespace File_Boss
             textBox.KeyPress += TextBox_KeyPress;
         }
 
-        // Once enter is pressed, a file is created and a message box appears
-        // TODO The files need to update the flow layout dynamically
+        /// <summary>
+        /// Once ENTER is pressed, a file is created and a message box appears
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void TextBox_KeyPress(object? sender, KeyPressEventArgs e)
         {
             if (e.KeyChar != (char)Keys.Enter) return;
 
             TextBox temp = (TextBox)sender!;
-            Middle.BackFunctions.CreateFile(temp.Text);
+            functionHandler.CreateFile(temp.Text);
             MessageBox.Show(temp.Text + " was Created!");
+            addFileDisplay(new FileInfo(temp.Text));
+            Controls.Remove(temp);
         }
 
-        // Event Handlers, which change the color of the Add Button if it is hovered over or not
+        /// <summary>
+        /// Event Handlers, which change the color of the Add Button if it is hovered over or not
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void button1_MouseEnter(object sender, EventArgs e)
         {
             button1.BackColor = Color.RoyalBlue;
@@ -61,6 +79,41 @@ namespace File_Boss
         private void button1_MouseLeave(object sender, EventArgs e)
         {
             button1.BackColor = Color.CornflowerBlue;
+        }
+
+        /// <summary>
+        /// Backend function in order to display file information
+        /// </summary>
+        /// <param name="fi"></param>
+        public void addFileDisplay(FileInfo fi)
+        {
+            FileDisplay fd = new();
+            Icon icon = System.Drawing.Icon.ExtractAssociatedIcon(fi.FullName)!;
+            fd.LoadFile(fi.FullName, icon, functionHandler);
+            fd.OnAllClick += Fd_OnAllClick;
+            fd.OnDelete += Fd_OnDelete;
+            flowLayoutPanel1.Controls.Add(fd);
+        }
+
+        /// <summary>
+        /// These functions will remove an object from the flow layout panel
+        /// </summary>
+        /// <param name="arg"></param>
+        /// <returns></returns>
+        private Task Fd_OnDelete(FileDisplay arg)
+        {
+            RemoveObject(arg);
+            return Task.CompletedTask;
+        }
+
+        public void RemoveObject(Control fd)
+        {
+            flowLayoutPanel1.Controls.Remove(fd);
+        }
+
+        public void openFile(FileInfo fi)
+        {
+
         }
     }
 }

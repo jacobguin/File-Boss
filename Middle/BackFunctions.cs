@@ -207,4 +207,9 @@ public class BackFunctions
             Console.WriteLine($"Error: An unexpected error occurred. Details: {e.Message}");
         }
     }
+
+    public void OpenWith(string program)
+    {
+        throw new NotImplementedException();
+    }
 }
