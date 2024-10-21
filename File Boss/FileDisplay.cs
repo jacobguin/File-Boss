@@ -18,14 +18,14 @@ namespace File_Boss
         {
             InitializeComponent();
         }
-
+        public FileInfo CurentFile;
         public event Func<FileDisplay, Task>? OnAllClick;
         public BackFunctions functionHandler;
         public event Func<FileDisplay, Task>? OnDelete;
         public void LoadFile(string File, Icon icon, BackFunctions functionHandler)
         {
-            FileInfo fi = new(File);
-            label1.Text = fi.Name;
+            CurentFile = new(File);
+            label1.Text = CurentFile.Name;
             pictureBox1.Image = icon.ToBitmap();
             this.MouseClick += label1_Click;
             pictureBox1.MouseClick += label1_Click;
@@ -59,6 +59,33 @@ namespace File_Boss
 
         private void pictureBox1_Click(object sender, EventArgs e)
         {
+
+        }
+
+        private void openWithToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void openWithToolStripMenuItem_MouseHover(object sender, EventArgs e)
+        {
+            openWithToolStripMenuItem.DropDownItems.Clear();
+            foreach (var program in functionHandler.ProgramMap.Values)
+            {
+
+                ToolStripMenuItem programItem = new ToolStripMenuItem(program);
+                openWithToolStripMenuItem.DropDownItems.Add(programItem);
+
+                programItem.Click += (s, args) =>
+                {
+                    functionHandler.OpenWith(program,CurentFile.FullName);
+
+
+
+
+                   
+                };
+                }
 
         }
     }

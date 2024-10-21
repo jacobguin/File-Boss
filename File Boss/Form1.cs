@@ -31,7 +31,8 @@ namespace File_Boss
         /// <returns></returns>
         private Task Fd_OnAllClick(FileDisplay arg)
         {
-            MessageBox.Show(arg.label1.Text);
+            string fileName = arg.label1.Text;
+            functionHandler.Open(fileName);
             return Task.CompletedTask;
         }
 
@@ -108,6 +109,11 @@ namespace File_Boss
         public void RemoveObject(Control fd)
         {
             flowLayoutPanel1.Controls.Remove(fd);
+        }
+
+        public void openFile(FileInfo fi)
+        {
+
         }
     }
 }
