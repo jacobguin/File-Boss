@@ -21,6 +21,7 @@ namespace File_Boss
 
         public event Func<FileDisplay, Task>? OnAllClick;
         public BackFunctions functionHandler;
+        public event Func<FileDisplay, Task>? OnDelete;
         public void LoadFile(string File, Icon icon, BackFunctions functionHandler)
         {
             FileInfo fi = new(File);
@@ -41,14 +42,19 @@ namespace File_Boss
 
         /// <summary>
         /// This is the right click menu for the files
+        /// This right click function dynamically deletes from the flow layout panel
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         
-        //TODO remove file icon after being deleted
         private void deleteToolStripMenuItem_Click(object sender, EventArgs e)
         {
             functionHandler.DeleteFile(label1.Text);
+            if (OnDelete is not null)
+            {
+                OnDelete.Invoke(this);
+            }
+
         }
 
         private void pictureBox1_Click(object sender, EventArgs e)

@@ -90,16 +90,23 @@ namespace File_Boss
             Icon icon = System.Drawing.Icon.ExtractAssociatedIcon(fi.FullName)!;
             fd.LoadFile(fi.FullName, icon, functionHandler);
             fd.OnAllClick += Fd_OnAllClick;
+            fd.OnDelete += Fd_OnDelete;
             flowLayoutPanel1.Controls.Add(fd);
         }
 
-
-        public void updateFileDisplay(FileInfo fi)
+        /// <summary>
+        /// These functions will remove an object from the flow layout panel
+        /// </summary>
+        /// <param name="arg"></param>
+        /// <returns></returns>
+        private Task Fd_OnDelete(FileDisplay arg)
         {
-            FileDisplay fd = new();
-            Icon icon = System.Drawing.Icon.ExtractAssociatedIcon(fi.FullName)!;
-            fd.LoadFile(fi.FullName, icon, functionHandler);
-            fd.OnAllClick += Fd_OnAllClick;
+            RemoveObject(arg);
+            return Task.CompletedTask;
+        }
+
+        public void RemoveObject(Control fd)
+        {
             flowLayoutPanel1.Controls.Remove(fd);
         }
     }
