@@ -32,12 +32,20 @@ public class Functions
     {
         FunctionHandler.CreateFile("TestFile.txt");
     }
-    [Fact, Order(2)]
+    [Fact, Order(1)]
     public void TestCreateFileExist()
     {
         Assert.Throws<UIException>(() =>
         {
             FunctionHandler.CreateFile("TestFile.txt");
+        });
+    }
+    [Fact, Order(1)]
+    public void TestInvalidFileName()
+    {
+        Assert.Throws<UIException>(() =>
+        {
+            FunctionHandler.CreateFile("..");
         });
     }
     [Fact, Order(2)]
@@ -46,6 +54,22 @@ public class Functions
         Assert.Throws<UIException>(() =>
         {
             FunctionHandler.Open("fdsjhkfdfdhjhfdsjhdfsjhfdsjhafds.rxt");
+        });
+    }
+    [Fact, Order(2)]
+    public void TestOpenWithProgramDontExist()
+    {
+        Assert.Throws<UIException>(() =>
+        {
+            FunctionHandler.OpenWith("billybobx32.elf", "TestFile.txt");
+        });
+    }
+    [Fact, Order(2)]
+    public void TestOpenWithFileDontExist()
+    {
+        Assert.Throws<UIException>(() =>
+        {
+            FunctionHandler.OpenWith(FunctionHandler.GetProgram("TestFile.txt")!, "dennis.txt");
         });
     }
     [Fact, Order(3)]
@@ -64,10 +88,39 @@ public class Functions
     {
         FunctionHandler.DeleteFile("TestFile.txt");
     }
+    [Fact, Order(5)]
+    public void TestDeleteDoesNotExist()
+    {
+        Assert.Throws<UIException>(() =>
+        {
+            FunctionHandler.DeleteFile("fjdaskfjdsakf.rgy");
+        });
+    }
 
     [Fact, Order(6)]
     public void testCreateFolder()
     {
         FunctionHandler.CreateFolder("Folder1");
+    }
+    [Fact, Order(7)]
+    public void TestFolderAlreadyExist()
+    {
+        Assert.Throws<UIException>(() =>
+        {
+            FunctionHandler.CreateFolder("Folder1");
+        });
+    }
+    [Fact, Order(6)]
+    public void TestInvalidFolderName()
+    {
+        Assert.Throws<UIException>(() =>
+        {
+            FunctionHandler.CreateFolder("../ \\ : ? * \" < > |");
+        });
+    }
+    [Fact, Order(8)]
+    public void CleanUp()
+    {
+        Directory.Delete("Folder1");
     }
 }

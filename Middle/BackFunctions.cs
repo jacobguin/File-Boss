@@ -179,7 +179,7 @@ public class BackFunctions
             }
             if (Directory.Exists(FolderName))
             {
-                Console.WriteLine($"Folder '{FolderName}' already exists.");
+                throw new UIException($"Folder '{FolderName}' already exists.");
             }
         }
         catch (UnauthorizedAccessException e)
