@@ -36,7 +36,7 @@ public class BackFunctions
         get => bp;
         set
         {
-            if (!Path.Exists(value)) throw new DirectoryNotFoundException();
+            if (!Path.Exists(value)) throw new UIException("The provided directory is not valid");
             bp = value;
         }
     }
@@ -45,6 +45,7 @@ public class BackFunctions
     {
         try
         {
+            if (!File.Exists(FileToOpen)) throw new UIException("The provided file is not valid");
             FileInfo FI = new FileInfo(FileToOpen);
 
             if (ProgramMap.TryGetValue(FI.Extension.ToLower(), out string Program))
@@ -54,22 +55,17 @@ public class BackFunctions
             }
             Process.Start(FileToOpen);
         }
-        catch (FileNotFoundException e)
-        {
-            Console.WriteLine($"Error: The file '{FileToOpen}' was not found. Details: {e.Message}");
-        }
-        
         catch (Win32Exception e)
         {
-            Console.WriteLine($"Error: There was a problem starting the file '{FileToOpen}'. Details: {e.Message}");
+            throw new UIException($"There was a problem starting the file '{FileToOpen}'.\n Details: {e.Message}");
         }
         catch (InvalidOperationException e)
         {
-            Console.WriteLine($"Error: Invalid operation while trying to open '{FileToOpen}'. Details: {e.Message}");
+            throw new UIException($"Invalid operation while trying to open '{FileToOpen}'.\n Details: {e.Message}");
         }
         catch (Exception e)
         {
-            Console.WriteLine($"Error: An unexpected error occurred while trying to open '{FileToOpen}'. Details: {e.Message}");
+            throw new UIException($"An unexpected error occurred while trying to open '{FileToOpen}'.\n Details: {e.Message}", ErrorType.Unknown);
         }
     }
     
@@ -77,6 +73,7 @@ public class BackFunctions
     {
         try
         {
+            if (!File.Exists(FileToOpen)) throw new UIException("The provided file is not valid");
             Process p = new Process()
             {
                 StartInfo =
@@ -89,19 +86,19 @@ public class BackFunctions
         }
         catch (FileNotFoundException e)
         {
-            Console.WriteLine($"Error: Program '{Program}' not found. Details: {e.Message}");
+            throw new UIException($"Program '{Program}' not found. Details: {e.Message}");
         }
         catch (Win32Exception e)
         {
-            Console.WriteLine($"Error: There was a problem starting the program '{Program}'. Details: {e.Message}");
+            throw new UIException($"There was a problem starting the program '{Program}'. Details: {e.Message}");
         }
         catch (InvalidOperationException e)
         {
-            Console.WriteLine($"Error: The process start info is invalid. Details: {e.Message}");
+            throw new UIException($"The process start info is invalid. Details: {e.Message}");
         }
         catch (Exception e)
         {
-            Console.WriteLine($"Error: An unexpected error occurred while trying to open '{FileToOpen}' with '{Program}'. Details: {e.Message}");
+            throw new UIException($"An unexpected error occurred while trying to open '{FileToOpen}'.\n Details: {e.Message}", ErrorType.Unknown);
         }
     }
 
@@ -111,11 +108,11 @@ public class BackFunctions
         {
             if (File.Exists(FileName))
             {
-                Console.WriteLine($"File '{FileName}' already exists");
+                throw new UIException($"File '{FileName}' already exists");
             }
             else
             {
-                using (var fs = File.Open(FileName, FileMode.OpenOrCreate))
+                using (_ = File.Open(FileName, FileMode.OpenOrCreate))
                 {
                     Console.WriteLine($"File '{FileName}' created successfully");
                 }
@@ -123,19 +120,19 @@ public class BackFunctions
         }
         catch (UnauthorizedAccessException e)
         {
-            Console.WriteLine($"Error: Unauthorized access to file '{FileName}'. Details: {e.Message}");
+            throw new UIException($"Unauthorized access to file '{FileName}'.\n Details: {e.Message}");
         }
         catch (ArgumentException e)
         {
-            Console.WriteLine($"Error: Invalid file name '{FileName}'. Details: {e.Message}");
+            throw new UIException($"Invalid file name '{FileName}'.\n Details: {e.Message}");
         }
         catch (IOException e)
         {
-            Console.WriteLine($"Error: IO error while creating file '{FileName}'. Details: {e.Message}");
+            throw new UIException($"IO error while creating file '{FileName}'.\n Details: {e.Message}");
         }
         catch (Exception e)
         {
-            Console.WriteLine($"Error: An unexpected error occurred. Details: {e.Message}");
+            throw new UIException($"An unexpected error occurred.\n Details: {e.Message}", ErrorType.Unknown);
         }
     }
 
@@ -147,28 +144,27 @@ public class BackFunctions
             if (File.Exists(FileName))
             {
                 File.Delete(FileName);
-                Console.WriteLine($"File '{FileName}' deleted successfully.");
             }
             else
             {
-                Console.WriteLine($"File '{FileName}' not found.");
+                throw new UIException($"File '{FileName}' not found.");
             }
         }
         catch (UnauthorizedAccessException e)
         {
-            Console.WriteLine($"Error: Unauthorized access to file '{FileName}'. Details: {e.Message}");
+            throw new UIException($"Unauthorized access to file '{FileName}'.\n Details: {e.Message}");
         }
         catch (ArgumentException e)
         {
-            Console.WriteLine($"Error: Invalid file name '{FileName}'. Details: {e.Message}");
+            throw new UIException($"Invalid file name '{FileName}'.\n Details: {e.Message}");
         }
         catch (IOException e)
         {
-            Console.WriteLine($"Error: IO error while deleting file '{FileName}'. Details: {e.Message}");
+            throw new UIException($"IO error while deleting file '{FileName}'.\n Details: {e.Message}");
         }
         catch (Exception e)
         {
-            Console.WriteLine($"Error: An unexpected error occurred. Details: {e.Message}");
+            throw new UIException($"An unexpected error occurred.\n Details: {e.Message}", ErrorType.Unknown);
         }
     }
 
@@ -188,23 +184,23 @@ public class BackFunctions
         }
         catch (UnauthorizedAccessException e)
         {
-            Console.WriteLine($"Error: Unauthorized access to folder '{FolderName}'. Details: {e.Message}");
+            throw new UIException($"Unauthorized access to folder '{FolderName}'.\n Details: {e.Message}");
         }
         catch (ArgumentException e)
         {
-            Console.WriteLine($"Error: Invalid folder name '{FolderName}'. Details: {e.Message}");
+            throw new UIException($"Invalid folder name '{FolderName}'.\n Details: {e.Message}");
         }
         catch (PathTooLongException e)
         {
-            Console.WriteLine($"Error: The folder path '{FolderName}' is too long. Details: {e.Message}");
+            throw new UIException($"The folder path '{FolderName}' is too long.\n Details: {e.Message}");
         }
         catch (IOException e)
         {
-            Console.WriteLine($"Error: IO error while creating folder '{FolderName}'. Details: {e.Message}");
+            throw new UIException($"IO error while creating folder '{FolderName}'.\n Details: {e.Message}");
         }
         catch (Exception e)
         {
-            Console.WriteLine($"Error: An unexpected error occurred. Details: {e.Message}");
+            throw new UIException($"An unexpected error occurred.\n Details: {e.Message}", ErrorType.Unknown);
         }
     }
 }
