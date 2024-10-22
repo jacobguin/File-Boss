@@ -27,8 +27,8 @@ namespace File_Boss
             CurentFile = new(File);
             label1.Text = CurentFile.Name;
             pictureBox1.Image = icon.ToBitmap();
-            this.MouseClick += label1_Click;
-            pictureBox1.MouseClick += label1_Click;
+            this.MouseDoubleClick += label1_Click;
+            pictureBox1.MouseDoubleClick += label1_Click;
             this.functionHandler = functionHandler;
         }
 

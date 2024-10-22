@@ -30,6 +30,7 @@
         {
             flowLayoutPanel1 = new FlowLayoutPanel();
             button1 = new Button();
+            button2 = new Button();
             SuspendLayout();
             // 
             // flowLayoutPanel1
@@ -55,11 +56,24 @@
             button1.MouseEnter += button1_MouseEnter;
             button1.MouseLeave += button1_MouseLeave;
             // 
+            // button2
+            // 
+            button2.BackColor = Color.FromArgb(0, 192, 0);
+            button2.Location = new Point(88, 0);
+            button2.Margin = new Padding(3, 4, 3, 4);
+            button2.Name = "button2";
+            button2.Size = new Size(109, 64);
+            button2.TabIndex = 2;
+            button2.Text = "New Folder";
+            button2.UseVisualStyleBackColor = false;
+            button2.Click += button2_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(700, 338);
+            ClientSize = new Size(800, 451);
+            Controls.Add(button2);
             Controls.Add(button1);
             Controls.Add(flowLayoutPanel1);
             Margin = new Padding(3, 2, 3, 2);
@@ -72,5 +86,6 @@
 
         private FlowLayoutPanel flowLayoutPanel1;
         private Button button1;
+        private Button button2;
     }
 }
