@@ -62,11 +62,21 @@ namespace File_Boss
         private void TextBox_KeyPress(object? sender, KeyPressEventArgs e)
         {
             if (e.KeyChar != (char)Keys.Enter) return;
-
             TextBox temp = (TextBox)sender!;
-            functionHandler.CreateFile(temp.Text);
-            MessageBox.Show(temp.Text + " was Created!");
-            addFileDisplay(new FileInfo(temp.Text));
+            String name = (String)temp.Text;
+            if (name.Contains('.'))
+            {
+                functionHandler.CreateFile(name);
+                addFileDisplay(new FileInfo(name));
+                MessageBox.Show(name + " was Created!");
+            }
+            else
+            {
+                String defaultExt = name + ".txt";
+                functionHandler.CreateFile(defaultExt);
+                addFileDisplay(new FileInfo(defaultExt));
+                MessageBox.Show(defaultExt + " was Created! File defaulted to a text file.");
+            }
             Controls.Remove(temp);
         }
 
