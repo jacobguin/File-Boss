@@ -13,7 +13,7 @@ namespace File_Boss
         {
             //DO NOT TOUCH
             InitializeComponent();
-            functionHandler = new() {BasePath = Directory.GetCurrentDirectory() };
+            functionHandler = new() { BasePath = Directory.GetCurrentDirectory() };
             DirectoryInfo di = new DirectoryInfo(Directory.GetCurrentDirectory());
             foreach (FileInfo fi in di.GetFiles())
             {
@@ -43,7 +43,7 @@ namespace File_Boss
         private void button1_Click(object sender, EventArgs e)
         {
             TextBox textBox = new TextBox();
-            textBox.Location = new System.Drawing.Point(86, 16);
+            textBox.Location = new System.Drawing.Point(200, 16);
             textBox.Size = new System.Drawing.Size(125, 27);
             this.Controls.Add(textBox);
             textBox.KeyPress += TextBox_KeyPress;
@@ -92,6 +92,19 @@ namespace File_Boss
             fd.OnAllClick += Fd_OnAllClick;
             flowLayoutPanel1.Controls.Add(fd);
         }
+        
+        public void addFolderDisplay(DirectoryInfo di)
+        {
+            FolderDisplay dd = new();
+            dd.LoadFolder(di.FullName, functionHandler);
+            //fd.OnAllClick += Fd_OnAllClick;
+            flowLayoutPanel1.Controls.Add(dd);
+            /*TextBox temp = (TextBox)sender!;
+            functionHandler.CreateFolder(temp.Text);
+            MessageBox.Show(temp.Text + " was Created!");
+            addFileDisplay(new FileInfo(temp.Text));
+            Controls.Remove(temp);*/
+        }
 
 
         public void updateFileDisplay(FileInfo fi)
@@ -101,6 +114,26 @@ namespace File_Boss
             fd.LoadFile(fi.FullName, icon, functionHandler);
             fd.OnAllClick += Fd_OnAllClick;
             flowLayoutPanel1.Controls.Remove(fd);
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            TextBox textBox = new TextBox();
+            textBox.Location = new System.Drawing.Point(200, 16);
+            textBox.Size = new System.Drawing.Size(125, 27);
+            this.Controls.Add(textBox);
+            textBox.KeyPress += create_Folder;
+        }
+
+        private void create_Folder(object? sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar != (char)Keys.Enter) return;
+
+            TextBox temp = (TextBox)sender!;
+            functionHandler.CreateFolder(temp.Text);
+            MessageBox.Show(temp.Text + " was Created!");
+            addFolderDisplay(new DirectoryInfo(temp.Text));
+            Controls.Remove(temp);
         }
     }
 }
