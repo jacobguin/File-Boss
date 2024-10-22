@@ -36,9 +36,10 @@
             // flowLayoutPanel1
             // 
             flowLayoutPanel1.Dock = DockStyle.Bottom;
-            flowLayoutPanel1.Location = new Point(0, 61);
+            flowLayoutPanel1.Location = new Point(0, 46);
+            flowLayoutPanel1.Margin = new Padding(3, 2, 3, 2);
             flowLayoutPanel1.Name = "flowLayoutPanel1";
-            flowLayoutPanel1.Size = new Size(800, 390);
+            flowLayoutPanel1.Size = new Size(700, 292);
             flowLayoutPanel1.TabIndex = 0;
             // 
             // button1
@@ -46,9 +47,8 @@
             button1.BackColor = Color.CornflowerBlue;
             button1.Font = new Font("Arial", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             button1.Location = new Point(0, 0);
-            button1.Margin = new Padding(3, 4, 3, 4);
             button1.Name = "button1";
-            button1.Size = new Size(82, 64);
+            button1.Size = new Size(72, 48);
             button1.TabIndex = 1;
             button1.Text = "+";
             button1.UseVisualStyleBackColor = false;
@@ -70,12 +70,13 @@
             // 
             // Form1
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 451);
             Controls.Add(button2);
             Controls.Add(button1);
             Controls.Add(flowLayoutPanel1);
+            Margin = new Padding(3, 2, 3, 2);
             Name = "Form1";
             Text = "Form1";
             ResumeLayout(false);
