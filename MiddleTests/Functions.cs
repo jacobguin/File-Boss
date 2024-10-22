@@ -40,6 +40,14 @@ public class Functions
             FunctionHandler.CreateFile("TestFile.txt");
         });
     }
+    [Fact, Order(2)]
+    public void TestOpenFileNotExist()
+    {
+        Assert.Throws<UIException>(() =>
+        {
+            FunctionHandler.Open("fdsjhkfdfdhjhfdsjhdfsjhfdsjhafds.rxt");
+        });
+    }
     [Fact, Order(3)]
     public void OpenFileWith()
     {

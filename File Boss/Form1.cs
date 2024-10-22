@@ -15,6 +15,10 @@ namespace File_Boss
             InitializeComponent();
             functionHandler = new() { BasePath = Directory.GetCurrentDirectory() };
             DirectoryInfo di = new DirectoryInfo(Directory.GetCurrentDirectory());
+            foreach (DirectoryInfo fi in di.GetDirectories())
+            {
+                addFolderDisplay(fi);
+            }
             foreach (FileInfo fi in di.GetFiles())
             {
                 addFileDisplay(fi);
@@ -99,13 +103,8 @@ namespace File_Boss
         {
             FolderDisplay dd = new();
             dd.LoadFolder(di.FullName, functionHandler);
-            //fd.OnAllClick += Fd_OnAllClick;
             flowLayoutPanel1.Controls.Add(dd);
-            /*TextBox temp = (TextBox)sender!;
-            functionHandler.CreateFolder(temp.Text);
-            MessageBox.Show(temp.Text + " was Created!");
-            addFileDisplay(new FileInfo(temp.Text));
-            Controls.Remove(temp);*/
+            
         }
 
         /// <summary>

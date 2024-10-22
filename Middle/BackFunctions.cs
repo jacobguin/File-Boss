@@ -203,9 +203,4 @@ public class BackFunctions
             throw new UIException($"An unexpected error occurred.\n Details: {e.Message}", ErrorType.Unknown);
         }
     }
-
-    public void OpenWith(string program)
-    {
-        throw new NotImplementedException();
-    }
 }
