@@ -89,6 +89,7 @@
             ContextMenuStrip = contextMenuStrip1;
             Controls.Add(label1);
             Controls.Add(pictureBox1);
+            Cursor = Cursors.Hand;
             Margin = new Padding(3, 2, 3, 2);
             Name = "FileDisplay";
             Size = new Size(95, 103);
