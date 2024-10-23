@@ -29,14 +29,21 @@ namespace File_Boss
         public BackFunctions functionHandler;
 
         /// <summary>
-        /// New on click function to select files in the flowLayoutPanel1
+        /// New on click function to select items in the flowLayoutPanel1
         /// </summary>
         /// <param name="arg"></param>
         /// <returns></returns>
-        private Task Fd_OnAllClick(FileDisplay arg)
+        private Task Fd_OnAllClick(ItemView arg)
         {
-            string fileName = arg.label1.Text;
-            functionHandler.Open(fileName);
+            if (arg.CurentFile is not null)
+            {
+				string fileName = arg.label1.Text;
+				functionHandler.Open(fileName);
+			}
+            else
+            {
+                //directory
+            }
             return Task.CompletedTask;
         }
 
@@ -47,11 +54,12 @@ namespace File_Boss
         /// <param name="e"></param>
         private void button1_Click(object sender, EventArgs e)
         {
-            TextBox textBox = new TextBox();
-            textBox.Location = new System.Drawing.Point(200, 16);
-            textBox.Size = new System.Drawing.Size(125, 27);
-            this.Controls.Add(textBox);
-            textBox.KeyPress += TextBox_KeyPress;
+			if (curentin is not null) Controls.Remove(curentin);
+			curentin = new TextBox();
+			curentin.Location = new System.Drawing.Point(200, 16);
+			curentin.Size = new System.Drawing.Size(125, 27);
+            this.Controls.Add(curentin);
+			curentin.KeyPress += TextBox_KeyPress;
         }
 
         /// <summary>
@@ -101,7 +109,7 @@ namespace File_Boss
         /// <param name="fi"></param>
         public void addFileDisplay(FileInfo fi)
         {
-            FileDisplay fd = new();
+            ItemView fd = new();
             Icon icon = System.Drawing.Icon.ExtractAssociatedIcon(fi.FullName)!;
             fd.LoadFile(fi.FullName, icon, functionHandler);
             fd.OnAllClick += Fd_OnAllClick;
@@ -111,10 +119,9 @@ namespace File_Boss
         
         public void addFolderDisplay(DirectoryInfo di)
         {
-            FolderDisplay dd = new();
-            dd.LoadFolder(di.FullName, functionHandler);
-            flowLayoutPanel1.Controls.Add(dd);
-            
+            ItemView iv = new();
+            iv.LoadFolder(di.FullName, functionHandler);
+            flowLayoutPanel1.Controls.Add(iv);
         }
 
         /// <summary>
@@ -122,7 +129,7 @@ namespace File_Boss
         /// </summary>
         /// <param name="arg"></param>
         /// <returns></returns>
-        private Task Fd_OnDelete(FileDisplay arg)
+        private Task Fd_OnDelete(ItemView arg)
         {
             RemoveObject(arg);
             return Task.CompletedTask;
@@ -133,13 +140,16 @@ namespace File_Boss
             flowLayoutPanel1.Controls.Remove(fd);
         }
 
+        private TextBox? curentin;
+
         private void button2_Click(object sender, EventArgs e)
         {
-            TextBox textBox = new TextBox();
-            textBox.Location = new System.Drawing.Point(200, 16);
-            textBox.Size = new System.Drawing.Size(125, 27);
-            this.Controls.Add(textBox);
-            textBox.KeyPress += create_Folder;
+            if (curentin is not null) Controls.Remove(curentin);
+			curentin = new TextBox();
+			curentin.Location = new System.Drawing.Point(200, 16);
+			curentin.Size = new System.Drawing.Size(125, 27);
+            this.Controls.Add(curentin);
+			curentin.KeyPress += create_Folder;
         }
 
         private void create_Folder(object? sender, KeyPressEventArgs e)
