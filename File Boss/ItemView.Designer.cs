@@ -59,19 +59,20 @@ namespace File_Boss
 			contextMenuStrip1.ImageScalingSize = new Size(20, 20);
 			contextMenuStrip1.Items.AddRange(new ToolStripItem[] { openWithToolStripMenuItem, deleteToolStripMenuItem });
 			contextMenuStrip1.Name = "contextMenuStrip1";
-			contextMenuStrip1.Size = new Size(150, 52);
+			contextMenuStrip1.Size = new Size(211, 80);
 			// 
 			// openWithToolStripMenuItem
 			// 
 			openWithToolStripMenuItem.Name = "openWithToolStripMenuItem";
-			openWithToolStripMenuItem.Size = new Size(149, 24);
+			openWithToolStripMenuItem.Size = new Size(210, 24);
 			openWithToolStripMenuItem.Text = "Open With";
 			// 
 			// deleteToolStripMenuItem
 			// 
 			deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
-			deleteToolStripMenuItem.Size = new Size(149, 24);
+			deleteToolStripMenuItem.Size = new Size(210, 24);
 			deleteToolStripMenuItem.Text = "Delete";
+			deleteToolStripMenuItem.Click += deleteToolStripMenuItem_Click;
 			// 
 			// label1
 			// 

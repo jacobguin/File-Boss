@@ -67,5 +67,13 @@ namespace File_Boss
 				OnAllClick.Invoke(this);
 			}
 		}
+
+		private void deleteToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			if (OnDelete is not null)
+			{
+				OnDelete.Invoke(this);
+			}
+		}
 	}
 }
