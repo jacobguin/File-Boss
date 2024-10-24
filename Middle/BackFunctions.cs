@@ -9,8 +9,19 @@ public class BackFunctions
     /// Testing Dictionary for function will be moved config files after the the user can update it in the UI
     /// </summary>
     public Dictionary<string, string> ProgramMap = new();//Testing for now
+	private Stack<Action> UndoCode = new();
+	private Stack<Action> UIUndoCode = new();
 
-    public BackFunctions()
+    private Stack<int> UILinks = new();
+
+    public void AddUIUndoAction(Action a)
+    {
+        if (UndoCode.Count == 0) return;
+        UILinks.Push(UndoCode.Count-1);
+        UIUndoCode.Push(a);
+    }
+
+	public BackFunctions()
     {
         if (OperatingSystem.IsWindows())
         {
@@ -21,6 +32,21 @@ public class BackFunctions
             ProgramMap.Add(".txt", "gnome-text-editor");
         }
     }
+
+    public void Undo()
+    {
+        if (UndoCode.Count > 0)
+        {
+            Action a = UndoCode.Pop();
+            a.Invoke();
+        }
+		if (UILinks.Count > 0 && UILinks.Peek() == UndoCode.Count)
+		{
+            _ = UILinks.Pop();
+			Action a = UIUndoCode.Pop();
+			a.Invoke();
+		}
+	}
 
     public string? GetProgram(string FileName)
     {
@@ -37,6 +63,7 @@ public class BackFunctions
         set
         {
             if (!Path.Exists(value)) throw new UIException("The provided directory is not valid");
+            UndoCode.Push(() => { BasePath = bp; });
             bp = value;
         }
     }
@@ -117,7 +144,8 @@ public class BackFunctions
                     Console.WriteLine($"File '{FileName}' created successfully");
                 }
             }
-        }
+			UndoCode.Push(() => { DeleteFile(FileName); });
+		}
         catch (UnauthorizedAccessException e)
         {
             throw new UIException($"Unauthorized access to file '{FileName}'.\n Details: {e.Message}");

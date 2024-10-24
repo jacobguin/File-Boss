@@ -28,14 +28,19 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
+			components = new System.ComponentModel.Container();
 			flowLayoutPanel1 = new FlowLayoutPanel();
 			button1 = new Button();
 			button2 = new Button();
+			contextMenuStrip1 = new ContextMenuStrip(components);
+			undoToolStripMenuItem = new ToolStripMenuItem();
+			contextMenuStrip1.SuspendLayout();
 			SuspendLayout();
 			// 
 			// flowLayoutPanel1
 			// 
 			flowLayoutPanel1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+			flowLayoutPanel1.ContextMenuStrip = contextMenuStrip1;
 			flowLayoutPanel1.Location = new Point(0, 72);
 			flowLayoutPanel1.Name = "flowLayoutPanel1";
 			flowLayoutPanel1.Size = new Size(914, 529);
@@ -68,6 +73,20 @@
 			button2.UseVisualStyleBackColor = false;
 			button2.Click += button2_Click;
 			// 
+			// contextMenuStrip1
+			// 
+			contextMenuStrip1.ImageScalingSize = new Size(20, 20);
+			contextMenuStrip1.Items.AddRange(new ToolStripItem[] { undoToolStripMenuItem });
+			contextMenuStrip1.Name = "contextMenuStrip1";
+			contextMenuStrip1.Size = new Size(115, 28);
+			// 
+			// undoToolStripMenuItem
+			// 
+			undoToolStripMenuItem.Name = "undoToolStripMenuItem";
+			undoToolStripMenuItem.Size = new Size(114, 24);
+			undoToolStripMenuItem.Text = "Undo";
+			undoToolStripMenuItem.Click += undoToolStripMenuItem_Click;
+			// 
 			// Form1
 			// 
 			AutoScaleDimensions = new SizeF(8F, 20F);
@@ -78,6 +97,7 @@
 			Controls.Add(flowLayoutPanel1);
 			Name = "Form1";
 			Text = "Form1";
+			contextMenuStrip1.ResumeLayout(false);
 			ResumeLayout(false);
 		}
 
@@ -86,5 +106,7 @@
 		private FlowLayoutPanel flowLayoutPanel1;
         private Button button1;
         private Button button2;
-    }
+		private ContextMenuStrip contextMenuStrip1;
+		private ToolStripMenuItem undoToolStripMenuItem;
+	}
 }
