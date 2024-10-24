@@ -1,5 +1,6 @@
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Security.Cryptography;
 
 namespace Middle;
 
@@ -22,7 +23,39 @@ public class BackFunctions
         }
     }
 
-    public string? GetProgram(string FileName)
+    private bool TryGetSaveFilePath(string name, out string path)
+    {
+        path = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+        if (!Directory.Exists(path)) Directory.CreateDirectory(path);
+        path = Path.Join(path, "FileBoss");
+		if (!Directory.Exists(path)) Directory.CreateDirectory(path);
+		path = Path.Join(path, name);
+        return File.Exists(path);
+	}
+
+    public string[] GetFavorites()
+    {
+        if (!TryGetSaveFilePath("favorits.txt", out string f)) RealCreateFile(f);
+        string[] tmp = File.ReadAllLines(f);
+        List<string> good = new();
+        foreach (string item in tmp)
+        {
+            if (File.Exists(item))
+				good.Add(item);
+        }
+		File.WriteAllLines(f, good);
+		return good.ToArray();
+    }
+
+	public void AddFavorites(string name)
+	{
+		if (!TryGetSaveFilePath("favorits.txt", out string f)) RealCreateFile(f);
+		List<string> old = File.ReadAllLines(f).ToList();
+        old.Add(Path.Join(BasePath, name));
+        File.WriteAllLines(f, old);
+	}
+
+	public string? GetProgram(string FileName)
     {
         FileInfo FI = new FileInfo(FileName);
         if (ProgramMap.TryGetValue(FI.Extension.ToLower(), out string? Program)) return Program;
@@ -102,7 +135,13 @@ public class BackFunctions
         }
     }
 
-    public void CreateFile(string FileName)
+	public void CreateFile(string FileName)
+    {
+        RealCreateFile(Path.Join(BasePath, FileName));
+    }
+
+
+	private static void RealCreateFile(string FileName)
     {
         try
         {
