@@ -58,6 +58,17 @@ namespace File_Boss
 					functionHandler.OpenWith(program, CurentFile.FullName);
 				};
 			}
+			ToolStripMenuItem tsm;
+			contextMenuStrip1.Items.Add(tsm = new ToolStripMenuItem()
+			{
+				Text = "Add To Favorites"
+			});
+			tsm.Click += Tsm_Click;
+		}
+
+		private void Tsm_Click(object? sender, EventArgs e)
+		{
+			functionHandler.AddFavorites(label1.Text);
 		}
 
 		private void label1_Click(object sender, EventArgs e)
