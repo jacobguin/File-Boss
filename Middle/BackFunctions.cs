@@ -1,5 +1,6 @@
 using System.ComponentModel;
 using System.Diagnostics;
+using System.IO.Compression;
 
 namespace Middle;
 
@@ -229,6 +230,21 @@ public class BackFunctions
         catch (Exception e)
         {
             throw new UIException($"An unexpected error occurred.\n Details: {e.Message}", ErrorType.Unknown);
+        }
+    }
+    public static void UnzipFolder(string zipFilePath, string destinationFolder)
+    {
+        if (!File.Exists(zipFilePath))
+        {
+            throw new UIException($"Zip file '{zipFilePath}' does not exist.");
+        }
+        try
+        {
+            ZipFile.ExtractToDirectory(zipFilePath, destinationFolder);
+        }
+        catch (Exception e)
+        {
+            throw new UIException($"An error occurred while unzipping the file: {e.Message}");
         }
     }
 }
