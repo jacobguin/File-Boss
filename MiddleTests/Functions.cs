@@ -123,4 +123,22 @@ public class Functions
     {
         Directory.Delete("Folder1");
     }
+    [Fact, Order(9)]
+    public void TestZipFolderDoesNotExist()
+    {
+        Assert.Throws<UIException>(() =>
+        {
+            FunctionHandler.ZipFolder("NonExistentFolder");
+        });
+    }
+    [Fact, Order(10)]
+    public void TestZipFolderSuccess()
+    {
+        FunctionHandler.CreateFolder("FolderToZip");
+
+        FunctionHandler.ZipFolder("FolderToZip");
+
+        FunctionHandler.DeleteFile("FolderToZip.zip");
+    }
+
 }
