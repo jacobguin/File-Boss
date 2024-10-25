@@ -135,6 +135,10 @@ namespace File_Boss
 		private Task Fd_OnDelete(ItemView arg)
 		{
 			RemoveObject(arg);
+			if (arg.CurentFile is not null)
+			{
+				functionHandler.DeleteFile(arg.CurentFile.Name);
+			}
 			return Task.CompletedTask;
 		}
 
