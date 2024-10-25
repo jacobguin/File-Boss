@@ -165,7 +165,8 @@ public class BackFunctions
 	public void CreateFile(string FileName)
     {
         RealCreateFile(Path.Join(BasePath, FileName));
-    }
+		UndoCode.Push(() => { DeleteFile(FileName); });
+	}
 
 
 	public static void RealCreateFile(string FileName)
@@ -183,7 +184,6 @@ public class BackFunctions
                     Console.WriteLine($"File '{FileName}' created successfully");
                 }
             }
-			UndoCode.Push(() => { DeleteFile(FileName); });
 		}
         catch (UnauthorizedAccessException e)
         {
