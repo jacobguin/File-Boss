@@ -23,7 +23,7 @@ public class BackFunctions
         }
     }
 
-    private bool TryGetSaveFilePath(string name, out string path)
+    public bool TryGetSaveFilePath(string name, out string path)
     {
         path = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
         if (!Directory.Exists(path)) Directory.CreateDirectory(path);
@@ -81,7 +81,7 @@ public class BackFunctions
             if (!File.Exists(FileToOpen)) throw new UIException("The provided file is not valid");
             FileInfo FI = new FileInfo(FileToOpen);
 
-            if (ProgramMap.TryGetValue(FI.Extension.ToLower(), out string Program))
+            if (ProgramMap.TryGetValue(FI.Extension.ToLower(), out string? Program))
             {
                 OpenWith(Program, FileToOpen);
                 return;
@@ -110,10 +110,10 @@ public class BackFunctions
             Process p = new Process()
             {
                 StartInfo =
-            {
-                FileName = Program,
-                Arguments = FileToOpen
-            }
+                {
+                    FileName = Program,
+                    Arguments = Path.Join(BasePath, FileToOpen)
+                }
             };
             _ = p.Start();
         }
@@ -141,7 +141,7 @@ public class BackFunctions
     }
 
 
-	private static void RealCreateFile(string FileName)
+	public static void RealCreateFile(string FileName)
     {
         try
         {
@@ -180,9 +180,9 @@ public class BackFunctions
     {
         try
         {
-            if (File.Exists(FileName))
+            if (File.Exists(Path.Join(BasePath,FileName)))
             {
-                File.Delete(FileName);
+                File.Delete(Path.Join(BasePath, FileName));
             }
             else
             {
