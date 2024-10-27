@@ -32,9 +32,6 @@ namespace File_Boss
             label1.MouseDoubleClick += label1_Click;
             pictureBox1.MouseDoubleClick += label1_Click;
 
-            var zipMenuItem = new ToolStripMenuItem("Zip Folder");
-            zipMenuItem.Click += ZipMenuItem_Click;
-            contextMenuStrip1.Items.Add(zipMenuItem);
         }
 
         public void LoadFolder(string Folder, BackFunctions functionHandler)
@@ -43,6 +40,10 @@ namespace File_Boss
             CurentDirectory = new(Folder);
             label1.Text = CurentDirectory.Name;
             contextMenuStrip1.Items.Remove(openWithToolStripMenuItem);
+
+            var zipMenuItem = new ToolStripMenuItem("Zip Folder");
+            zipMenuItem.Click += ZipMenuItem_Click;
+            contextMenuStrip1.Items.Add(zipMenuItem);
         }
 
         public void LoadFile(string File, Icon icon, BackFunctions functionHandler)
