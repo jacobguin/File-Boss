@@ -24,6 +24,7 @@ namespace File_Boss
 		public DirectoryInfo? CurentDirectory;
 		public event Func<ItemView, Task>? OnAllClick;
 		public event Func<ItemView, Task>? OnDelete;
+		private ToolStripMenuItem? fav;
 
 		private void LoadBoth(BackFunctions functionHandler)
 		{
@@ -58,6 +59,17 @@ namespace File_Boss
 					functionHandler.OpenWith(program, CurentFile.FullName);
 				};
 			}
+			contextMenuStrip1.Items.Add(fav = new ToolStripMenuItem()
+			{
+				Text = "Add To Favorites"
+			});
+			fav.Click += Tsm_Click;
+		}
+
+		private void Tsm_Click(object? sender, EventArgs e)
+		{
+			functionHandler.AddFavorites(label1.Text);
+			fav!.Enabled = false;
 		}
 
 		private void label1_Click(object sender, EventArgs e)
