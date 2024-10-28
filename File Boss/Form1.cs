@@ -17,14 +17,7 @@ namespace File_Boss
             functionHandler = new() { BasePath = Directory.GetCurrentDirectory() };
             DirectoryInfo di = new DirectoryInfo(Directory.GetCurrentDirectory());
             pathText.Text = di.FullName;
-            foreach (DirectoryInfo fi in di.GetDirectories())
-            {
-                addFolderDisplay(fi);
-            }
-            foreach (FileInfo fi in di.GetFiles())
-            {
-                addFileDisplay(fi);
-            }
+            updateItemDisplay();
         }
 
         ///Allows for the creation of files
@@ -45,17 +38,13 @@ namespace File_Boss
             else
             {
                 //directory
-                //TODO Work on moving to directories
-                MessageBox.Show("Folder was pressed");
-                DirectoryInfo di = new DirectoryInfo(Directory.GetCurrentDirectory());
-                string folderPath = arg.CurentDirectory.FullName;
-                functionHandler.Move(di.FullName, folderPath);
-                foreach (ItemView item in flowLayoutPanel1.Controls)
-                {
-                    RemoveObject(item);
-                }
-                pathText.Text = folderPath;
+                //TODO Work on moving to directorie
+                functionHandler.BasePath = Path.Join(functionHandler.BasePath, arg.CurentDirectory!.Name);
+                updateItemDisplay();
+                pathText.Text = functionHandler.BasePath;
+                
             }
+
             return Task.CompletedTask;
         }
 
@@ -135,8 +124,24 @@ namespace File_Boss
         public void addFolderDisplay(DirectoryInfo di)
         {
             ItemView iv = new();
+            iv.OnAllClick += Fd_OnAllClick;
             iv.LoadFolder(di.FullName, functionHandler);
             flowLayoutPanel1.Controls.Add(iv);
+        }
+
+        public void updateItemDisplay()
+        {
+            flowLayoutPanel1.Controls.Clear();
+            DirectoryInfo di = new DirectoryInfo(functionHandler.BasePath);
+            foreach (DirectoryInfo fi in di.GetDirectories())
+            {
+                addFolderDisplay(fi);
+            }
+            foreach (FileInfo fi in di.GetFiles())
+            {
+                addFileDisplay(fi);
+            }
+
         }
 
         /// <summary>
@@ -186,12 +191,10 @@ namespace File_Boss
 
         private void backButton_Click(object sender, EventArgs e)
         {
-            DirectoryInfo di = new DirectoryInfo(Directory.GetCurrentDirectory());
-            string path = di.FullName;
-            di = Directory.GetParent(path);
+            DirectoryInfo di = Directory.GetParent(functionHandler.BasePath)!;
+            functionHandler.BasePath = di.FullName;
+            updateItemDisplay();
             pathText.Text = di.FullName;
-            functionHandler.Move(path, di.FullName);
-            MessageBox.Show("Back Button has been pressed");
         }
     }
 }

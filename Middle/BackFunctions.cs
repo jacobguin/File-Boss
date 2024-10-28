@@ -235,7 +235,7 @@ public class BackFunctions
 
 
     //TODO Fix this method
-    public void Move(string sourcePath, string destinationPath)
+    /*public void Move(string sourcePath, string destinationPath)
     {
         try
         {
@@ -257,6 +257,6 @@ public class BackFunctions
                 "contains only white spaces, " +
                 "or contains invalid characters.");
         }
-    }
+    }*/
 
 }
