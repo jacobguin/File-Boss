@@ -53,12 +53,12 @@
             contextMenuStrip1.ImageScalingSize = new Size(20, 20);
             contextMenuStrip1.Items.AddRange(new ToolStripItem[] { undoToolStripMenuItem });
             contextMenuStrip1.Name = "contextMenuStrip1";
-            contextMenuStrip1.Size = new Size(115, 28);
+            contextMenuStrip1.Size = new Size(211, 56);
             // 
             // undoToolStripMenuItem
             // 
             undoToolStripMenuItem.Name = "undoToolStripMenuItem";
-            undoToolStripMenuItem.Size = new Size(114, 24);
+            undoToolStripMenuItem.Size = new Size(210, 24);
             undoToolStripMenuItem.Text = "Undo";
             undoToolStripMenuItem.Click += undoToolStripMenuItem_Click;
             // 
@@ -66,7 +66,7 @@
             // 
             button1.BackColor = Color.CornflowerBlue;
             button1.Font = new Font("Arial", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            button1.Location = new Point(56, -2);
+            button1.Location = new Point(0, 0);
             button1.Margin = new Padding(3, 4, 3, 4);
             button1.Name = "button1";
             button1.Size = new Size(82, 64);
@@ -80,7 +80,7 @@
             // button2
             // 
             button2.BackColor = Color.FromArgb(0, 192, 0);
-            button2.Location = new Point(144, 0);
+            button2.Location = new Point(101, 0);
             button2.Margin = new Padding(3, 5, 3, 5);
             button2.Name = "button2";
             button2.Size = new Size(82, 64);
@@ -135,6 +135,7 @@
         private Button button2;
 		private ContextMenuStrip contextMenuStrip1;
 		private ToolStripMenuItem undoToolStripMenuItem;
+        private ToolStripMenuItem toolStripMenuItem1;
         private Label pathText;
         private Button backButton;
     }
