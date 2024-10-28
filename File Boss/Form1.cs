@@ -76,17 +76,15 @@ namespace File_Boss
             if (name.Contains('.'))
             {
                 functionHandler.CreateFile(name);
-                var v = addFileDisplay(new FileInfo(name));
+                var v = addFileDisplay(new FileInfo(Path.Join(functionHandler.BasePath, name)));
                 functionHandler.AddUIUndoAction(() => { RemoveObject(v); });
-                MessageBox.Show(name + " was Created!");
             }
             else
             {
                 String defaultExt = name + ".txt";
                 functionHandler.CreateFile(defaultExt);
-                var v = addFileDisplay(new FileInfo(defaultExt));
+                var v = addFileDisplay(new FileInfo(Path.Join(functionHandler.BasePath, defaultExt)));
                 functionHandler.AddUIUndoAction(() => { RemoveObject(v); });
-                MessageBox.Show(defaultExt + " was Created! File defaulted to a text file.");
             }
             Controls.Remove(temp);
         }
