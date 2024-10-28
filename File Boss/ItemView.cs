@@ -31,7 +31,11 @@ namespace File_Boss
 			this.MouseDoubleClick += label1_Click;
 			label1.MouseDoubleClick += label1_Click;
 			pictureBox1.MouseDoubleClick += label1_Click;
-		}
+
+            var unzipMenuItem = new ToolStripMenuItem("Unzip Folder");
+            unzipMenuItem.Click += UnzipMenuItem_Click;
+            contextMenuStrip1.Items.Add(unzipMenuItem);
+        }
 
 		public void LoadFolder(string Folder, BackFunctions functionHandler)
 		{
@@ -39,9 +43,10 @@ namespace File_Boss
 			CurentDirectory = new(Folder);
 			label1.Text = CurentDirectory.Name;
 			contextMenuStrip1.Items.Remove(openWithToolStripMenuItem);
-		}
 
-		public void LoadFile(string File, Icon icon, BackFunctions functionHandler)
+        }
+
+        public void LoadFile(string File, Icon icon, BackFunctions functionHandler)
 		{
 			LoadBoth(functionHandler);
 			CurentFile = new(File);
@@ -60,7 +65,21 @@ namespace File_Boss
 			}
 		}
 
-		private void label1_Click(object sender, EventArgs e)
+        private void UnzipMenuItem_Click(object sender, EventArgs e)
+        {
+            if (CurentFile != null && CurentFile.Extension == ".zip")
+            {
+                    string destinationFolder = Path.Combine(CurentFile.DirectoryName, Path.GetFileNameWithoutExtension(CurentFile.Name));
+                    functionHandler.UnzipFolder(CurentFile.FullName, destinationFolder);
+                    MessageBox.Show("Folder successfully unzipped!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else
+            {
+                MessageBox.Show("This item is not a zip file.", "Cannot Unzip", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        private void label1_Click(object sender, EventArgs e)
 		{
 			if (OnAllClick is not null)
 			{

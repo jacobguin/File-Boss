@@ -232,7 +232,7 @@ public class BackFunctions
             throw new UIException($"An unexpected error occurred.\n Details: {e.Message}", ErrorType.Unknown);
         }
     }
-    public static void UnzipFolder(string zipFilePath, string destinationFolder)
+    public void UnzipFolder(string zipFilePath, string destinationFolder)
     {
         if (!File.Exists(zipFilePath))
         {
