@@ -238,6 +238,11 @@ public class BackFunctions
 
     public void CreateFolder(string FolderName)
     {
+        RealCreateFolder(Path.Combine(BasePath,FolderName));
+    }
+
+    internal void RealCreateFolder(string FolderName)
+    {
         try
         {
             if (!Directory.Exists(FolderName))
@@ -245,7 +250,7 @@ public class BackFunctions
                 Directory.CreateDirectory(FolderName);
                 Console.WriteLine($"Folder '{FolderName}' created successfully.");
             }
-            if (Directory.Exists(FolderName))
+            else
             {
                 throw new UIException($"Folder '{FolderName}' already exists.");
             }
@@ -272,6 +277,15 @@ public class BackFunctions
         }
     }
 
+    public void RenameFile(String oldName, String newName)
+    {
+        File.Move(oldName, newName);
+    }
+
+    public void RenameFolder(String oldName, String newName)
+    {
+        Directory.Move(oldName, newName);
+    }
 
     //TODO Fix this method
     /*public void Move(string sourcePath, string destinationPath)

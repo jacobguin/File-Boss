@@ -25,6 +25,7 @@ namespace File_Boss
         public DirectoryInfo? CurentDirectory;
         public event Func<ItemView, Task>? OnAllClick;
         public event Func<ItemView, Task>? OnDelete;
+        public event Func<ItemView, Task>? RequestUpdate;
         private ToolStripMenuItem? fav;
 
         private void LoadBoth(BackFunctions functionHandler)
@@ -89,6 +90,56 @@ namespace File_Boss
             }
         }
 
+        private TextBox? renameBox;
+        private void renameToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            renameBox = new TextBox()
+            {
+                Text = label1.Text
+            };
+            label1.Visible = false;
+            renameBox.Location = new System.Drawing.Point(15, 103);
+            renameBox.Size = new System.Drawing.Size(50, 20);
+            this.Controls.Add(renameBox);
+            renameBox.KeyPress += rename_Item;
+        }
+        private void rename_Item(object? sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar != (char)Keys.Enter) return;
+
+            TextBox temp = (TextBox)sender!;
+            String oldName = label1.Text;
+            label1.Text = temp.Text;
+            if (oldName.Contains('.'))
+            {
+                if (!temp.Text.Contains('.'))
+                {
+                    String defaultExt = temp.Text + ".txt";
+                    label1.Text = defaultExt;
+                    functionHandler.RenameFile(oldName, defaultExt);
+                    MessageBox.Show(oldName + " was renamed to " + defaultExt + ". No extension was specified. The file was defaulted to a text file.");
+                }
+                else
+                {
+                    functionHandler.RenameFile(oldName, temp.Text);
+                    MessageBox.Show(oldName + " was renamed to " + temp.Text);
+                }
+            }
+            else
+            {
+                functionHandler.RenameFolder(oldName, temp.Text);
+                MessageBox.Show(oldName + " was renamed to " + temp.Text);
+            }
+            Controls.Remove(temp);
+            label1.Visible = true;
+            if (RequestUpdate is not null)
+            {
+                RequestUpdate.Invoke(this);
+            }
+
+        }
+
+
         private void copyToolStripMenuItem_Click(object sender, EventArgs e)
         {
             String path = CurentFile.FullName;
@@ -96,3 +147,4 @@ namespace File_Boss
         }
     }
 }
+
