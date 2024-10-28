@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml.Serialization;
 
 namespace File_Boss
 {
@@ -139,6 +140,11 @@ namespace File_Boss
         }
 
 
+        private void copyToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            String path = CurentFile.FullName;
+            Clipboard.SetText(path);
+        }
     }
 }
 

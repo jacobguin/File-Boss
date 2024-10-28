@@ -36,8 +36,9 @@ namespace File_Boss
             contextMenuStrip1 = new ContextMenuStrip(components);
             openWithToolStripMenuItem = new ToolStripMenuItem();
             deleteToolStripMenuItem = new ToolStripMenuItem();
-            label1 = new Label();
             renameToolStripMenuItem = new ToolStripMenuItem();
+            copyToolStripMenuItem = new ToolStripMenuItem();
+            label1 = new Label();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             contextMenuStrip1.SuspendLayout();
             SuspendLayout();
@@ -58,7 +59,7 @@ namespace File_Boss
             // contextMenuStrip1
             // 
             contextMenuStrip1.ImageScalingSize = new Size(20, 20);
-            contextMenuStrip1.Items.AddRange(new ToolStripItem[] { openWithToolStripMenuItem, deleteToolStripMenuItem, renameToolStripMenuItem });
+            contextMenuStrip1.Items.AddRange(new ToolStripItem[] { openWithToolStripMenuItem, deleteToolStripMenuItem, copyToolStripMenuItem, renameToolStripMenuItem });
             contextMenuStrip1.Name = "contextMenuStrip1";
             contextMenuStrip1.Size = new Size(211, 104);
             // 
@@ -74,6 +75,13 @@ namespace File_Boss
             deleteToolStripMenuItem.Size = new Size(210, 24);
             deleteToolStripMenuItem.Text = "Delete";
             deleteToolStripMenuItem.Click += deleteToolStripMenuItem_Click;
+            // 
+            // copyToolStripMenuItem
+            // 
+            copyToolStripMenuItem.Name = "copyToolStripMenuItem";
+            copyToolStripMenuItem.Size = new Size(171, 24);
+            copyToolStripMenuItem.Text = "Copy File Path";
+            copyToolStripMenuItem.Click += copyToolStripMenuItem_Click;
             // 
             // label1
             // 
@@ -114,5 +122,6 @@ namespace File_Boss
 		private ToolStripMenuItem deleteToolStripMenuItem;
 		public Label label1;
         private ToolStripMenuItem renameToolStripMenuItem;
+        private ToolStripMenuItem copyToolStripMenuItem;
     }
 }
