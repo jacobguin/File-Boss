@@ -34,6 +34,8 @@
             undoToolStripMenuItem = new ToolStripMenuItem();
             button1 = new Button();
             button2 = new Button();
+            pathText = new Label();
+            backButton = new Button();
             contextMenuStrip1.SuspendLayout();
             SuspendLayout();
             // 
@@ -87,11 +89,35 @@
             button2.UseVisualStyleBackColor = false;
             button2.Click += button2_Click;
             // 
+            // pathText
+            // 
+            pathText.AutoSize = true;
+            pathText.Location = new Point(250, 24);
+            pathText.Name = "pathText";
+            pathText.Size = new Size(50, 20);
+            pathText.TabIndex = 3;
+            pathText.Text = "label1";
+            // 
+            // backButton
+            // 
+            backButton.BackColor = Color.DarkGray;
+            backButton.FlatAppearance.BorderSize = 0;
+            backButton.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            backButton.Location = new Point(9, 20);
+            backButton.Name = "backButton";
+            backButton.Size = new Size(38, 29);
+            backButton.TabIndex = 4;
+            backButton.Text = "<";
+            backButton.UseVisualStyleBackColor = false;
+            backButton.Click += backButton_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(914, 601);
+            Controls.Add(backButton);
+            Controls.Add(pathText);
             Controls.Add(button2);
             Controls.Add(button1);
             Controls.Add(flowLayoutPanel1);
@@ -99,6 +125,7 @@
             Text = "Form1";
             contextMenuStrip1.ResumeLayout(false);
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -109,5 +136,7 @@
 		private ContextMenuStrip contextMenuStrip1;
 		private ToolStripMenuItem undoToolStripMenuItem;
         private ToolStripMenuItem toolStripMenuItem1;
+        private Label pathText;
+        private Button backButton;
     }
 }
