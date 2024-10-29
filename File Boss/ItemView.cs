@@ -69,8 +69,7 @@ namespace File_Boss
         {
             if (CurentFile != null && CurentFile.Extension == ".zip")
             {
-                    string destinationFolder = Path.Combine(CurentFile.DirectoryName, Path.GetFileNameWithoutExtension(CurentFile.Name));
-                    functionHandler.UnzipFolder(CurentFile.FullName, destinationFolder);
+                    functionHandler.UnzipFolder(CurentFile.Name, Path.GetFileNameWithoutExtension(CurentFile.FullName));
                     MessageBox.Show("Folder successfully unzipped!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else

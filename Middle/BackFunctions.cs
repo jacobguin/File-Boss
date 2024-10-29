@@ -234,7 +234,10 @@ public class BackFunctions
     }
     public void UnzipFolder(string zipFilePath, string destinationFolder)
     {
-        if (!File.Exists(zipFilePath))
+		zipFilePath = Path.Combine(BasePath, zipFilePath);
+		destinationFolder = Path.Combine(BasePath, destinationFolder);
+
+		if (!File.Exists(zipFilePath))
         {
             throw new UIException($"Zip file '{zipFilePath}' does not exist.");
         }
