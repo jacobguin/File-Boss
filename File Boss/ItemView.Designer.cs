@@ -49,12 +49,14 @@ namespace File_Boss
             pictureBox1.BackgroundImageLayout = ImageLayout.None;
             pictureBox1.ContextMenuStrip = contextMenuStrip1;
             pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
-            pictureBox1.Location = new Point(18, 14);
+            pictureBox1.Location = new Point(16, 10);
+            pictureBox1.Margin = new Padding(3, 2, 3, 2);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(72, 72);
+            pictureBox1.Size = new Size(63, 54);
             pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox1.TabIndex = 2;
             pictureBox1.TabStop = false;
+            pictureBox1.Click += pictureBox1_Click;
             // 
             // contextMenuStrip1
             // 
@@ -93,21 +95,22 @@ namespace File_Boss
             label1.TabIndex = 3;
             label1.Text = "label1";
             // 
+            // ItemView
+            // 
+            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleMode = AutoScaleMode.Font;
+            Controls.Add(pictureBox1);
+            Controls.Add(label1);
+            Margin = new Padding(3, 2, 3, 2);
+            Name = "ItemView";
+            Size = new Size(95, 103);
+            // 
             // renameToolStripMenuItem
             // 
             renameToolStripMenuItem.Name = "renameToolStripMenuItem";
             renameToolStripMenuItem.Size = new Size(210, 24);
             renameToolStripMenuItem.Text = "Rename";
             renameToolStripMenuItem.Click += renameToolStripMenuItem_Click;
-            // 
-            // ItemView
-            // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
-            AutoScaleMode = AutoScaleMode.Font;
-            Controls.Add(pictureBox1);
-            Controls.Add(label1);
-            Name = "ItemView";
-            Size = new Size(109, 137);
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             contextMenuStrip1.ResumeLayout(false);
             ResumeLayout(false);

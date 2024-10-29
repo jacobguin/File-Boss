@@ -42,6 +42,51 @@ namespace File_Boss
             CurentDirectory = new(Folder);
             label1.Text = CurentDirectory.Name;
             contextMenuStrip1.Items.Remove(openWithToolStripMenuItem);
+
+            var zipMenuItem = new ToolStripMenuItem("Zip Folder");
+            zipMenuItem.Click += ZipMenuItem_Click;
+            contextMenuStrip1.Items.Add(zipMenuItem);
+        }
+
+        public void LoadFile(string File, Icon icon, BackFunctions functionHandler)
+        {
+            LoadBoth(functionHandler);
+            CurentFile = new(File);
+            label1.Text = CurentFile.Name;
+            pictureBox1.Image = icon.ToBitmap();
+            openWithToolStripMenuItem.DropDownItems.Clear();
+            foreach (var program in functionHandler.ProgramMap.Values)
+            {
+                ToolStripMenuItem programItem = new(program);
+                openWithToolStripMenuItem.DropDownItems.Add(programItem);
+
+                programItem.Click += (s, args) =>
+                {
+                    functionHandler.OpenWith(program, CurentFile.FullName);
+                };
+            }
+        }
+        private void ZipMenuItem_Click(object sender, EventArgs e)
+        {
+            if (CurentDirectory != null && !CurentDirectory.Name.EndsWith(".zip"))
+            {
+                functionHandler.ZipFolder(CurentDirectory.Name);
+                MessageBox.Show("Folder successfully zipped!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else
+            {
+                MessageBox.Show("This item is already zipped or is not a folder.", "Cannot Zip", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        }
+
+        public void LoadFolder(string Folder, BackFunctions functionHandler)
+        {
+            LoadBoth(functionHandler);
+            CurentDirectory = new(Folder);
+            label1.Text = CurentDirectory.Name;
+            contextMenuStrip1.Items.Remove(openWithToolStripMenuItem);
         }
 
         public void LoadFile(string File, Icon icon, BackFunctions functionHandler)
@@ -88,6 +133,10 @@ namespace File_Boss
             {
                 OnDelete.Invoke(this);
             }
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
         }
 
         private TextBox? renameBox;
