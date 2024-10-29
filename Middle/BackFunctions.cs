@@ -297,15 +297,15 @@ public class BackFunctions
     }
     public void ZipFolder(string folderName)
     {
-        folderName = Path.Join(BasePath, folderName);
+        string fullfolderName = Path.Join(BasePath, folderName);
 
-		if (Directory.Exists(folderName))
+		if (Directory.Exists(fullfolderName))
         {
             string zipFileName = folderName + ".zip";
 
             try
             {
-                ZipFile.CreateFromDirectory(folderName, Path.Join(BasePath, zipFileName));
+                ZipFile.CreateFromDirectory(fullfolderName, Path.Join(BasePath, zipFileName));
                 Console.WriteLine("Folder successfully zipped to: " + zipFileName);
             }
             catch (Exception e)
