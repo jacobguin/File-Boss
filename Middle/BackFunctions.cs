@@ -1,6 +1,8 @@
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO.Compression;
+using System.IO;
+using System.Security.Cryptography;
 
 namespace Middle;
 
@@ -49,7 +51,39 @@ public class BackFunctions
 		}
 	}
 
-    public string? GetProgram(string FileName)
+    public bool TryGetSaveFilePath(string name, out string path)
+    {
+        path = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+        if (!Directory.Exists(path)) Directory.CreateDirectory(path);
+        path = Path.Join(path, "FileBoss");
+		if (!Directory.Exists(path)) Directory.CreateDirectory(path);
+		path = Path.Join(path, name);
+        return File.Exists(path);
+	}
+
+    public string[] GetFavorites()
+    {
+        if (!TryGetSaveFilePath("favorits.txt", out string f)) RealCreateFile(f);
+        string[] tmp = File.ReadAllLines(f);
+        List<string> good = new();
+        foreach (string item in tmp)
+        {
+            if (File.Exists(item))
+				good.Add(item);
+        }
+		File.WriteAllLines(f, good);
+		return good.ToArray();
+    }
+
+	public void AddFavorites(string name)
+	{
+		if (!TryGetSaveFilePath("favorits.txt", out string f)) RealCreateFile(f);
+		List<string> old = File.ReadAllLines(f).ToList();
+        old.Add(Path.Join(BasePath, name));
+        File.WriteAllLines(f, old);
+	}
+
+	public string? GetProgram(string FileName)
     {
         FileInfo FI = new FileInfo(FileName);
         if (ProgramMap.TryGetValue(FI.Extension.ToLower(), out string? Program)) return Program;
@@ -76,7 +110,7 @@ public class BackFunctions
             if (!File.Exists(FileToOpen)) throw new UIException("The provided file is not valid");
             FileInfo FI = new FileInfo(FileToOpen);
 
-            if (ProgramMap.TryGetValue(FI.Extension.ToLower(), out string Program))
+            if (ProgramMap.TryGetValue(FI.Extension.ToLower(), out string? Program))
             {
                 OpenWith(Program, FileToOpen);
                 return;
@@ -105,10 +139,10 @@ public class BackFunctions
             Process p = new Process()
             {
                 StartInfo =
-            {
-                FileName = Program,
-                Arguments = FileToOpen
-            }
+                {
+                    FileName = Program,
+                    Arguments = Path.Join(BasePath, FileToOpen)
+                }
             };
             _ = p.Start();
         }
@@ -130,7 +164,14 @@ public class BackFunctions
         }
     }
 
-    public void CreateFile(string FileName)
+	public void CreateFile(string FileName)
+    {
+        RealCreateFile(Path.Join(BasePath, FileName));
+		UndoCode.Push(() => { DeleteFile(FileName); });
+	}
+
+
+	public static void RealCreateFile(string FileName)
     {
         try
         {
@@ -145,7 +186,6 @@ public class BackFunctions
                     Console.WriteLine($"File '{FileName}' created successfully");
                 }
             }
-			UndoCode.Push(() => { DeleteFile(FileName); });
 		}
         catch (UnauthorizedAccessException e)
         {
@@ -170,9 +210,9 @@ public class BackFunctions
     {
         try
         {
-            if (File.Exists(FileName))
+            if (File.Exists(Path.Join(BasePath,FileName)))
             {
-                File.Delete(FileName);
+                File.Delete(Path.Join(BasePath, FileName));
             }
             else
             {
@@ -199,6 +239,11 @@ public class BackFunctions
 
     public void CreateFolder(string FolderName)
     {
+        RealCreateFolder(Path.Combine(BasePath,FolderName));
+    }
+
+    internal void RealCreateFolder(string FolderName)
+    {
         try
         {
             if (!Directory.Exists(FolderName))
@@ -206,7 +251,7 @@ public class BackFunctions
                 Directory.CreateDirectory(FolderName);
                 Console.WriteLine($"Folder '{FolderName}' created successfully.");
             }
-            if (Directory.Exists(FolderName))
+            else
             {
                 throw new UIException($"Folder '{FolderName}' already exists.");
             }
@@ -256,4 +301,40 @@ public class BackFunctions
         }
 
     }
+
+    public void RenameFile(String oldName, String newName)
+    {
+        File.Move(oldName, newName);
+    }
+
+    public void RenameFolder(String oldName, String newName)
+    {
+        Directory.Move(oldName, newName);
+    }
+
+    //TODO Fix this method
+    /*public void Move(string sourcePath, string destinationPath)
+    {
+        try
+        {
+            Directory.Move(sourcePath, destinationPath);
+            System.Console.WriteLine("The directory move is complete.");
+        }
+        catch (ArgumentNullException)
+        {
+            System.Console.WriteLine("Path is a null reference.");
+        }
+        catch (System.Security.SecurityException)
+        {
+            System.Console.WriteLine("The caller does not have the " +
+                "required permission.");
+        }
+        catch (ArgumentException)
+        {
+            System.Console.WriteLine("Path is an empty string, " +
+                "contains only white spaces, " +
+                "or contains invalid characters.");
+        }
+    }*/
+
 }

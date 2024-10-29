@@ -36,6 +36,8 @@ namespace File_Boss
             contextMenuStrip1 = new ContextMenuStrip(components);
             openWithToolStripMenuItem = new ToolStripMenuItem();
             deleteToolStripMenuItem = new ToolStripMenuItem();
+            renameToolStripMenuItem = new ToolStripMenuItem();
+            copyToolStripMenuItem = new ToolStripMenuItem();
             label1 = new Label();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             contextMenuStrip1.SuspendLayout();
@@ -59,30 +61,37 @@ namespace File_Boss
             // contextMenuStrip1
             // 
             contextMenuStrip1.ImageScalingSize = new Size(20, 20);
-            contextMenuStrip1.Items.AddRange(new ToolStripItem[] { openWithToolStripMenuItem, deleteToolStripMenuItem });
+            contextMenuStrip1.Items.AddRange(new ToolStripItem[] { openWithToolStripMenuItem, deleteToolStripMenuItem, copyToolStripMenuItem, renameToolStripMenuItem });
             contextMenuStrip1.Name = "contextMenuStrip1";
-            contextMenuStrip1.Size = new Size(132, 48);
+            contextMenuStrip1.Size = new Size(211, 104);
             // 
             // openWithToolStripMenuItem
             // 
             openWithToolStripMenuItem.Name = "openWithToolStripMenuItem";
-            openWithToolStripMenuItem.Size = new Size(131, 22);
+            openWithToolStripMenuItem.Size = new Size(210, 24);
             openWithToolStripMenuItem.Text = "Open With";
             // 
             // deleteToolStripMenuItem
             // 
             deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
-            deleteToolStripMenuItem.Size = new Size(131, 22);
+            deleteToolStripMenuItem.Size = new Size(210, 24);
             deleteToolStripMenuItem.Text = "Delete";
             deleteToolStripMenuItem.Click += deleteToolStripMenuItem_Click;
+            // 
+            // copyToolStripMenuItem
+            // 
+            copyToolStripMenuItem.Name = "copyToolStripMenuItem";
+            copyToolStripMenuItem.Size = new Size(171, 24);
+            copyToolStripMenuItem.Text = "Copy File Path";
+            copyToolStripMenuItem.Click += copyToolStripMenuItem_Click;
             // 
             // label1
             // 
             label1.AutoSize = true;
             label1.ContextMenuStrip = contextMenuStrip1;
-            label1.Location = new Point(16, 77);
+            label1.Location = new Point(18, 103);
             label1.Name = "label1";
-            label1.Size = new Size(38, 15);
+            label1.Size = new Size(50, 20);
             label1.TabIndex = 3;
             label1.Text = "label1";
             // 
@@ -95,6 +104,13 @@ namespace File_Boss
             Margin = new Padding(3, 2, 3, 2);
             Name = "ItemView";
             Size = new Size(95, 103);
+            // 
+            // renameToolStripMenuItem
+            // 
+            renameToolStripMenuItem.Name = "renameToolStripMenuItem";
+            renameToolStripMenuItem.Size = new Size(210, 24);
+            renameToolStripMenuItem.Text = "Rename";
+            renameToolStripMenuItem.Click += renameToolStripMenuItem_Click;
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             contextMenuStrip1.ResumeLayout(false);
             ResumeLayout(false);
@@ -108,5 +124,7 @@ namespace File_Boss
 		private ToolStripMenuItem openWithToolStripMenuItem;
 		private ToolStripMenuItem deleteToolStripMenuItem;
 		public Label label1;
-	}
+        private ToolStripMenuItem renameToolStripMenuItem;
+        private ToolStripMenuItem copyToolStripMenuItem;
+    }
 }
