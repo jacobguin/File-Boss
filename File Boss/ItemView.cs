@@ -68,7 +68,7 @@ namespace File_Boss
         {
             if (CurentDirectory != null && !CurentDirectory.Name.EndsWith(".zip"))
             {
-                functionHandler.ZipFolder(CurentDirectory.FullName);
+                functionHandler.ZipFolder(CurentDirectory.Name);
                 MessageBox.Show("Folder successfully zipped!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else
