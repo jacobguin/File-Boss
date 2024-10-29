@@ -127,5 +127,17 @@ public class Functions
 
         FunctionHandler.DeleteFile("FolderToZip.zip");
     }
-
+    [Fact, Order(9)]
+    public void TestUnzipFileDoesNotExist()
+    {
+        Assert.Throws<UIException>(() =>
+        {
+            BackFunctions.UnzipFolder("NonExistentFile.zip", "ExtractedFolder");
+        });
+    }
+    [Fact, Order(10)]
+    public void TestUnzip()
+    {
+        BackFunctions.UnzipFolder("FolderToZip.zip", "ExtractedFolder");
+    }
 }
