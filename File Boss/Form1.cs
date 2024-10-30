@@ -1,3 +1,4 @@
+using Microsoft.VisualBasic.Devices;
 using Middle;
 using System.Diagnostics;
 using System.Drawing;
@@ -48,12 +49,14 @@ namespace File_Boss
             return Task.CompletedTask;
         }
 
-        /// <summary>
-        /// Add Button which creates a text field for you to input a file name
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void button1_Click(object sender, EventArgs e)
+        public static List<ItemView> SelectedViews { get; set; } = new();
+
+		/// <summary>
+		/// Add Button which creates a text field for you to input a file name
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void button1_Click(object sender, EventArgs e)
         {
             if (curentin is not null) Controls.Remove(curentin);
             curentin = new TextBox();
@@ -113,11 +116,31 @@ namespace File_Boss
             fd.OnAllClick += Fd_OnAllClick;
             fd.OnDelete += Fd_OnDelete;
             fd.RequestUpdate += Fd_RequestUpdate;
+			fd.OnAllSingleClick += Fd_OnAllSingleClick;
             flowLayoutPanel1.Controls.Add(fd);
             return fd;
         }
 
-        private Task Fd_RequestUpdate(ItemView arg)
+		private Task Fd_OnAllSingleClick(ItemView arg)
+		{
+            if (SelectedViews.Contains(arg)) return Task.CompletedTask;
+            if (Control.ModifierKeys != Keys.Control)
+            {
+                foreach (ItemView iv in SelectedViews)
+                {
+                    iv.BackColor = SystemColors.Control;
+                    iv.pictureBox1.BackColor = SystemColors.Control;
+				}
+                SelectedViews.Clear();
+			}
+           
+			arg.BackColor = Color.CornflowerBlue;
+            arg.pictureBox1.BackColor = Color.CornflowerBlue;
+            SelectedViews.Add(arg);
+            return Task.CompletedTask;
+		}
+
+		private Task Fd_RequestUpdate(ItemView arg)
         {
             updateItemDisplay();
             return Task.CompletedTask;
@@ -128,7 +151,8 @@ namespace File_Boss
             ItemView iv = new();
             iv.OnAllClick += Fd_OnAllClick;
             iv.RequestUpdate += Fd_RequestUpdate;
-            iv.LoadFolder(di.FullName, functionHandler);
+            iv.OnAllSingleClick += Fd_OnAllSingleClick;
+			iv.LoadFolder(di.FullName, functionHandler);
             flowLayoutPanel1.Controls.Add(iv);
         }
 
@@ -145,7 +169,8 @@ namespace File_Boss
             {
                 addFileDisplay(fi);
             }
-            flowLayoutPanel1.ResumeLayout();
+			SelectedViews.Clear();
+			flowLayoutPanel1.ResumeLayout();
             flowLayoutPanel1.PerformLayout();
         }
 

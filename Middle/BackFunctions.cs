@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.IO.Compression;
 using System.IO;
 using System.Security.Cryptography;
+using System.Runtime.CompilerServices;
 
 namespace Middle;
 
@@ -295,7 +296,42 @@ public class BackFunctions
             throw new UIException($"An error occurred while unzipping the file: {e.Message}");
         }
     }
-    public void ZipFolder(string folderName)
+
+	private void AddDirectoryToArchive(ZipArchive archive, string sourceDir, string baseDir)
+	{
+		foreach (string filePath in Directory.GetFiles(sourceDir, "*", SearchOption.AllDirectories))
+		{
+			string relativePath = Path.Join(baseDir, Path.GetRelativePath(sourceDir, filePath));
+			archive.CreateEntryFromFile(filePath, relativePath);
+		}
+	}
+
+	public void ZipData(string zip, params string[] folderandfileNames)
+    {
+        string zippath = Path.Join(BasePath, zip);
+        if (File.Exists(zippath)) throw new UIException($"Zip file '{zip}' already exist.");
+
+
+        using (FileStream fs = File.Open(zippath, FileMode.Create))
+        {
+		    using (ZipArchive archive = new(fs))
+		    {
+			    foreach (string fileName in folderandfileNames)
+			    {
+				    string path = Path.Join(BasePath, fileName);
+				    if (File.Exists(path))
+				    {
+                        archive.CreateEntryFromFile(path, fileName);
+			        }
+				    else if (Directory.Exists(path))
+				    {
+                        AddDirectoryToArchive(archive, path, fileName);
+				    }
+			    }
+		    }
+	    }        
+    }
+	public void ZipFolder(string folderName)
     {
         string fullfolderName = Path.Join(BasePath, folderName);
 
