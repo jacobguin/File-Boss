@@ -38,6 +38,7 @@ namespace File_Boss
             deleteToolStripMenuItem = new ToolStripMenuItem();
             copyToolStripMenuItem = new ToolStripMenuItem();
             label1 = new Label();
+            propertiesToolStripMenuItem = new ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             contextMenuStrip1.SuspendLayout();
             SuspendLayout();
@@ -58,27 +59,27 @@ namespace File_Boss
             // contextMenuStrip1
             // 
             contextMenuStrip1.ImageScalingSize = new Size(20, 20);
-            contextMenuStrip1.Items.AddRange(new ToolStripItem[] { openWithToolStripMenuItem, deleteToolStripMenuItem, copyToolStripMenuItem });
+            contextMenuStrip1.Items.AddRange(new ToolStripItem[] { openWithToolStripMenuItem, deleteToolStripMenuItem, copyToolStripMenuItem, propertiesToolStripMenuItem });
             contextMenuStrip1.Name = "contextMenuStrip1";
-            contextMenuStrip1.Size = new Size(172, 76);
+            contextMenuStrip1.Size = new Size(211, 128);
             // 
             // openWithToolStripMenuItem
             // 
             openWithToolStripMenuItem.Name = "openWithToolStripMenuItem";
-            openWithToolStripMenuItem.Size = new Size(171, 24);
+            openWithToolStripMenuItem.Size = new Size(210, 24);
             openWithToolStripMenuItem.Text = "Open With";
             // 
             // deleteToolStripMenuItem
             // 
             deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
-            deleteToolStripMenuItem.Size = new Size(171, 24);
+            deleteToolStripMenuItem.Size = new Size(210, 24);
             deleteToolStripMenuItem.Text = "Delete";
             deleteToolStripMenuItem.Click += deleteToolStripMenuItem_Click;
             // 
             // copyToolStripMenuItem
             // 
             copyToolStripMenuItem.Name = "copyToolStripMenuItem";
-            copyToolStripMenuItem.Size = new Size(171, 24);
+            copyToolStripMenuItem.Size = new Size(210, 24);
             copyToolStripMenuItem.Text = "Copy File Path";
             copyToolStripMenuItem.Click += copyToolStripMenuItem_Click;
             // 
@@ -91,6 +92,13 @@ namespace File_Boss
             label1.Size = new Size(50, 20);
             label1.TabIndex = 3;
             label1.Text = "label1";
+            // 
+            // propertiesToolStripMenuItem
+            // 
+            propertiesToolStripMenuItem.Name = "propertiesToolStripMenuItem";
+            propertiesToolStripMenuItem.Size = new Size(210, 24);
+            propertiesToolStripMenuItem.Text = "Properties";
+            propertiesToolStripMenuItem.Click += propertiesToolStripMenuItem_Click;
             // 
             // ItemView
             // 
@@ -114,5 +122,6 @@ namespace File_Boss
 		private ToolStripMenuItem deleteToolStripMenuItem;
 		public Label label1;
         private ToolStripMenuItem copyToolStripMenuItem;
+        private ToolStripMenuItem propertiesToolStripMenuItem;
     }
 }
