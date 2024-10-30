@@ -1,5 +1,6 @@
 using System.ComponentModel;
 using System.Diagnostics;
+using System.IO.Compression;
 using System.IO;
 using System.Security.Cryptography;
 
@@ -275,6 +276,48 @@ public class BackFunctions
         {
             throw new UIException($"An unexpected error occurred.\n Details: {e.Message}", ErrorType.Unknown);
         }
+    }
+    public void UnzipFolder(string zipFilePath, string destinationFolder)
+    {
+		zipFilePath = Path.Combine(BasePath, zipFilePath);
+		destinationFolder = Path.Combine(BasePath, destinationFolder);
+
+		if (!File.Exists(zipFilePath))
+        {
+            throw new UIException($"Zip file '{zipFilePath}' does not exist.");
+        }
+        try
+        {
+            ZipFile.ExtractToDirectory(zipFilePath, destinationFolder);
+        }
+        catch (Exception e)
+        {
+            throw new UIException($"An error occurred while unzipping the file: {e.Message}");
+        }
+    }
+    public void ZipFolder(string folderName)
+    {
+        string fullfolderName = Path.Join(BasePath, folderName);
+
+		if (Directory.Exists(fullfolderName))
+        {
+            string zipFileName = folderName + ".zip";
+
+            try
+            {
+                ZipFile.CreateFromDirectory(fullfolderName, Path.Join(BasePath, zipFileName));
+                Console.WriteLine("Folder successfully zipped to: " + zipFileName);
+            }
+            catch (Exception e)
+            {
+                throw new UIException($"An unexpected error occured when zipping folder.\n Details: {e.Message}");
+            }
+        }
+        else
+        {
+            throw new UIException($"The folder '{folderName}' does not exist.");
+        }
+
     }
 
     public void RenameFile(String oldName, String newName)

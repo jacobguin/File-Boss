@@ -20,7 +20,7 @@
             base.Dispose(disposing);
         }
 
-        #region Windows Form Designer generated code
+		#region Windows Form Designer generated code
 
         /// <summary>
         ///  Required method for Designer support - do not modify
@@ -50,6 +50,7 @@
             flowLayoutPanel1.TabIndex = 0;
             flowLayoutPanel1.DragDrop += flowLayoutPanel1_DragDrop;
             flowLayoutPanel1.DragEnter += flowLayoutPanel1_DragEnter;
+			      flowLayoutPanel1.AutoScroll = true;
             // 
             // contextMenuStrip1
             // 
@@ -131,9 +132,9 @@
             PerformLayout();
         }
 
-        #endregion
+		#endregion
 
-        private FlowLayoutPanel flowLayoutPanel1;
+		private FlowLayoutPanel flowLayoutPanel1;
         private Button button1;
         private Button button2;
 		private ContextMenuStrip contextMenuStrip1;
