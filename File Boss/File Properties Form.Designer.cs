@@ -33,35 +33,36 @@
             label3 = new Label();
             label4 = new Label();
             label5 = new Label();
-            label6 = new Label();
-            label7 = new Label();
-            label8 = new Label();
+            filePath = new Label();
+            fileType = new Label();
+            fileSize = new Label();
+            fileName = new Label();
             SuspendLayout();
             // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(98, 71);
+            label1.Location = new Point(86, 53);
             label1.Name = "label1";
-            label1.Size = new Size(0, 20);
+            label1.Size = new Size(0, 15);
             label1.TabIndex = 0;
             label1.Click += label1_Click;
             // 
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(38, 174);
+            label2.Location = new Point(33, 130);
             label2.Name = "label2";
-            label2.Size = new Size(36, 20);
+            label2.Size = new Size(27, 15);
             label2.TabIndex = 1;
             label2.Text = "Size";
             // 
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(38, 42);
+            label3.Location = new Point(33, 32);
             label3.Name = "label3";
-            label3.Size = new Size(49, 20);
+            label3.Size = new Size(39, 15);
             label3.TabIndex = 2;
             label3.Text = "Name";
             label3.Click += label3_Click;
@@ -69,65 +70,76 @@
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(38, 88);
+            label4.Location = new Point(33, 66);
             label4.Name = "label4";
-            label4.Size = new Size(40, 20);
+            label4.Size = new Size(31, 15);
             label4.TabIndex = 3;
             label4.Text = "Type";
             // 
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(38, 134);
+            label5.Location = new Point(33, 100);
             label5.Name = "label5";
-            label5.Size = new Size(66, 20);
+            label5.Size = new Size(53, 15);
             label5.TabIndex = 4;
             label5.Text = "Location";
             label5.Click += label5_Click;
             // 
-            // label6
+            // filePath
             // 
-            label6.AutoSize = true;
-            label6.ForeColor = Color.Blue;
-            label6.Location = new Point(153, 134);
-            label6.Name = "label6";
-            label6.Size = new Size(50, 20);
-            label6.TabIndex = 5;
-            label6.Text = "label6";
-            label6.Click += label6_Click;
+            filePath.AutoSize = true;
+            filePath.ForeColor = Color.Blue;
+            filePath.Location = new Point(134, 100);
+            filePath.Name = "filePath";
+            filePath.Size = new Size(53, 15);
+            filePath.TabIndex = 5;
+            filePath.Text = "Loaction";
+            filePath.Click += label6_Click;
             // 
-            // label7
+            // fileType
             // 
-            label7.AutoSize = true;
-            label7.Location = new Point(153, 88);
-            label7.Name = "label7";
-            label7.Size = new Size(50, 20);
-            label7.TabIndex = 6;
-            label7.Text = "label7";
-            label7.Click += label7_Click;
+            fileType.AutoSize = true;
+            fileType.Location = new Point(134, 66);
+            fileType.Name = "fileType";
+            fileType.Size = new Size(31, 15);
+            fileType.TabIndex = 6;
+            fileType.Text = "Type";
+            fileType.Click += label7_Click;
             // 
-            // label8
+            // fileSize
             // 
-            label8.AutoSize = true;
-            label8.Location = new Point(153, 42);
-            label8.Name = "label8";
-            label8.Size = new Size(50, 20);
-            label8.TabIndex = 7;
-            label8.Text = "label8";
+            fileSize.AutoSize = true;
+            fileSize.Location = new Point(134, 130);
+            fileSize.Name = "fileSize";
+            fileSize.Size = new Size(27, 15);
+            fileSize.TabIndex = 7;
+            fileSize.Text = "Size";
+            // 
+            // fileName
+            // 
+            fileName.AutoSize = true;
+            fileName.Location = new Point(134, 32);
+            fileName.Name = "fileName";
+            fileName.Size = new Size(39, 15);
+            fileName.TabIndex = 8;
+            fileName.Text = "Name";
             // 
             // File_Properties_Form
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(709, 520);
-            Controls.Add(label8);
-            Controls.Add(label7);
-            Controls.Add(label6);
+            ClientSize = new Size(620, 390);
+            Controls.Add(fileName);
+            Controls.Add(fileSize);
+            Controls.Add(fileType);
+            Controls.Add(filePath);
             Controls.Add(label5);
             Controls.Add(label4);
             Controls.Add(label3);
             Controls.Add(label2);
             Controls.Add(label1);
+            Margin = new Padding(3, 2, 3, 2);
             Name = "File_Properties_Form";
             Text = "File_Properties_Form";
             ResumeLayout(false);
@@ -141,8 +153,9 @@
         private Label label3;
         private Label label4;
         private Label label5;
-        private Label label6;
-        private Label label7;
-        private Label label8;
+        private Label filePath;
+        private Label fileType;
+        private Label fileSize;
+        private Label fileName;
     }
 }

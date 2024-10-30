@@ -25,11 +25,26 @@ namespace File_Boss
         public void load_file(FileInfo fi)
         {
             CurentFile = fi;
-            label6.Text = CurentFile.FullName;
-            label7.Text = CurentFile.Extension;
-            label8.Text = CurentFile.Length.ToString();
-        }
+            filePath.Text = CurentFile.FullName;
+            fileType.Text = CurentFile.Extension;
+            fileSize.Text = CurentFile.Length.ToString() + " Bytes";
+            //fileName.Text = CurentFile.Name;
+            /*
+            if (CurentFile.Extension == ".txt")
+            {
+                fileType.Text = "Text";
+            }
+            */
+            
+            if (CurentFile.Name.Contains("."))
+            {
+                int index = CurentFile.Name.IndexOf(".");
+                String tempName = CurentFile.Name.Substring(0, index);
+                fileName.Text = tempName;
+            }
 
+        }
+       
         private void label1_Click(object sender, EventArgs e)
         {
 
