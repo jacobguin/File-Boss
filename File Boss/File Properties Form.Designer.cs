@@ -89,6 +89,7 @@
             // filePath
             // 
             filePath.AutoSize = true;
+            filePath.Cursor = Cursors.Hand;
             filePath.ForeColor = Color.Blue;
             filePath.Location = new Point(134, 100);
             filePath.Name = "filePath";
