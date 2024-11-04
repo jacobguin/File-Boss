@@ -193,6 +193,12 @@ namespace File_Boss
 			Clipboard.SetText(path);
 		}
 
+    private void propertiesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            File_Properties_Form fp = new();
+            fp.load_file(CurentFile);
+            fp.Show();
+        }
 
 	}
 }

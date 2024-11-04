@@ -39,6 +39,7 @@ namespace File_Boss
 			copyToolStripMenuItem = new ToolStripMenuItem();
 			renameToolStripMenuItem = new ToolStripMenuItem();
 			label1 = new Label();
+      propertiesToolStripMenuItem = new ToolStripMenuItem();
 			((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
 			contextMenuStrip1.SuspendLayout();
 			SuspendLayout();
@@ -59,7 +60,7 @@ namespace File_Boss
 			// contextMenuStrip1
 			// 
 			contextMenuStrip1.ImageScalingSize = new Size(20, 20);
-			contextMenuStrip1.Items.AddRange(new ToolStripItem[] { openWithToolStripMenuItem, deleteToolStripMenuItem, copyToolStripMenuItem, renameToolStripMenuItem });
+			contextMenuStrip1.Items.AddRange(new ToolStripItem[] { openWithToolStripMenuItem, deleteToolStripMenuItem, copyToolStripMenuItem, renameToolStripMenuItem, propertiesToolStripMenuItem });
 			contextMenuStrip1.Name = "contextMenuStrip1";
 			contextMenuStrip1.Size = new Size(172, 100);
 			// 
@@ -99,6 +100,13 @@ namespace File_Boss
 			label1.Size = new Size(50, 20);
 			label1.TabIndex = 3;
 			label1.Text = "label1";
+      // 
+            // propertiesToolStripMenuItem
+            // 
+            propertiesToolStripMenuItem.Name = "propertiesToolStripMenuItem";
+            propertiesToolStripMenuItem.Size = new Size(210, 24);
+            propertiesToolStripMenuItem.Text = "Properties";
+            propertiesToolStripMenuItem.Click += propertiesToolStripMenuItem_Click;
 			// 
 			// ItemView
 			// 
@@ -123,5 +131,6 @@ namespace File_Boss
 		public Label label1;
         private ToolStripMenuItem renameToolStripMenuItem;
         private ToolStripMenuItem copyToolStripMenuItem;
+        private ToolStripMenuItem propertiesToolStripMenuItem;
     }
 }
