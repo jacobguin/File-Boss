@@ -186,7 +186,6 @@ public class BackFunctions
                     Console.WriteLine($"File '{FileName}' created successfully");
                 }
             }
-            UndoCode.Push(() => { DeleteFile(FileName); });
         }
         catch (UnauthorizedAccessException e)
         {
