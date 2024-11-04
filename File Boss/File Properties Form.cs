@@ -23,15 +23,12 @@ namespace File_Boss
 
         }
 
+        //needs directory info param below
         public void load_file(FileInfo fi)
         {
             CurentFile = fi;           
             filePath.Text = CurentFile.FullName;
-            //fileType.Text = CurentFile.Extension;
-            //fileSize.Text = CurentFile.Length.ToString() + " Bytes";
-            //fileName.Text = CurentFile.Name;
             
-
             string fst = "";
             ulong size = (ulong)CurentFile.Length;
             if (size < 1000)

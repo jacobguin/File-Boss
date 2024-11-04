@@ -41,6 +41,8 @@ namespace File_Boss
             CurentDirectory = new(Folder);
             label1.Text = CurentDirectory.Name;
             contextMenuStrip1.Items.Remove(openWithToolStripMenuItem);
+            contextMenuStrip1.Items.Remove(propertiesToolStripMenuItem);
+            contextMenuStrip1.Items.Remove(copyToolStripMenuItem);
         }
 
         public void LoadFile(string File, Icon icon, BackFunctions functionHandler)
