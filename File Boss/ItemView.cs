@@ -165,7 +165,7 @@ namespace File_Boss
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-    }
+    
 
 		private TextBox? renameBox;
 		private void renameToolStripMenuItem_Click(object sender, EventArgs e)
