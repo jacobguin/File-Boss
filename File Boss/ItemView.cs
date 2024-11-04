@@ -31,7 +31,11 @@ namespace File_Boss
 			this.MouseDoubleClick += label1_Click;
 			label1.MouseDoubleClick += label1_Click;
 			pictureBox1.MouseDoubleClick += label1_Click;
-		}
+
+            ToolStripMenuItem createShortcutMenuItem = new ToolStripMenuItem("Create Shortcut to Desktop");
+            contextMenuStrip1.Items.Add(createShortcutMenuItem);
+            createShortcutMenuItem.Click += CreateShortcutMenuItem_Click;
+        }
 
 		public void LoadFolder(string Folder, BackFunctions functionHandler)
 		{
@@ -75,5 +79,30 @@ namespace File_Boss
 				OnDelete.Invoke(this);
 			}
 		}
-	}
+        private void CreateShortcutMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (CurentFile != null)
+                {
+                    functionHandler.CreateFileShortcut(CurentFile.FullName);
+                }
+                else if (CurentDirectory != null)
+                {
+                    functionHandler.CreateFileShortcut(CurentDirectory.FullName);
+                }
+                else
+                {
+                    throw new UIException("No file or directory is currently selected.");
+                }
+
+                MessageBox.Show("Shortcut created on desktop successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (UIException ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+    }
 }
+

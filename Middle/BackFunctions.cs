@@ -9,19 +9,19 @@ public class BackFunctions
     /// Testing Dictionary for function will be moved config files after the the user can update it in the UI
     /// </summary>
     public Dictionary<string, string> ProgramMap = new();//Testing for now
-	private Stack<Action> UndoCode = new();
-	private Stack<Action> UIUndoCode = new();
+    private Stack<Action> UndoCode = new();
+    private Stack<Action> UIUndoCode = new();
 
     private Stack<int> UILinks = new();
 
     public void AddUIUndoAction(Action a)
     {
         if (UndoCode.Count == 0) return;
-        UILinks.Push(UndoCode.Count-1);
+        UILinks.Push(UndoCode.Count - 1);
         UIUndoCode.Push(a);
     }
 
-	public BackFunctions()
+    public BackFunctions()
     {
         if (OperatingSystem.IsWindows())
         {
@@ -40,13 +40,13 @@ public class BackFunctions
             Action a = UndoCode.Pop();
             a.Invoke();
         }
-		if (UILinks.Count > 0 && UILinks.Peek() == UndoCode.Count)
-		{
+        if (UILinks.Count > 0 && UILinks.Peek() == UndoCode.Count)
+        {
             _ = UILinks.Pop();
-			Action a = UIUndoCode.Pop();
-			a.Invoke();
-		}
-	}
+            Action a = UIUndoCode.Pop();
+            a.Invoke();
+        }
+    }
 
     public string? GetProgram(string FileName)
     {
@@ -95,7 +95,7 @@ public class BackFunctions
             throw new UIException($"An unexpected error occurred while trying to open '{FileToOpen}'.\n Details: {e.Message}", ErrorType.Unknown);
         }
     }
-    
+
     public void OpenWith(string Program, string FileToOpen)
     {
         try
@@ -144,8 +144,8 @@ public class BackFunctions
                     Console.WriteLine($"File '{FileName}' created successfully");
                 }
             }
-			UndoCode.Push(() => { DeleteFile(FileName); });
-		}
+            UndoCode.Push(() => { DeleteFile(FileName); });
+        }
         catch (UnauthorizedAccessException e)
         {
             throw new UIException($"Unauthorized access to file '{FileName}'.\n Details: {e.Message}");
@@ -229,6 +229,47 @@ public class BackFunctions
         catch (Exception e)
         {
             throw new UIException($"An unexpected error occurred.\n Details: {e.Message}", ErrorType.Unknown);
+        }
+    }
+    public void CreateFileShortcut(string filePath)
+    {
+        try
+        {
+            if (!File.Exists(filePath))
+            {
+                throw new UIException("The provided file path does not exist.");
+            }
+            string desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+
+            string shortcutName = Path.GetFileNameWithoutExtension(filePath);
+
+            string shortcutPath = Path.Combine(desktopPath, $"{shortcutName}.url");
+
+            if (File.Exists(shortcutPath))
+            {
+                throw new UIException($"Shortcut '{shortcutName}.url' already exists on the desktop.");
+            }
+
+            using (StreamWriter writer = new StreamWriter(shortcutPath))
+            {
+                writer.WriteLine("[InternetShortcut]");
+                writer.WriteLine($"URL=file:///{filePath.Replace("\\", "/")}");
+            }
+
+            Console.WriteLine($"Shortcut '{shortcutName}.url' created on the desktop successfully.");
+
+        }
+        catch (UnauthorizedAccessException e)
+        {
+            throw new UIException($"Unauthorized access while creating the shortcut for '{filePath}'.\nDetails: {e.Message}");
+        }
+        catch (IOException e)
+        {
+            throw new UIException($"IO error while creating the shortcut for '{filePath}'.\nDetails: {e.Message}");
+        }
+        catch (Exception e)
+        {
+            throw new UIException($"An unexpected error occurred while creating the shortcut for '{filePath}'.\nDetails: {e.Message}", ErrorType.Unknown);
         }
     }
 }
