@@ -272,4 +272,5 @@ public class BackFunctions
             throw new UIException($"An unexpected error occurred while creating the shortcut for '{filePath}'.\nDetails: {e.Message}", ErrorType.Unknown);
         }
     }
+    //Hawk Tuah
 }
