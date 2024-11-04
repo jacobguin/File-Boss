@@ -42,7 +42,7 @@ namespace File_Boss
                 functionHandler.BasePath = Path.Join(functionHandler.BasePath, arg.CurentDirectory!.Name);
                 updateItemDisplay();
                 pathText.Text = functionHandler.BasePath;
-                
+
             }
 
             return Task.CompletedTask;
@@ -76,16 +76,13 @@ namespace File_Boss
             if (name.Contains('.'))
             {
                 functionHandler.CreateFile(name);
-                var v = addFileDisplay(new FileInfo(Path.Join(functionHandler.BasePath, name)));
-                functionHandler.AddUIUndoAction(() => { RemoveObject(v); });
             }
             else
             {
                 String defaultExt = name + ".txt";
                 functionHandler.CreateFile(defaultExt);
-                var v = addFileDisplay(new FileInfo(Path.Join(functionHandler.BasePath, defaultExt)));
-                functionHandler.AddUIUndoAction(() => { RemoveObject(v); });
             }
+            updateItemDisplay();
             Controls.Remove(temp);
         }
 
@@ -115,20 +112,29 @@ namespace File_Boss
             fd.LoadFile(fi.FullName, icon, functionHandler);
             fd.OnAllClick += Fd_OnAllClick;
             fd.OnDelete += Fd_OnDelete;
+            fd.RequestUpdate += Fd_RequestUpdate;
             flowLayoutPanel1.Controls.Add(fd);
             return fd;
+        }
+
+        private Task Fd_RequestUpdate(ItemView arg)
+        {
+            updateItemDisplay();
+            return Task.CompletedTask;
         }
 
         public void addFolderDisplay(DirectoryInfo di)
         {
             ItemView iv = new();
             iv.OnAllClick += Fd_OnAllClick;
+            iv.RequestUpdate += Fd_RequestUpdate;
             iv.LoadFolder(di.FullName, functionHandler);
             flowLayoutPanel1.Controls.Add(iv);
         }
 
         public void updateItemDisplay()
         {
+            flowLayoutPanel1.SuspendLayout();
             flowLayoutPanel1.Controls.Clear();
             DirectoryInfo di = new DirectoryInfo(functionHandler.BasePath);
             foreach (DirectoryInfo fi in di.GetDirectories())
@@ -139,7 +145,8 @@ namespace File_Boss
             {
                 addFileDisplay(fi);
             }
-
+            flowLayoutPanel1.ResumeLayout();
+            flowLayoutPanel1.PerformLayout();
         }
 
         /// <summary>
@@ -178,7 +185,7 @@ namespace File_Boss
             TextBox temp = (TextBox)sender!;
             functionHandler.CreateFolder(temp.Text);
             MessageBox.Show(temp.Text + " was Created!");
-            addFolderDisplay(new DirectoryInfo(temp.Text));
+            updateItemDisplay();
             Controls.Remove(temp);
         }
 
@@ -193,6 +200,28 @@ namespace File_Boss
             functionHandler.BasePath = di.FullName;
             updateItemDisplay();
             pathText.Text = di.FullName;
+        }
+
+        private void flowLayoutPanel1_DragDrop(object sender, DragEventArgs e)
+        {
+            string[] files = (string[])e.Data!.GetData(DataFormats.FileDrop)!;
+            foreach (string file in files)
+            {
+                functionHandler.MoveFileToCurrDirectory(file);
+            }
+            updateItemDisplay();
+        }
+
+        private void flowLayoutPanel1_DragEnter(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+            {
+                e.Effect = DragDropEffects.All;
+            }
+            else
+            {
+                e.Effect = DragDropEffects.None;
+            }
         }
     }
 }

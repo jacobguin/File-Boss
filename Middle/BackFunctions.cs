@@ -1,5 +1,6 @@
 using System.ComponentModel;
 using System.Diagnostics;
+using System.IO.Compression;
 using System.IO;
 using System.Security.Cryptography;
 
@@ -238,6 +239,11 @@ public class BackFunctions
 
     public void CreateFolder(string FolderName)
     {
+        RealCreateFolder(Path.Combine(BasePath,FolderName));
+    }
+
+    internal void RealCreateFolder(string FolderName)
+    {
         try
         {
             if (!Directory.Exists(FolderName))
@@ -245,7 +251,7 @@ public class BackFunctions
                 Directory.CreateDirectory(FolderName);
                 Console.WriteLine($"Folder '{FolderName}' created successfully.");
             }
-            if (Directory.Exists(FolderName))
+            else
             {
                 throw new UIException($"Folder '{FolderName}' already exists.");
             }
@@ -271,31 +277,62 @@ public class BackFunctions
             throw new UIException($"An unexpected error occurred.\n Details: {e.Message}", ErrorType.Unknown);
         }
     }
-
-
-    //TODO Fix this method
-    /*public void Move(string sourcePath, string destinationPath)
+    public void UnzipFolder(string zipFilePath, string destinationFolder)
     {
+		zipFilePath = Path.Combine(BasePath, zipFilePath);
+		destinationFolder = Path.Combine(BasePath, destinationFolder);
+
+		if (!File.Exists(zipFilePath))
+        {
+            throw new UIException($"Zip file '{zipFilePath}' does not exist.");
+        }
         try
         {
-            Directory.Move(sourcePath, destinationPath);
-            System.Console.WriteLine("The directory move is complete.");
+            ZipFile.ExtractToDirectory(zipFilePath, destinationFolder);
         }
-        catch (ArgumentNullException)
+        catch (Exception e)
         {
-            System.Console.WriteLine("Path is a null reference.");
+            throw new UIException($"An error occurred while unzipping the file: {e.Message}");
         }
-        catch (System.Security.SecurityException)
+    }
+    public void ZipFolder(string folderName)
+    {
+        string fullfolderName = Path.Join(BasePath, folderName);
+
+		if (Directory.Exists(fullfolderName))
         {
-            System.Console.WriteLine("The caller does not have the " +
-                "required permission.");
+            string zipFileName = folderName + ".zip";
+
+            try
+            {
+                ZipFile.CreateFromDirectory(fullfolderName, Path.Join(BasePath, zipFileName));
+                Console.WriteLine("Folder successfully zipped to: " + zipFileName);
+            }
+            catch (Exception e)
+            {
+                throw new UIException($"An unexpected error occured when zipping folder.\n Details: {e.Message}");
+            }
         }
-        catch (ArgumentException)
+        else
         {
-            System.Console.WriteLine("Path is an empty string, " +
-                "contains only white spaces, " +
-                "or contains invalid characters.");
+            throw new UIException($"The folder '{folderName}' does not exist.");
         }
-    }*/
+
+    }
+
+    public void RenameFile(String oldName, String newName)
+    {
+        File.Move(oldName, newName);
+    }
+
+    public void RenameFolder(String oldName, String newName)
+    {
+        Directory.Move(oldName, newName);
+    }
+
+    public void MoveFileToCurrDirectory(String path)
+    {
+        File.Move(path, Path.Join(BasePath, Path.GetFileName(path)));
+    }
 
 }

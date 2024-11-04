@@ -110,4 +110,34 @@ public class Functions
     {
         FunctionHandler.CreateFolder("Folder1");
     }
+    [Fact, Order(9)]
+    public void TestZipFolderDoesNotExist()
+    {
+        Assert.Throws<UIException>(() =>
+        {
+            FunctionHandler.ZipFolder("NonExistentFolder");
+        });
+    }
+    [Fact, Order(10)]
+    public void TestZipFolderSuccess()
+    {
+        FunctionHandler.CreateFolder("FolderToZip");
+
+        FunctionHandler.ZipFolder("FolderToZip");
+
+        FunctionHandler.DeleteFile("FolderToZip.zip");
+    }
+    [Fact, Order(9)]
+    public void TestUnzipFileDoesNotExist()
+    {
+        Assert.Throws<UIException>(() =>
+        {
+            BackFunctions.UnzipFolder("NonExistentFile.zip", "ExtractedFolder");
+        });
+    }
+    [Fact, Order(10)]
+    public void TestUnzip()
+    {
+        BackFunctions.UnzipFolder("FolderToZip.zip", "ExtractedFolder");
+    }
 }
