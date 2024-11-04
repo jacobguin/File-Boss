@@ -4,6 +4,8 @@ using System.IO.Compression;
 using System.IO;
 using System.Security.Cryptography;
 using System.Runtime.CompilerServices;
+using System.Text.Json.Serialization.Metadata;
+using System.Text.Json;
 
 namespace Middle;
 
@@ -52,7 +54,36 @@ public class BackFunctions
 		}
 	}
 
-    public bool TryGetSaveFilePath(string name, out string path)
+	public TResult GetSettings<TResult>(string name, JsonTypeInfo<TResult> TypeInfo) where TResult : new()
+	{
+        if (!TryGetSaveFilePath(name, out string path))
+        {
+            throw new UIException("Not a save file");
+        }
+		TResult? @out;
+		if (!File.Exists(path))
+		{
+			@out = new();
+			File.WriteAllText(path, JsonSerializer.Serialize(@out, TypeInfo));
+		}
+
+		try
+		{
+			@out = JsonSerializer.Deserialize(File.ReadAllText(path), TypeInfo);
+			if (@out is null)
+			{
+				@out = new();
+			}
+		}
+		catch
+		{
+			@out = new();
+		}
+		File.WriteAllText(path, JsonSerializer.Serialize(@out, TypeInfo));
+		return @out;
+	}
+
+	public bool TryGetSaveFilePath(string name, out string path)
     {
         path = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
         if (!Directory.Exists(path)) Directory.CreateDirectory(path);

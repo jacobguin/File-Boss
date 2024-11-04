@@ -64,7 +64,6 @@ namespace File_Boss
 			contextMenuStrip1.Name = "contextMenuStrip1";
 			contextMenuStrip1.Size = new Size(211, 152);
 			contextMenuStrip1.Opening += contextMenuStrip1_Opening;
-			contextMenuStrip1.Click += contextMenuStrip1_Click;
 			// 
 			// openWithToolStripMenuItem
 			// 
@@ -98,6 +97,7 @@ namespace File_Boss
 			sendOverEmailToolStripMenuItem.Name = "sendOverEmailToolStripMenuItem";
 			sendOverEmailToolStripMenuItem.Size = new Size(210, 24);
 			sendOverEmailToolStripMenuItem.Text = "Send Over Email";
+			sendOverEmailToolStripMenuItem.Click += sendOverEmailToolStripMenuItem_Click;
 			// 
 			// label1
 			// 

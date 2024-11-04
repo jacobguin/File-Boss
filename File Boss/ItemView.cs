@@ -27,6 +27,7 @@ namespace File_Boss
 		public event Func<ItemView, Task>? OnAllClick;
 		public event Func<ItemView, Task>? OnDelete;
 		public event Func<ItemView, Task>? RequestUpdate;
+		public event Func<Task>? RequestEmaile;
 		private ToolStripMenuItem? fav, zip, uzip;
 
 		private void LoadBoth(BackFunctions functionHandler)
@@ -212,8 +213,12 @@ namespace File_Boss
 
 		private void contextMenuStrip1_Click(object sender, EventArgs e)
 		{
-			EmailPrompt EP = new();
-			EP.ShowDialog();
+			
+		}
+
+		private void sendOverEmailToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			if (RequestEmaile is not null) RequestEmaile.Invoke();
 		}
 	}
 }

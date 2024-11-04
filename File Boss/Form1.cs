@@ -117,9 +117,31 @@ namespace File_Boss
             fd.OnDelete += Fd_OnDelete;
             fd.RequestUpdate += Fd_RequestUpdate;
 			fd.OnAllSingleClick += Fd_OnAllSingleClick;
+			fd.RequestEmaile += Fd_RequestEmaile;
             flowLayoutPanel1.Controls.Add(fd);
             return fd;
         }
+
+		private Task Fd_RequestEmaile()
+		{
+			List<string> paths = new();
+            foreach (ItemView item in SelectedViews)
+            {
+                if (item.CurentFile is not null)
+                {
+                    if (item.CurentFile.Name.ToLower().EndsWith(".zip"))
+                    {
+                        paths.Add(item.CurentFile.FullName);
+                    }
+                }
+            }
+			EmailPrompt EP = new()
+			{
+				PathsToZips = paths.ToArray(),
+			};
+			EP.ShowDialog();
+            return Task.CompletedTask;
+		}
 
 		private Task Fd_OnAllSingleClick(ItemView arg)
 		{
@@ -152,6 +174,7 @@ namespace File_Boss
             iv.OnAllClick += Fd_OnAllClick;
             iv.RequestUpdate += Fd_RequestUpdate;
             iv.OnAllSingleClick += Fd_OnAllSingleClick;
+            iv.RequestEmaile += Fd_RequestEmaile;
 			iv.LoadFolder(di.FullName, functionHandler);
             flowLayoutPanel1.Controls.Add(iv);
         }
