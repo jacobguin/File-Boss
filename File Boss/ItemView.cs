@@ -96,7 +96,7 @@ namespace File_Boss
             String path = CurentFile.FullName;
             Clipboard.SetText(path);
         }
-
+        //This is the Easter Egg DONT DELETE
         private void propertiesToolStripMenuItem_Click(object sender, EventArgs e)
         {
             File_Properties_Form fp = new();
