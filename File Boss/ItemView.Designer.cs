@@ -36,7 +36,10 @@ namespace File_Boss
 			contextMenuStrip1 = new ContextMenuStrip(components);
 			openWithToolStripMenuItem = new ToolStripMenuItem();
 			deleteToolStripMenuItem = new ToolStripMenuItem();
+			copyToolStripMenuItem = new ToolStripMenuItem();
+			renameToolStripMenuItem = new ToolStripMenuItem();
 			label1 = new Label();
+      propertiesToolStripMenuItem = new ToolStripMenuItem();
 			((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
 			contextMenuStrip1.SuspendLayout();
 			SuspendLayout();
@@ -47,7 +50,7 @@ namespace File_Boss
 			pictureBox1.BackgroundImageLayout = ImageLayout.None;
 			pictureBox1.ContextMenuStrip = contextMenuStrip1;
 			pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
-			pictureBox1.Location = new Point(18, 14);
+			pictureBox1.Location = new Point(18, 13);
 			pictureBox1.Name = "pictureBox1";
 			pictureBox1.Size = new Size(72, 72);
 			pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -57,32 +60,53 @@ namespace File_Boss
 			// contextMenuStrip1
 			// 
 			contextMenuStrip1.ImageScalingSize = new Size(20, 20);
-			contextMenuStrip1.Items.AddRange(new ToolStripItem[] { openWithToolStripMenuItem, deleteToolStripMenuItem });
+			contextMenuStrip1.Items.AddRange(new ToolStripItem[] { openWithToolStripMenuItem, deleteToolStripMenuItem, copyToolStripMenuItem, renameToolStripMenuItem, propertiesToolStripMenuItem });
 			contextMenuStrip1.Name = "contextMenuStrip1";
-			contextMenuStrip1.Size = new Size(211, 80);
+			contextMenuStrip1.Size = new Size(172, 100);
 			// 
 			// openWithToolStripMenuItem
 			// 
 			openWithToolStripMenuItem.Name = "openWithToolStripMenuItem";
-			openWithToolStripMenuItem.Size = new Size(210, 24);
+			openWithToolStripMenuItem.Size = new Size(171, 24);
 			openWithToolStripMenuItem.Text = "Open With";
 			// 
 			// deleteToolStripMenuItem
 			// 
 			deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
-			deleteToolStripMenuItem.Size = new Size(210, 24);
+			deleteToolStripMenuItem.Size = new Size(171, 24);
 			deleteToolStripMenuItem.Text = "Delete";
 			deleteToolStripMenuItem.Click += deleteToolStripMenuItem_Click;
+			// 
+			// copyToolStripMenuItem
+			// 
+			copyToolStripMenuItem.Name = "copyToolStripMenuItem";
+			copyToolStripMenuItem.Size = new Size(171, 24);
+			copyToolStripMenuItem.Text = "Copy File Path";
+			copyToolStripMenuItem.Click += copyToolStripMenuItem_Click;
+			// 
+			// renameToolStripMenuItem
+			// 
+			renameToolStripMenuItem.Name = "renameToolStripMenuItem";
+			renameToolStripMenuItem.Size = new Size(171, 24);
+			renameToolStripMenuItem.Text = "Rename";
+			renameToolStripMenuItem.Click += renameToolStripMenuItem_Click;
 			// 
 			// label1
 			// 
 			label1.AutoSize = true;
 			label1.ContextMenuStrip = contextMenuStrip1;
-			label1.Location = new Point(18, 103);
+			label1.Location = new Point(18, 97);
 			label1.Name = "label1";
 			label1.Size = new Size(50, 20);
 			label1.TabIndex = 3;
 			label1.Text = "label1";
+      // 
+            // propertiesToolStripMenuItem
+            // 
+            propertiesToolStripMenuItem.Name = "propertiesToolStripMenuItem";
+            propertiesToolStripMenuItem.Size = new Size(210, 24);
+            propertiesToolStripMenuItem.Text = "Properties";
+            propertiesToolStripMenuItem.Click += propertiesToolStripMenuItem_Click;
 			// 
 			// ItemView
 			// 
@@ -105,5 +129,8 @@ namespace File_Boss
 		private ToolStripMenuItem openWithToolStripMenuItem;
 		private ToolStripMenuItem deleteToolStripMenuItem;
 		public Label label1;
-	}
+        private ToolStripMenuItem renameToolStripMenuItem;
+        private ToolStripMenuItem copyToolStripMenuItem;
+        private ToolStripMenuItem propertiesToolStripMenuItem;
+    }
 }

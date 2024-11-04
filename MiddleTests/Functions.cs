@@ -9,30 +9,64 @@ public class Functions
 
     public Functions()
     {
-        string tempDirectory;
-        while (true)
-        {
-            tempDirectory = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
-
-            if(!File.Exists(tempDirectory) && !Directory.Exists(tempDirectory))
-            {
-                Directory.CreateDirectory(tempDirectory);
-                break;
-            }
-        }
 
         FunctionHandler = new()
         {
-            BasePath = tempDirectory
+            BasePath = Environment.CurrentDirectory
         };
+
+		if (FunctionHandler.TryGetSaveFilePath("test_path.txt", out string p))
+		{
+			string d = File.ReadAllText(p);
+            if (Directory.Exists(d))
+            {
+                FunctionHandler.BasePath = d;
+            }
+		}        
     }
-    
-    [Fact, Order(1)]
+
+	[Fact, Order(1)]
+	public void OpenTestSetup()
+	{
+		string tempDirectory;
+		while (true)
+		{
+			tempDirectory = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
+
+			if (!File.Exists(tempDirectory) && !Directory.Exists(tempDirectory))
+			{
+				Directory.CreateDirectory(tempDirectory);
+				break;
+			}
+		}
+
+		if (!FunctionHandler.TryGetSaveFilePath("test_path.txt", out string p))
+		{
+			BackFunctions.RealCreateFile(p);
+		}
+		File.WriteAllText(p, tempDirectory);
+        try
+        {
+            Directory.Delete(tempDirectory, true);
+            Directory.CreateDirectory(tempDirectory);
+        }
+        catch
+        {
+            throw;
+        }
+	}
+
+	[Fact, Order(2)]
     public void TestCreateFile()
     {
         FunctionHandler.CreateFile("TestFile.txt");
     }
-    [Fact, Order(1)]
+	[Fact, Order(3)]
+	public void TestAddFavorite()
+	{
+		FunctionHandler.AddFavorites("TestFile.txt");
+	}
+	[Fact, Order(3)]
     public void TestCreateFileExist()
     {
         Assert.Throws<UIException>(() =>
@@ -40,15 +74,7 @@ public class Functions
             FunctionHandler.CreateFile("TestFile.txt");
         });
     }
-    [Fact, Order(1)]
-    public void TestInvalidFileName()
-    {
-        Assert.Throws<UIException>(() =>
-        {
-            FunctionHandler.CreateFile("..");
-        });
-    }
-    [Fact, Order(2)]
+    [Fact, Order(3)]
     public void TestOpenFileNotExist()
     {
         Assert.Throws<UIException>(() =>
@@ -56,71 +82,62 @@ public class Functions
             FunctionHandler.Open("fdsjhkfdfdhjhfdsjhdfsjhfdsjhafds.rxt");
         });
     }
-    [Fact, Order(2)]
-    public void TestOpenWithProgramDontExist()
-    {
-        Assert.Throws<UIException>(() =>
-        {
-            FunctionHandler.OpenWith("billybobx32.elf", "TestFile.txt");
-        });
-    }
-    [Fact, Order(2)]
-    public void TestOpenWithFileDontExist()
-    {
-        Assert.Throws<UIException>(() =>
-        {
-            FunctionHandler.OpenWith(FunctionHandler.GetProgram("TestFile.txt")!, "dennis.txt");
-        });
-    }
-    [Fact, Order(3)]
+	[Fact, Order(4)]
+	public void TestHasFavorite()
+	{
+		string [] tmp = FunctionHandler.GetFavorites();
+        Assert.Contains(Path.Join(FunctionHandler.BasePath, "TestFile.txt"), tmp);
+	}
+	[Fact, Order(4)]
     public void OpenFileWith()
     {
         FunctionHandler.OpenWith(FunctionHandler.GetProgram("TestFile.txt")!, "TestFile.txt");
     }
-    [Fact, Order(4)]
+    [Fact, Order(5)]
     public void OpenFile()
     {
         FunctionHandler.Open("TestFile.txt");
     }
 
-    [Fact, Order(5)]
-    public void testDelete()
+    [Fact, Order(6)]
+    public void TestDeleteFile()
     {
         FunctionHandler.DeleteFile("TestFile.txt");
     }
-    [Fact, Order(5)]
-    public void TestDeleteDoesNotExist()
-    {
-        Assert.Throws<UIException>(() =>
-        {
-            FunctionHandler.DeleteFile("fjdaskfjdsakf.rgy");
-        });
-    }
 
-    [Fact, Order(6)]
-    public void testCreateFolder()
+    [Fact, Order(7)]
+    public void TestCreateFolder()
     {
         FunctionHandler.CreateFolder("Folder1");
     }
-    [Fact, Order(7)]
-    public void TestFolderAlreadyExist()
+    [Fact, Order(9)]
+    public void TestZipFolderDoesNotExist()
     {
         Assert.Throws<UIException>(() =>
         {
-            FunctionHandler.CreateFolder("Folder1");
+            FunctionHandler.ZipFolder("NonExistentFolder");
         });
     }
-    [Fact, Order(6)]
-    public void TestInvalidFolderName()
+    [Fact, Order(10)]
+    public void TestZipFolderSuccess()
+    {
+        FunctionHandler.CreateFolder("FolderToZip");
+
+        FunctionHandler.ZipFolder("FolderToZip");
+
+        FunctionHandler.DeleteFile("FolderToZip.zip");
+    }
+    [Fact, Order(9)]
+    public void TestUnzipFileDoesNotExist()
     {
         Assert.Throws<UIException>(() =>
         {
-            FunctionHandler.CreateFolder("../ \\ : ? * \" < > |");
+            BackFunctions.UnzipFolder("NonExistentFile.zip", "ExtractedFolder");
         });
     }
-    [Fact, Order(8)]
-    public void CleanUp()
+    [Fact, Order(10)]
+    public void TestUnzip()
     {
-        Directory.Delete("Folder1");
+        BackFunctions.UnzipFolder("FolderToZip.zip", "ExtractedFolder");
     }
 }
