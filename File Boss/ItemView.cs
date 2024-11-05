@@ -187,9 +187,9 @@ namespace File_Boss
 				Text = label1.Text
 			};
 			label1.Visible = false;
-			renameBox.Location = new System.Drawing.Point(15, 103);
-			renameBox.Size = new System.Drawing.Size(50, 20);
-			this.Controls.Add(renameBox);
+			renameBox.Location = new System.Drawing.Point(15, 70);
+			renameBox.Size = new System.Drawing.Size(70, 20);
+            this.Controls.Add(renameBox);
 			renameBox.KeyPress += rename_Item;
 		}
 		private void rename_Item(object? sender, KeyPressEventArgs e)
@@ -203,10 +203,10 @@ namespace File_Boss
 			{
 				if (!temp.Text.Contains('.'))
 				{
-					String defaultExt = temp.Text + ".txt";
-					label1.Text = defaultExt;
-					functionHandler.RenameFile(oldName, defaultExt);
-					MessageBox.Show(oldName + " was renamed to " + defaultExt + ". No extension was specified. The file was defaulted to a text file.");
+					String defaultExt = Path.GetExtension(oldName);
+					String newName = label1.Text + defaultExt;
+					functionHandler.RenameFile(oldName, newName);
+					MessageBox.Show(oldName + " was renamed to " + newName + ". No extension was specified. The file was defaulted to original.");
 				}
 				else
 				{
