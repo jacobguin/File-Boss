@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.IO.Compression;
 using System.IO;
 using System.Security.Cryptography;
+using System.Collections.Specialized;
 using System.Runtime.CompilerServices;
 using System.Text.Json.Serialization.Metadata;
 using System.Text.Json;
@@ -165,6 +166,34 @@ public class BackFunctions
         }
     }
 
+    public void PastFiles(StringCollection paths)
+    {
+		foreach (var f in paths)
+		{
+            if (string.IsNullOrWhiteSpace(f) || !File.Exists(f)) continue;
+            FileInfo old = new(f);
+            string name = old.Name;
+			if (File.Exists(Path.Join(BasePath, name)))
+			{
+                string ext = old.Extension;
+                name = name.Remove(name.Length - ext.Length, ext.Length);
+				void withnum(int i)
+				{
+					if (File.Exists(Path.Join(BasePath, name + $" ({i}){ext}")))
+					{
+                        withnum(i+1);
+					}
+                    else
+                    {
+                        name += $" ({i}){ext}";
+					}
+				}
+                withnum(1);
+			}
+			File.Copy(f, Path.Join(BasePath, name));
+		}
+	}
+    
     public void OpenWith(string Program, string FileToOpen)
     {
         try

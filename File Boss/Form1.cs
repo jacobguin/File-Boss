@@ -1,8 +1,10 @@
 using Microsoft.VisualBasic.Devices;
 using Middle;
+using System.Collections.Specialized;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
+using System.Net.Http.Headers;
 using System.Reflection;
 using System.Windows.Forms;
 using System.Windows.Forms.VisualStyles;
@@ -103,6 +105,7 @@ namespace File_Boss
 			fd.RequestUpdate += Fd_RequestUpdate;
 			fd.OnAllSingleClick += Fd_OnAllSingleClick;
 			fd.RequestEmaile += Fd_RequestEmaile;
+			fd.RequestCopy += Fd_RequestCopy;
 			flowLayoutPanel1.Controls.Add(fd);
 			return fd;
 		}
@@ -174,6 +177,12 @@ namespace File_Boss
 			return Task.CompletedTask;
 		}
 
+		private Task Fd_RequestCopy()
+		{
+			//TODO add bulk support
+			return Task.CompletedTask;
+		}
+
 		private Task Fd_RequestUpdate(ItemView arg)
 		{
 			updateItemDisplay();
@@ -188,6 +197,7 @@ namespace File_Boss
 			iv.OnAllSingleClick += Fd_OnAllSingleClick;
 			iv.OnDelete += Fd_OnDelete;
 			iv.RequestEmaile += Fd_RequestEmaile;
+			iv.RequestCopy += Fd_RequestCopy;
 			iv.LoadFolder(di.FullName, functionHandler);
 			flowLayoutPanel1.Controls.Add(iv);
 		}
@@ -304,17 +314,41 @@ namespace File_Boss
 			updateItemDisplay();
 		}
 
-		private void flowLayoutPanel1_DragEnter(object sender, DragEventArgs e)
-		{
-			if (e.Data.GetDataPresent(DataFormats.FileDrop))
-			{
-				e.Effect = DragDropEffects.All;
-			}
-			else
-			{
-				e.Effect = DragDropEffects.None;
-			}
-		}
+        private void flowLayoutPanel1_DragEnter(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+            {
+                e.Effect = DragDropEffects.All;
+            }
+            else
+            {
+                e.Effect = DragDropEffects.None;
+            }
+        }
+
+
+        ItemView iv = new ItemView();
+        public DirectoryInfo? CurentDirectory;
+
+        private void pasteToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+			StringCollection colection = Clipboard.GetFileDropList();
+            functionHandler.PastFiles(colection);
+            updateItemDisplay();
+        }
+
+        private void contextMenuStrip1_Opening(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if (!Clipboard.ContainsFileDropList())
+            {
+                pasteToolStripMenuItem.Enabled = false;
+            }
+            else
+            {
+                pasteToolStripMenuItem.Enabled = true;
+            }
+        }
 
 		private void emailSettingsToolStripMenuItem1_Click(object sender, EventArgs e)
 		{

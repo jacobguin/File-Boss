@@ -2,6 +2,7 @@
 using Middle;
 using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
@@ -13,12 +14,12 @@ using System.Xml.Serialization;
 
 namespace File_Boss
 {
-	public partial class ItemView : UserControl
-	{
-		public ItemView()
-		{
-			InitializeComponent();
-		}
+    public partial class ItemView : UserControl
+    {
+        public ItemView()
+        {
+            InitializeComponent();
+        }
 
 		private BackFunctions functionHandler;
 		public FileInfo? CurentFile;
@@ -28,6 +29,7 @@ namespace File_Boss
 		public event Func<ItemView, Task>? OnDelete;
 		public event Func<ItemView, Task>? RequestUpdate;
 		public event Func<Task>? RequestEmaile;
+		public event Func<Task>? RequestCopy;
 		private ToolStripMenuItem? fav, zip, uzip;
 
 		private void LoadBoth(BackFunctions functionHandler)
@@ -87,48 +89,48 @@ namespace File_Boss
 				ToolStripMenuItem programItem = new(program);
 				openWithToolStripMenuItem.DropDownItems.Add(programItem);
 
-				programItem.Click += (s, args) =>
-				{
-					functionHandler.OpenWith(program, CurentFile.FullName);
-				};
-			}
-			contextMenuStrip1.Items.Add(fav = new ToolStripMenuItem()
-			{
-				Text = "Add To Favorites"
-			});
-			fav.Click += Tsm_Click;
-			if (File.ToLower().EndsWith("zip"))
-			{
-				contextMenuStrip1.Items.Add(uzip = new ToolStripMenuItem()
-				{
-					Text = "Unzip"
-				});
-				uzip.Click += Uzip_Click;
-			}
-		}
+                programItem.Click += (s, args) =>
+                {
+                    functionHandler.OpenWith(program, CurentFile.FullName);
+                };
+            }
+            contextMenuStrip1.Items.Add(fav = new ToolStripMenuItem()
+            {
+                Text = "Add To Favorites"
+            });
+            fav.Click += Tsm_Click;
+            if (File.ToLower().EndsWith("zip"))
+            {
+                contextMenuStrip1.Items.Add(uzip = new ToolStripMenuItem()
+                {
+                    Text = "Unzip"
+                });
+                uzip.Click += Uzip_Click;
+            }
+        }
 
-		private void Uzip_Click(object? sender, EventArgs e)
-		{
-			if (CurentFile != null && CurentFile.Extension == ".zip")
-			{
-				functionHandler.UnzipFolder(CurentFile.Name, Path.GetFileNameWithoutExtension(CurentFile.FullName));
-				if (RequestUpdate is not null)
-				{
-					RequestUpdate.Invoke(this);
-				}
-				MessageBox.Show("Folder successfully unzipped!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-			}
-			else
-			{
-				MessageBox.Show("This item is not a zip file.", "Cannot Unzip", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-			}
-		}
+        private void Uzip_Click(object? sender, EventArgs e)
+        {
+            if (CurentFile != null && CurentFile.Extension == ".zip")
+            {
+                functionHandler.UnzipFolder(CurentFile.Name, Path.GetFileNameWithoutExtension(CurentFile.FullName));
+                if (RequestUpdate is not null)
+                {
+                    RequestUpdate.Invoke(this);
+                }
+                MessageBox.Show("Folder successfully unzipped!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else
+            {
+                MessageBox.Show("This item is not a zip file.", "Cannot Unzip", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
 
-		private void Tsm_Click(object? sender, EventArgs e)
-		{
-			functionHandler.AddFavorites(label1.Text);
-			fav!.Enabled = false;
-		}
+        private void Tsm_Click(object? sender, EventArgs e)
+        {
+            functionHandler.AddFavorites(label1.Text);
+            fav!.Enabled = false;
+        }
 
 		private void AllSingleClick(object sender, MouseEventArgs e)
 		{
@@ -196,45 +198,45 @@ namespace File_Boss
 		{
 			if (e.KeyChar != (char)Keys.Enter) return;
 
-			TextBox temp = (TextBox)sender!;
-			String oldName = label1.Text;
-			label1.Text = temp.Text;
-			if (oldName.Contains('.'))
-			{
-				if (!temp.Text.Contains('.'))
-				{
-					String defaultExt = temp.Text + ".txt";
-					label1.Text = defaultExt;
-					functionHandler.RenameFile(oldName, defaultExt);
-					MessageBox.Show(oldName + " was renamed to " + defaultExt + ". No extension was specified. The file was defaulted to a text file.");
-				}
-				else
-				{
-					functionHandler.RenameFile(oldName, temp.Text);
-					MessageBox.Show(oldName + " was renamed to " + temp.Text);
-				}
-			}
-			else
-			{
-				functionHandler.RenameFolder(oldName, temp.Text);
-				MessageBox.Show(oldName + " was renamed to " + temp.Text);
-			}
-			Controls.Remove(temp);
-			label1.Visible = true;
-			if (RequestUpdate is not null)
-			{
-				RequestUpdate.Invoke(this);
-			}
+            TextBox temp = (TextBox)sender!;
+            String oldName = label1.Text;
+            label1.Text = temp.Text;
+            if (oldName.Contains('.'))
+            {
+                if (!temp.Text.Contains('.'))
+                {
+                    String defaultExt = temp.Text + ".txt";
+                    label1.Text = defaultExt;
+                    functionHandler.RenameFile(oldName, defaultExt);
+                    MessageBox.Show(oldName + " was renamed to " + defaultExt + ". No extension was specified. The file was defaulted to a text file.");
+                }
+                else
+                {
+                    functionHandler.RenameFile(oldName, temp.Text);
+                    MessageBox.Show(oldName + " was renamed to " + temp.Text);
+                }
+            }
+            else
+            {
+                functionHandler.RenameFolder(oldName, temp.Text);
+                MessageBox.Show(oldName + " was renamed to " + temp.Text);
+            }
+            Controls.Remove(temp);
+            label1.Visible = true;
+            if (RequestUpdate is not null)
+            {
+                RequestUpdate.Invoke(this);
+            }
 
-		}
+        }
 
-		private void copyToolStripMenuItem_Click(object sender, EventArgs e)
-		{
-			String path = CurentFile.FullName;
-			Clipboard.SetText(path);
-		}
+        private void copyToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            String path = CurentFile.FullName;
+            Clipboard.SetText(path);
+        }
 
-    private void propertiesToolStripMenuItem_Click(object sender, EventArgs e)
+        private void propertiesToolStripMenuItem_Click(object sender, EventArgs e)
         {
             File_Properties_Form fp = new();
             fp.load_file(CurentFile);
@@ -250,6 +252,19 @@ namespace File_Boss
 			
 		}
 
+        public void copyToolStripMenuItem1_Click(object sender, EventArgs e)
+        {   
+            if (RequestCopy is not null)
+            {
+                RequestCopy.Invoke();
+            }
+            Clipboard.SetFileDropList(new StringCollection { CurentFile!.FullName });
+        }
+        
+        private void contextMenuStrip1_Opening(object sender, CancelEventArgs e)
+        {
+            
+        }  
 		private void sendOverEmailToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			if (RequestEmaile is not null) RequestEmaile.Invoke();

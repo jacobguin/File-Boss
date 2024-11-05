@@ -22,7 +22,7 @@ namespace File_Boss
 			base.Dispose(disposing);
 		}
 
-		#region Component Designer generated code
+        #region Component Designer generated code
 
 		/// <summary> 
 		/// Required method for Designer support - do not modify 
@@ -109,7 +109,7 @@ namespace File_Boss
 			label1.Size = new Size(50, 20);
 			label1.TabIndex = 3;
 			label1.Text = "label1";
-      // 
+            // 
             // propertiesToolStripMenuItem
             // 
             propertiesToolStripMenuItem.Name = "propertiesToolStripMenuItem";
@@ -131,7 +131,10 @@ namespace File_Boss
 			PerformLayout();
 		}
 
-		#endregion
+        #endregion
+
+        private PictureBox pictureBox1;
+		private ContextMenuStrip contextMenuStrip1;
 		private ToolStripMenuItem openWithToolStripMenuItem;
 		private ToolStripMenuItem deleteToolStripMenuItem;
 		public Label label1;
