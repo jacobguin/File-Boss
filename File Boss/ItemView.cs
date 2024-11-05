@@ -41,10 +41,6 @@ namespace File_Boss
 			this.MouseClick += AllSingleClick;
 			label1.MouseClick += AllSingleClick;
 			pictureBox1.MouseClick += AllSingleClick;
-
-			ToolStripMenuItem createShortcutMenuItem = new ToolStripMenuItem("Create Shortcut to Desktop");
-			contextMenuStrip1.Items.Add(createShortcutMenuItem);
-			createShortcutMenuItem.Click += CreateShortcutMenuItem_Click;
 		}
 
 		public void LoadFolder(string Folder, BackFunctions functionHandler)
@@ -53,7 +49,9 @@ namespace File_Boss
 			CurentDirectory = new(Folder);
 			label1.Text = CurentDirectory.Name;
 			contextMenuStrip1.Items.Remove(openWithToolStripMenuItem);
-			contextMenuStrip1.Items.Add(zip = new ToolStripMenuItem()
+            contextMenuStrip1.Items.Remove(propertiesToolStripMenuItem);
+            contextMenuStrip1.Items.Remove(copyToolStripMenuItem);
+            contextMenuStrip1.Items.Add(zip = new ToolStripMenuItem()
 			{
 				Text = "Zip"
 			});
@@ -84,7 +82,10 @@ namespace File_Boss
 			label1.Text = CurentFile.Name;
 			pictureBox1.Image = icon.ToBitmap();
 			openWithToolStripMenuItem.DropDownItems.Clear();
-			foreach (var program in functionHandler.ProgramMap.Values)
+            ToolStripMenuItem createShortcutMenuItem = new ToolStripMenuItem("Create Shortcut to Desktop");
+            contextMenuStrip1.Items.Add(createShortcutMenuItem);
+            createShortcutMenuItem.Click += CreateShortcutMenuItem_Click;
+            foreach (var program in functionHandler.ProgramMap.Values)
 			{
 				ToolStripMenuItem programItem = new(program);
 				openWithToolStripMenuItem.DropDownItems.Add(programItem);
@@ -189,44 +190,44 @@ namespace File_Boss
 				Text = label1.Text
 			};
 			label1.Visible = false;
-			renameBox.Location = new System.Drawing.Point(15, 103);
-			renameBox.Size = new System.Drawing.Size(50, 20);
-			this.Controls.Add(renameBox);
+			renameBox.Location = new System.Drawing.Point(15, 70);
+			renameBox.Size = new System.Drawing.Size(70, 20);
+            this.Controls.Add(renameBox);
 			renameBox.KeyPress += rename_Item;
 		}
 		private void rename_Item(object? sender, KeyPressEventArgs e)
 		{
 			if (e.KeyChar != (char)Keys.Enter) return;
 
-            TextBox temp = (TextBox)sender!;
-            String oldName = label1.Text;
-            label1.Text = temp.Text;
-            if (oldName.Contains('.'))
-            {
-                if (!temp.Text.Contains('.'))
-                {
-                    String defaultExt = temp.Text + ".txt";
-                    label1.Text = defaultExt;
-                    functionHandler.RenameFile(oldName, defaultExt);
-                    MessageBox.Show(oldName + " was renamed to " + defaultExt + ". No extension was specified. The file was defaulted to a text file.");
-                }
-                else
-                {
-                    functionHandler.RenameFile(oldName, temp.Text);
-                    MessageBox.Show(oldName + " was renamed to " + temp.Text);
-                }
-            }
-            else
-            {
-                functionHandler.RenameFolder(oldName, temp.Text);
-                MessageBox.Show(oldName + " was renamed to " + temp.Text);
-            }
-            Controls.Remove(temp);
-            label1.Visible = true;
-            if (RequestUpdate is not null)
-            {
-                RequestUpdate.Invoke(this);
-            }
+			TextBox temp = (TextBox)sender!;
+			String oldName = label1.Text;
+			label1.Text = temp.Text;
+			if (oldName.Contains('.'))
+			{
+				if (!temp.Text.Contains('.'))
+				{
+					String defaultExt = Path.GetExtension(oldName);
+					String newName = label1.Text + defaultExt;
+					functionHandler.RenameFile(oldName, newName);
+					MessageBox.Show(oldName + " was renamed to " + newName + ". No extension was specified. The file was defaulted to original.");
+				}
+				else
+				{
+					functionHandler.RenameFile(oldName, temp.Text);
+					MessageBox.Show(oldName + " was renamed to " + temp.Text);
+				}
+			}
+			else
+			{
+				functionHandler.RenameFolder(oldName, temp.Text);
+				MessageBox.Show(oldName + " was renamed to " + temp.Text);
+			}
+			Controls.Remove(temp);
+			label1.Visible = true;
+			if (RequestUpdate is not null)
+			{
+				RequestUpdate.Invoke(this);
+			}
 
         }
 
