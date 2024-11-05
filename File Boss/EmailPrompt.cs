@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Middle;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -19,11 +20,14 @@ namespace File_Boss
 			InitializeComponent();
 		}
 
+		public required BackFunctions Functions { get; init; }
+
 		public required string[] PathsToZips { get; init; }
 
 		private void button1_Click(object sender, EventArgs e)
 		{
-			var fromAddress = new MailAddress(FromtextBox1.Text);
+			var json = Functions.GetSettings("email_info.json", EmailInfoContext.Default.EmailInfo);
+			var fromAddress = new MailAddress(json.Email, json.DisplayName);
 			var toAddress = new MailAddress(SendTotextBox.Text);
 			SmtpClient smtp = new()
 			{
@@ -32,7 +36,7 @@ namespace File_Boss
 				EnableSsl = true,
 				DeliveryMethod = SmtpDeliveryMethod.Network,
 				UseDefaultCredentials = false,
-				Credentials = new NetworkCredential(fromAddress.Address, PasswordtextBox1.Text)
+				Credentials = new NetworkCredential(fromAddress.Address, json.Password)
 			};
 			MailMessage message = new(fromAddress, toAddress)
 			{
@@ -43,7 +47,10 @@ namespace File_Boss
 			{
 				message.Attachments.Add(new Attachment(s));
 			}
+		
 			smtp.Send(message);
+			MessageBox.Show("Email Sent");
+			Close();
 		}
 	}
 }

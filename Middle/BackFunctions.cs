@@ -54,14 +54,16 @@ public class BackFunctions
 		}
 	}
 
+	public void SaveSettings<TResult>(string name, TResult json, JsonTypeInfo<TResult> TypeInfo) where TResult : new()
+	{
+        _ = TryGetSaveFilePath(name, out string path);
+		File.WriteAllText(path, JsonSerializer.Serialize(json, TypeInfo));
+	}
+
 	public TResult GetSettings<TResult>(string name, JsonTypeInfo<TResult> TypeInfo) where TResult : new()
 	{
-        if (!TryGetSaveFilePath(name, out string path))
-        {
-            throw new UIException("Not a save file");
-        }
 		TResult? @out;
-		if (!File.Exists(path))
+		if (!TryGetSaveFilePath(name, out string path))
 		{
 			@out = new();
 			File.WriteAllText(path, JsonSerializer.Serialize(@out, TypeInfo));
@@ -342,26 +344,22 @@ public class BackFunctions
         string zippath = Path.Join(BasePath, zip);
         if (File.Exists(zippath)) throw new UIException($"Zip file '{zip}' already exist.");
 
+        ZipArchive archive = ZipFile.Open(zippath, ZipArchiveMode.Create);
 
-        using (FileStream fs = File.Open(zippath, FileMode.Create))
-        {
-		    using (ZipArchive archive = new(fs))
-		    {
-			    foreach (string fileName in folderandfileNames)
-			    {
-				    string path = Path.Join(BasePath, fileName);
-				    if (File.Exists(path))
-				    {
-                        archive.CreateEntryFromFile(path, fileName);
-			        }
-				    else if (Directory.Exists(path))
-				    {
-                        AddDirectoryToArchive(archive, path, fileName);
-				    }
-			    }
-		    }
-	    }        
-    }
+		foreach (string fileName in folderandfileNames)
+		{
+			string path = Path.Join(BasePath, fileName);
+			if (File.Exists(path))
+			{
+				archive.CreateEntryFromFile(path, fileName);
+			}
+			else if (Directory.Exists(path))
+			{
+				AddDirectoryToArchive(archive, path, fileName);
+			}
+		}
+        archive.Dispose();
+	}
 	public void ZipFolder(string folderName)
     {
         string fullfolderName = Path.Join(BasePath, folderName);

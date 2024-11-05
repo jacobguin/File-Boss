@@ -14,3 +14,11 @@ public class EmailInfo
 	[JsonPropertyName("dn")]
 	public string DisplayName { get; set; } = default!;
 }
+
+[JsonSerializable(typeof(EmailInfo))]
+[JsonSourceGenerationOptions(
+	GenerationMode = JsonSourceGenerationMode.Default,
+	PropertyNamingPolicy = JsonKnownNamingPolicy.Unspecified,
+	WriteIndented = true,
+	DefaultIgnoreCondition = JsonIgnoreCondition.Never)]
+public partial class EmailInfoContext : JsonSerializerContext;

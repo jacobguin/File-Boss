@@ -35,7 +35,7 @@
 			FromtextBox1 = new TextBox();
 			label1 = new Label();
 			DisplayNametextBox = new TextBox();
-			label3 = new Label();
+			linkLabel1 = new LinkLabel();
 			SuspendLayout();
 			// 
 			// label4
@@ -62,7 +62,7 @@
 			button1.Name = "button1";
 			button1.Size = new Size(312, 50);
 			button1.TabIndex = 14;
-			button1.Text = "Submit";
+			button1.Text = "Save";
 			button1.UseVisualStyleBackColor = true;
 			button1.Click += button1_Click;
 			// 
@@ -98,24 +98,23 @@
 			DisplayNametextBox.Size = new Size(314, 27);
 			DisplayNametextBox.TabIndex = 12;
 			// 
-			// label3
+			// linkLabel1
 			// 
-			label3.AutoSize = true;
-			label3.ForeColor = Color.Red;
-			label3.Location = new Point(13, 191);
-			label3.MaximumSize = new Size(312, 50);
-			label3.Name = "label3";
-			label3.Size = new Size(50, 20);
-			label3.TabIndex = 16;
-			label3.Text = "label3";
-			label3.Visible = false;
+			linkLabel1.AutoSize = true;
+			linkLabel1.Location = new Point(16, 191);
+			linkLabel1.Name = "linkLabel1";
+			linkLabel1.Size = new Size(110, 20);
+			linkLabel1.TabIndex = 16;
+			linkLabel1.TabStop = true;
+			linkLabel1.Text = "Add Gmail app";
+			linkLabel1.LinkClicked += linkLabel1_LinkClicked;
 			// 
 			// EmailLogin
 			// 
 			AutoScaleDimensions = new SizeF(8F, 20F);
 			AutoScaleMode = AutoScaleMode.Font;
 			ClientSize = new Size(338, 303);
-			Controls.Add(label3);
+			Controls.Add(linkLabel1);
 			Controls.Add(label4);
 			Controls.Add(PasswordtextBox1);
 			Controls.Add(button1);
@@ -125,7 +124,7 @@
 			Controls.Add(DisplayNametextBox);
 			FormBorderStyle = FormBorderStyle.FixedToolWindow;
 			Name = "EmailLogin";
-			Text = "Email Login";
+			Text = "Email Info";
 			ResumeLayout(false);
 			PerformLayout();
 		}
@@ -139,6 +138,6 @@
 		private TextBox FromtextBox1;
 		private Label label1;
 		private TextBox DisplayNametextBox;
-		private Label label3;
+		private LinkLabel linkLabel1;
 	}
 }

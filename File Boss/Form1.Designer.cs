@@ -36,6 +36,7 @@
 			button2 = new Button();
 			pathText = new Label();
 			backButton = new Button();
+			emailSettingsToolStripMenuItem = new ToolStripMenuItem();
 			contextMenuStrip1.SuspendLayout();
 			SuspendLayout();
 			// 
@@ -52,14 +53,14 @@
 			// contextMenuStrip1
 			// 
 			contextMenuStrip1.ImageScalingSize = new Size(20, 20);
-			contextMenuStrip1.Items.AddRange(new ToolStripItem[] { undoToolStripMenuItem });
+			contextMenuStrip1.Items.AddRange(new ToolStripItem[] { undoToolStripMenuItem, emailSettingsToolStripMenuItem });
 			contextMenuStrip1.Name = "contextMenuStrip1";
-			contextMenuStrip1.Size = new Size(115, 28);
+			contextMenuStrip1.Size = new Size(211, 80);
 			// 
 			// undoToolStripMenuItem
 			// 
 			undoToolStripMenuItem.Name = "undoToolStripMenuItem";
-			undoToolStripMenuItem.Size = new Size(114, 24);
+			undoToolStripMenuItem.Size = new Size(210, 24);
 			undoToolStripMenuItem.Text = "Undo";
 			undoToolStripMenuItem.Click += undoToolStripMenuItem_Click;
 			// 
@@ -112,6 +113,13 @@
 			backButton.UseVisualStyleBackColor = false;
 			backButton.Click += backButton_Click;
 			// 
+			// emailSettingsToolStripMenuItem
+			// 
+			emailSettingsToolStripMenuItem.Name = "emailSettingsToolStripMenuItem";
+			emailSettingsToolStripMenuItem.Size = new Size(210, 24);
+			emailSettingsToolStripMenuItem.Text = "Email Settings";
+			emailSettingsToolStripMenuItem.Click += emailSettingsToolStripMenuItem_Click;
+			// 
 			// Form1
 			// 
 			AutoScaleDimensions = new SizeF(8F, 20F);
@@ -139,5 +147,6 @@
         private ToolStripMenuItem toolStripMenuItem1;
         private Label pathText;
         private Button backButton;
-    }
+		private ToolStripMenuItem emailSettingsToolStripMenuItem;
+	}
 }
