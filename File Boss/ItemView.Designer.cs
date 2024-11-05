@@ -38,6 +38,7 @@ namespace File_Boss
 			deleteToolStripMenuItem = new ToolStripMenuItem();
 			copyToolStripMenuItem = new ToolStripMenuItem();
 			renameToolStripMenuItem = new ToolStripMenuItem();
+			sendOverEmailToolStripMenuItem = new ToolStripMenuItem();
 			label1 = new Label();
       propertiesToolStripMenuItem = new ToolStripMenuItem();
 			((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
@@ -60,36 +61,44 @@ namespace File_Boss
 			// contextMenuStrip1
 			// 
 			contextMenuStrip1.ImageScalingSize = new Size(20, 20);
-			contextMenuStrip1.Items.AddRange(new ToolStripItem[] { openWithToolStripMenuItem, deleteToolStripMenuItem, copyToolStripMenuItem, renameToolStripMenuItem, propertiesToolStripMenuItem });
+			contextMenuStrip1.Items.AddRange(new ToolStripItem[] { openWithToolStripMenuItem, deleteToolStripMenuItem, copyToolStripMenuItem, renameToolStripMenuItem, sendOverEmailToolStripMenuItem, propertiesToolStripMenuItem });
 			contextMenuStrip1.Name = "contextMenuStrip1";
-			contextMenuStrip1.Size = new Size(172, 100);
+			contextMenuStrip1.Size = new Size(211, 152);
+			contextMenuStrip1.Opening += contextMenuStrip1_Opening;
 			// 
 			// openWithToolStripMenuItem
 			// 
 			openWithToolStripMenuItem.Name = "openWithToolStripMenuItem";
-			openWithToolStripMenuItem.Size = new Size(171, 24);
+			openWithToolStripMenuItem.Size = new Size(210, 24);
 			openWithToolStripMenuItem.Text = "Open With";
 			// 
 			// deleteToolStripMenuItem
 			// 
 			deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
-			deleteToolStripMenuItem.Size = new Size(171, 24);
+			deleteToolStripMenuItem.Size = new Size(210, 24);
 			deleteToolStripMenuItem.Text = "Delete";
 			deleteToolStripMenuItem.Click += deleteToolStripMenuItem_Click;
 			// 
 			// copyToolStripMenuItem
 			// 
 			copyToolStripMenuItem.Name = "copyToolStripMenuItem";
-			copyToolStripMenuItem.Size = new Size(171, 24);
+			copyToolStripMenuItem.Size = new Size(210, 24);
 			copyToolStripMenuItem.Text = "Copy File Path";
 			copyToolStripMenuItem.Click += copyToolStripMenuItem_Click;
 			// 
 			// renameToolStripMenuItem
 			// 
 			renameToolStripMenuItem.Name = "renameToolStripMenuItem";
-			renameToolStripMenuItem.Size = new Size(171, 24);
+			renameToolStripMenuItem.Size = new Size(210, 24);
 			renameToolStripMenuItem.Text = "Rename";
 			renameToolStripMenuItem.Click += renameToolStripMenuItem_Click;
+			// 
+			// sendOverEmailToolStripMenuItem
+			// 
+			sendOverEmailToolStripMenuItem.Name = "sendOverEmailToolStripMenuItem";
+			sendOverEmailToolStripMenuItem.Size = new Size(210, 24);
+			sendOverEmailToolStripMenuItem.Text = "Send Over Email";
+			sendOverEmailToolStripMenuItem.Click += sendOverEmailToolStripMenuItem_Click;
 			// 
 			// label1
 			// 
@@ -123,14 +132,14 @@ namespace File_Boss
 		}
 
 		#endregion
-
-		private PictureBox pictureBox1;
-		private ContextMenuStrip contextMenuStrip1;
 		private ToolStripMenuItem openWithToolStripMenuItem;
 		private ToolStripMenuItem deleteToolStripMenuItem;
 		public Label label1;
         private ToolStripMenuItem renameToolStripMenuItem;
         private ToolStripMenuItem copyToolStripMenuItem;
         private ToolStripMenuItem propertiesToolStripMenuItem;
-    }
+		public PictureBox pictureBox1;
+		public ContextMenuStrip contextMenuStrip1;
+		private ToolStripMenuItem sendOverEmailToolStripMenuItem;
+	}
 }

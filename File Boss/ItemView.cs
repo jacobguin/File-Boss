@@ -23,22 +23,27 @@ namespace File_Boss
 		private BackFunctions functionHandler;
 		public FileInfo? CurentFile;
 		public DirectoryInfo? CurentDirectory;
+		public event Func<ItemView, Task>? OnAllSingleClick;
 		public event Func<ItemView, Task>? OnAllClick;
 		public event Func<ItemView, Task>? OnDelete;
 		public event Func<ItemView, Task>? RequestUpdate;
+		public event Func<Task>? RequestEmaile;
 		private ToolStripMenuItem? fav, zip, uzip;
 
 		private void LoadBoth(BackFunctions functionHandler)
 		{
 			this.functionHandler = functionHandler;
-			this.MouseDoubleClick += label1_Click;
-			label1.MouseDoubleClick += label1_Click;
-			pictureBox1.MouseDoubleClick += label1_Click;
+			this.MouseDoubleClick += AllDoubleClick;
+			label1.MouseDoubleClick += AllDoubleClick;
+			pictureBox1.MouseDoubleClick += AllDoubleClick;
+			this.MouseClick += AllSingleClick;
+			label1.MouseClick += AllSingleClick;
+			pictureBox1.MouseClick += AllSingleClick;
 
-            ToolStripMenuItem createShortcutMenuItem = new ToolStripMenuItem("Create Shortcut to Desktop");
-            contextMenuStrip1.Items.Add(createShortcutMenuItem);
-            createShortcutMenuItem.Click += CreateShortcutMenuItem_Click;
-        }
+			ToolStripMenuItem createShortcutMenuItem = new ToolStripMenuItem("Create Shortcut to Desktop");
+			contextMenuStrip1.Items.Add(createShortcutMenuItem);
+			createShortcutMenuItem.Click += CreateShortcutMenuItem_Click;
+		}
 
 		public void LoadFolder(string Folder, BackFunctions functionHandler)
 		{
@@ -68,7 +73,7 @@ namespace File_Boss
 			{
 				MessageBox.Show("This item is already zipped or is not a folder.", "Cannot Zip", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 			}
-			
+
 		}
 
 		public void LoadFile(string File, Icon icon, BackFunctions functionHandler)
@@ -126,7 +131,15 @@ namespace File_Boss
 			fav!.Enabled = false;
 		}
 
-		private void label1_Click(object sender, EventArgs e)
+		private void AllSingleClick(object sender, MouseEventArgs e)
+		{
+			if (OnAllSingleClick is not null)
+			{
+				OnAllSingleClick.Invoke(this);
+			}
+		}
+
+		private void AllDoubleClick(object sender, MouseEventArgs e)
 		{
 			if (OnAllClick is not null)
 			{
@@ -228,7 +241,20 @@ namespace File_Boss
             fp.load_file(CurentFile);
             fp.Show();
         }
+		private void contextMenuStrip1_Opening(object sender, CancelEventArgs e)
+		{
+			AllSingleClick(sender, null!);
+		}
 
+		private void contextMenuStrip1_Click(object sender, EventArgs e)
+		{
+			
+		}
+
+		private void sendOverEmailToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			if (RequestEmaile is not null) RequestEmaile.Invoke();
+		}
 	}
 }
 

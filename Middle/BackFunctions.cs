@@ -3,6 +3,9 @@ using System.Diagnostics;
 using System.IO.Compression;
 using System.IO;
 using System.Security.Cryptography;
+using System.Runtime.CompilerServices;
+using System.Text.Json.Serialization.Metadata;
+using System.Text.Json;
 
 namespace Middle;
 
@@ -51,7 +54,38 @@ public class BackFunctions
         }
     }
 
-    public bool TryGetSaveFilePath(string name, out string path)
+	public void SaveSettings<TResult>(string name, TResult json, JsonTypeInfo<TResult> TypeInfo) where TResult : new()
+	{
+        _ = TryGetSaveFilePath(name, out string path);
+		File.WriteAllText(path, JsonSerializer.Serialize(json, TypeInfo));
+	}
+
+	public TResult GetSettings<TResult>(string name, JsonTypeInfo<TResult> TypeInfo) where TResult : new()
+	{
+		TResult? @out;
+		if (!TryGetSaveFilePath(name, out string path))
+		{
+			@out = new();
+			File.WriteAllText(path, JsonSerializer.Serialize(@out, TypeInfo));
+		}
+
+		try
+		{
+			@out = JsonSerializer.Deserialize(File.ReadAllText(path), TypeInfo);
+			if (@out is null)
+			{
+				@out = new();
+			}
+		}
+		catch
+		{
+			@out = new();
+		}
+		File.WriteAllText(path, JsonSerializer.Serialize(@out, TypeInfo));
+		return @out;
+	}
+
+	public bool TryGetSaveFilePath(string name, out string path)
     {
         path = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
         if (!Directory.Exists(path)) Directory.CreateDirectory(path);
@@ -337,7 +371,38 @@ public class BackFunctions
             throw new UIException($"An error occurred while unzipping the file: {e.Message}");
         }
     }
-    public void ZipFolder(string folderName)
+
+	private void AddDirectoryToArchive(ZipArchive archive, string sourceDir, string baseDir)
+	{
+		foreach (string filePath in Directory.GetFiles(sourceDir, "*", SearchOption.AllDirectories))
+		{
+			string relativePath = Path.Join(baseDir, Path.GetRelativePath(sourceDir, filePath));
+			archive.CreateEntryFromFile(filePath, relativePath);
+		}
+	}
+
+	public void ZipData(string zip, params string[] folderandfileNames)
+    {
+        string zippath = Path.Join(BasePath, zip);
+        if (File.Exists(zippath)) throw new UIException($"Zip file '{zip}' already exist.");
+
+        ZipArchive archive = ZipFile.Open(zippath, ZipArchiveMode.Create);
+
+		foreach (string fileName in folderandfileNames)
+		{
+			string path = Path.Join(BasePath, fileName);
+			if (File.Exists(path))
+			{
+				archive.CreateEntryFromFile(path, fileName);
+			}
+			else if (Directory.Exists(path))
+			{
+				AddDirectoryToArchive(archive, path, fileName);
+			}
+		}
+        archive.Dispose();
+	}
+	public void ZipFolder(string folderName)
     {
         string fullfolderName = Path.Join(BasePath, folderName);
 
