@@ -6,6 +6,7 @@ using System.IO;
 using System.Reflection;
 using System.Windows.Forms;
 using System.Windows.Forms.VisualStyles;
+using System.Xml.Linq;
 
 namespace File_Boss
 {
@@ -50,44 +51,28 @@ namespace File_Boss
 		}
 
 		public static List<ItemView> SelectedViews { get; set; } = new();
-
 		/// <summary>
-		/// Add Button which creates a text field for you to input a file name
+		/// Create File Button
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
 		private void button1_Click(object sender, EventArgs e)
-		{
-			if (curentin is not null) Controls.Remove(curentin);
-			curentin = new TextBox();
-			curentin.Location = new System.Drawing.Point(200, 16);
-			curentin.Size = new System.Drawing.Size(125, 27);
-			this.Controls.Add(curentin);
-			curentin.KeyPress += TextBox_KeyPress;
-		}
-
-		/// <summary>
-		/// Once ENTER is pressed, a file is created and a message box appears
-		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		private void TextBox_KeyPress(object? sender, KeyPressEventArgs e)
-		{
-			if (e.KeyChar != (char)Keys.Enter) return;
-			TextBox temp = (TextBox)sender!;
-			String name = (String)temp.Text;
-			if (name.Contains('.'))
-			{
-				functionHandler.CreateFile(name);
-			}
-			else
-			{
-				String defaultExt = name + ".txt";
-				functionHandler.CreateFile(defaultExt);
-			}
-			updateItemDisplay();
-			Controls.Remove(temp);
-		}
+        {
+            CreateItem ci = new();
+            ci.Text = "File Create";
+            ci.ShowDialog();
+            string fileName = ci.textBox1.Text;
+            if (fileName.Contains('.'))
+            {
+                functionHandler.CreateFile(fileName);
+            }
+            else
+            {
+                String defaultExt = fileName + ".txt";
+                functionHandler.CreateFile(defaultExt);
+            }
+            updateItemDisplay();
+        }
 
 		/// <summary>
 		/// Event Handlers, which change the color of the Add Button if it is hovered over or not
@@ -241,28 +226,20 @@ namespace File_Boss
 			flowLayoutPanel1.Controls.Remove(fd);
 		}
 
-		private TextBox? curentin;
-
-		private void button2_Click(object sender, EventArgs e)
-		{
-			if (curentin is not null) Controls.Remove(curentin);
-			curentin = new TextBox();
-			curentin.Location = new System.Drawing.Point(200, 16);
-			curentin.Size = new System.Drawing.Size(125, 27);
-			this.Controls.Add(curentin);
-			curentin.KeyPress += create_Folder;
-		}
-
-		private void create_Folder(object? sender, KeyPressEventArgs e)
-		{
-			if (e.KeyChar != (char)Keys.Enter) return;
-
-			TextBox temp = (TextBox)sender!;
-			functionHandler.CreateFolder(temp.Text);
-			MessageBox.Show(temp.Text + " was Created!");
-			updateItemDisplay();
-			Controls.Remove(temp);
-		}
+        /// <summary>
+        /// Folder Create Button
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void button2_Click(object sender, EventArgs e)
+        {
+            CreateItem ci = new();
+            ci.Text = "Folder Create";
+            ci.ShowDialog();
+            string folderName = ci.textBox1.Text;
+            functionHandler.CreateFolder(folderName);
+            updateItemDisplay();
+        }
 
 		private void undoToolStripMenuItem_Click(object sender, EventArgs e)
 		{

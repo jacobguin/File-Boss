@@ -10,6 +10,9 @@
     <Compile Update="EmailPrompt.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="CreateItem.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
