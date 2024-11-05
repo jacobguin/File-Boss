@@ -57,22 +57,22 @@ namespace File_Boss
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
 		private void button1_Click(object sender, EventArgs e)
-        {
-            CreateItem ci = new();
-            ci.Text = "File Create";
-            ci.ShowDialog();
-            string fileName = ci.textBox1.Text;
-            if (fileName.Contains('.'))
-            {
-                functionHandler.CreateFile(fileName);
-            }
-            else
-            {
-                String defaultExt = fileName + ".txt";
-                functionHandler.CreateFile(defaultExt);
-            }
-            updateItemDisplay();
-        }
+		{
+			CreateItem ci = new();
+			ci.Text = "File Create";
+			ci.ShowDialog();
+			string fileName = ci.textBox1.Text;
+			if (fileName.Contains('.'))
+			{
+				functionHandler.CreateFile(fileName);
+			}
+			else
+			{
+				String defaultExt = fileName + ".txt";
+				functionHandler.CreateFile(defaultExt);
+			}
+			updateItemDisplay();
+		}
 
 		/// <summary>
 		/// Event Handlers, which change the color of the Add Button if it is hovered over or not
@@ -154,7 +154,7 @@ namespace File_Boss
 			}
 			else
 			{
-				
+
 				if (SelectedViews.Contains(arg))
 				{
 					if (SelectedViews.Count == 1) return Task.CompletedTask;
@@ -170,7 +170,7 @@ namespace File_Boss
 				}
 			}
 
-			
+
 			return Task.CompletedTask;
 		}
 
@@ -210,15 +210,15 @@ namespace File_Boss
 			flowLayoutPanel1.PerformLayout();
 		}
 
-        /// <summary>
-        /// These functions will remove an object from the flow layout panel
-        /// </summary>
-        /// <param name="arg"></param>
-        /// <returns></returns>
-        private Task Fd_OnDelete(ItemView arg)
-        {
-            if (arg.CurentFile is null)
-            {
+		/// <summary>
+		/// These functions will remove an object from the flow layout panel
+		/// </summary>
+		/// <param name="arg"></param>
+		/// <returns></returns>
+		private Task Fd_OnDelete(ItemView arg)
+		{
+			if (arg.CurentFile is null)
+			{
 				var result = MessageBox.Show($"Are you sure you want to delete the folder '{arg.CurentDirectory.Name}'?",
 					"Confirm Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
 
@@ -237,8 +237,8 @@ namespace File_Boss
 					}
 				}
 			}
-            else
-            {
+			else
+			{
 				var result = MessageBox.Show($"Are you sure you want to delete the file '{arg.CurentFile.Name}'?",
 					"Confirm Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
 
@@ -257,8 +257,8 @@ namespace File_Boss
 					}
 				}
 			}
-            return Task.CompletedTask;
-        }
+			return Task.CompletedTask;
+		}
 
 		public void RemoveObject(Control fd)
 		{
@@ -266,20 +266,20 @@ namespace File_Boss
 			flowLayoutPanel1.Controls.Remove(fd);
 		}
 
-        /// <summary>
-        /// Folder Create Button
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void button2_Click(object sender, EventArgs e)
-        {
-            CreateItem ci = new();
-            ci.Text = "Folder Create";
-            ci.ShowDialog();
-            string folderName = ci.textBox1.Text;
-            functionHandler.CreateFolder(folderName);
-            updateItemDisplay();
-        }
+		/// <summary>
+		/// Folder Create Button
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void button2_Click(object sender, EventArgs e)
+		{
+			CreateItem ci = new();
+			ci.Text = "Folder Create";
+			ci.ShowDialog();
+			string folderName = ci.textBox1.Text;
+			functionHandler.CreateFolder(folderName);
+			updateItemDisplay();
+		}
 
 		private void undoToolStripMenuItem_Click(object sender, EventArgs e)
 		{
@@ -294,33 +294,33 @@ namespace File_Boss
 			pathText.Text = di.FullName;
 		}
 
-		private void emailSettingsToolStripMenuItem_Click(object sender, EventArgs e)
+		private void flowLayoutPanel1_DragDrop(object sender, DragEventArgs e)
+		{
+			string[] files = (string[])e.Data!.GetData(DataFormats.FileDrop)!;
+			foreach (string file in files)
+			{
+				functionHandler.MoveFileToCurrDirectory(file);
+			}
+			updateItemDisplay();
+		}
+
+		private void flowLayoutPanel1_DragEnter(object sender, DragEventArgs e)
+		{
+			if (e.Data.GetDataPresent(DataFormats.FileDrop))
+			{
+				e.Effect = DragDropEffects.All;
+			}
+			else
+			{
+				e.Effect = DragDropEffects.None;
+			}
+		}
+
+		private void emailSettingsToolStripMenuItem1_Click(object sender, EventArgs e)
 		{
 			EmailLogin el = new()
 			{ Functions = functionHandler };
 			el.ShowDialog();
 		}
-
-        private void flowLayoutPanel1_DragDrop(object sender, DragEventArgs e)
-        {
-            string[] files = (string[])e.Data!.GetData(DataFormats.FileDrop)!;
-            foreach (string file in files)
-            {
-                functionHandler.MoveFileToCurrDirectory(file);
-            }
-            updateItemDisplay();
-        }
-
-        private void flowLayoutPanel1_DragEnter(object sender, DragEventArgs e)
-        {
-            if (e.Data.GetDataPresent(DataFormats.FileDrop))
-            {
-                e.Effect = DragDropEffects.All;
-            }
-            else
-            {
-                e.Effect = DragDropEffects.None;
-            }
-        }
-    }
+	}
 }
