@@ -39,10 +39,6 @@ namespace File_Boss
 			this.MouseClick += AllSingleClick;
 			label1.MouseClick += AllSingleClick;
 			pictureBox1.MouseClick += AllSingleClick;
-
-			ToolStripMenuItem createShortcutMenuItem = new ToolStripMenuItem("Create Shortcut to Desktop");
-			contextMenuStrip1.Items.Add(createShortcutMenuItem);
-			createShortcutMenuItem.Click += CreateShortcutMenuItem_Click;
 		}
 
 		public void LoadFolder(string Folder, BackFunctions functionHandler)
@@ -51,7 +47,9 @@ namespace File_Boss
 			CurentDirectory = new(Folder);
 			label1.Text = CurentDirectory.Name;
 			contextMenuStrip1.Items.Remove(openWithToolStripMenuItem);
-			contextMenuStrip1.Items.Add(zip = new ToolStripMenuItem()
+            contextMenuStrip1.Items.Remove(propertiesToolStripMenuItem);
+            contextMenuStrip1.Items.Remove(copyToolStripMenuItem);
+            contextMenuStrip1.Items.Add(zip = new ToolStripMenuItem()
 			{
 				Text = "Zip"
 			});
@@ -82,7 +80,10 @@ namespace File_Boss
 			label1.Text = CurentFile.Name;
 			pictureBox1.Image = icon.ToBitmap();
 			openWithToolStripMenuItem.DropDownItems.Clear();
-			foreach (var program in functionHandler.ProgramMap.Values)
+            ToolStripMenuItem createShortcutMenuItem = new ToolStripMenuItem("Create Shortcut to Desktop");
+            contextMenuStrip1.Items.Add(createShortcutMenuItem);
+            createShortcutMenuItem.Click += CreateShortcutMenuItem_Click;
+            foreach (var program in functionHandler.ProgramMap.Values)
 			{
 				ToolStripMenuItem programItem = new(program);
 				openWithToolStripMenuItem.DropDownItems.Add(programItem);
