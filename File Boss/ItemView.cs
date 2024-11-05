@@ -27,7 +27,8 @@ namespace File_Boss
         public event Func<ItemView, Task>? OnAllClick;
         public event Func<ItemView, Task>? OnDelete;
         public event Func<ItemView, Task>? RequestUpdate;
-        private ToolStripMenuItem? fav, zip, uzip;
+		public event Func<Task>? RequestCopy;
+		private ToolStripMenuItem? fav, zip, uzip;
 
         private void LoadBoth(BackFunctions functionHandler)
         {
@@ -203,7 +204,11 @@ namespace File_Boss
 
         public void copyToolStripMenuItem1_Click(object sender, EventArgs e)
         {   
-            Clipboard.SetFileDropList(new StringCollection { CurentFile.FullName });
+            if (RequestCopy is not null)
+            {
+                RequestCopy.Invoke();
+            }
+            Clipboard.SetFileDropList(new StringCollection { CurentFile!.FullName });
         }
         
         private void contextMenuStrip1_Opening(object sender, CancelEventArgs e)

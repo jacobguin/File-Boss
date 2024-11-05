@@ -1,4 +1,5 @@
 using Middle;
+using System.Collections.Specialized;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
@@ -114,11 +115,18 @@ namespace File_Boss
             fd.OnAllClick += Fd_OnAllClick;
             fd.OnDelete += Fd_OnDelete;
             fd.RequestUpdate += Fd_RequestUpdate;
+			fd.RequestCopy += Fd_RequestCopy;
             flowLayoutPanel1.Controls.Add(fd);
             return fd;
         }
 
-        private Task Fd_RequestUpdate(ItemView arg)
+		private Task Fd_RequestCopy()
+		{
+            //TODO add bulk support
+            return Task.CompletedTask;
+		}
+
+		private Task Fd_RequestUpdate(ItemView arg)
         {
             updateItemDisplay();
             return Task.CompletedTask;
@@ -129,7 +137,8 @@ namespace File_Boss
             ItemView iv = new();
             iv.OnAllClick += Fd_OnAllClick;
             iv.RequestUpdate += Fd_RequestUpdate;
-            iv.LoadFolder(di.FullName, functionHandler);
+            iv.RequestCopy += Fd_RequestCopy;
+			iv.LoadFolder(di.FullName, functionHandler);
             flowLayoutPanel1.Controls.Add(iv);
         }
 
@@ -232,18 +241,14 @@ namespace File_Boss
         private void pasteToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
-            var colection = Clipboard.GetFileDropList();
-            foreach (var f in colection)
-            {
-                File.Copy(f!, Path.Join(functionHandler.BasePath, Path.GetFileName(f)));
-            }
+			StringCollection colection = Clipboard.GetFileDropList();
+            functionHandler.PastFiles(colection);
             updateItemDisplay();
         }
 
         private void contextMenuStrip1_Opening(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            var colection = Clipboard.GetFileDropList();
-            if (colection == null)
+            if (!Clipboard.ContainsFileDropList())
             {
                 pasteToolStripMenuItem.Enabled = false;
             }
