@@ -26,7 +26,7 @@ namespace File_Boss
 		public event Func<ItemView, Task>? OnAllClick;
 		public event Func<ItemView, Task>? OnDelete;
 		public event Func<ItemView, Task>? RequestUpdate;
-		private ToolStripMenuItem? fav, zip, uzip, deleteFolder;
+		private ToolStripMenuItem? fav, zip, uzip;
 
 		private void LoadBoth(BackFunctions functionHandler)
 		{
@@ -51,12 +51,6 @@ namespace File_Boss
 				Text = "Zip"
 			});
 			zip.Click += Zip_Click;
-
-            contextMenuStrip1.Items.Add(deleteFolder = new ToolStripMenuItem()
-            {
-                Text = "Delete"
-            });
-            deleteFolder.Click += DeleteFolder_Click;
         }
 
 		private void Zip_Click(object? sender, EventArgs e)
@@ -76,34 +70,6 @@ namespace File_Boss
 			}
 			
 		}
-
-        private void DeleteFolder_Click(object? sender, EventArgs e)
-        {
-            if (CurentDirectory != null)
-            {
-                var result = MessageBox.Show($"Are you sure you want to delete the folder '{CurentDirectory.Name}'?",
-                    "Confirm Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-
-                if (result == DialogResult.Yes)
-                {
-                    try
-                    {
-                        functionHandler.DeleteFolder(CurentDirectory.Name);
-                        MessageBox.Show("Folder successfully deleted!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                        if (RequestUpdate is not null)
-                        {
-                            RequestUpdate.Invoke(this);
-                        }
-                    }
-                    catch (UIException ex)
-                    {
-                        MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                }
-            }
-        }
-
         public void LoadFile(string File, Icon icon, BackFunctions functionHandler)
 		{
 			LoadBoth(functionHandler);
