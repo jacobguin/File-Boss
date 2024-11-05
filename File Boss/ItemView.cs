@@ -56,7 +56,7 @@ namespace File_Boss
 				Text = "Zip"
 			});
 			zip.Click += Zip_Click;
-		}
+        }
 
 		private void Zip_Click(object? sender, EventArgs e)
 		{
@@ -75,8 +75,7 @@ namespace File_Boss
 			}
 
 		}
-
-		public void LoadFile(string File, Icon icon, BackFunctions functionHandler)
+        public void LoadFile(string File, Icon icon, BackFunctions functionHandler)
 		{
 			LoadBoth(functionHandler);
 			CurentFile = new(File);

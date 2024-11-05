@@ -90,10 +90,10 @@ public class BackFunctions
         path = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
         if (!Directory.Exists(path)) Directory.CreateDirectory(path);
         path = Path.Join(path, "FileBoss");
-		if (!Directory.Exists(path)) Directory.CreateDirectory(path);
-		path = Path.Join(path, name);
+        if (!Directory.Exists(path)) Directory.CreateDirectory(path);
+        path = Path.Join(path, name);
         return File.Exists(path);
-	}
+    }
 
     public string[] GetFavorites()
     {
@@ -103,21 +103,21 @@ public class BackFunctions
         foreach (string item in tmp)
         {
             if (File.Exists(item))
-				good.Add(item);
+                good.Add(item);
         }
-		File.WriteAllLines(f, good);
-		return good.ToArray();
+        File.WriteAllLines(f, good);
+        return good.ToArray();
     }
 
-	public void AddFavorites(string name)
-	{
-		if (!TryGetSaveFilePath("favorits.txt", out string f)) RealCreateFile(f);
-		List<string> old = File.ReadAllLines(f).ToList();
+    public void AddFavorites(string name)
+    {
+        if (!TryGetSaveFilePath("favorits.txt", out string f)) RealCreateFile(f);
+        List<string> old = File.ReadAllLines(f).ToList();
         old.Add(Path.Join(BasePath, name));
         File.WriteAllLines(f, old);
-	}
+    }
 
-	public string? GetProgram(string FileName)
+    public string? GetProgram(string FileName)
     {
         FileInfo FI = new FileInfo(FileName);
         if (ProgramMap.TryGetValue(FI.Extension.ToLower(), out string? Program)) return Program;
@@ -198,14 +198,14 @@ public class BackFunctions
         }
     }
 
-	public void CreateFile(string FileName)
+    public void CreateFile(string FileName)
     {
         RealCreateFile(Path.Join(BasePath, FileName));
-		UndoCode.Push(() => { DeleteFile(FileName); });
-	}
+        UndoCode.Push(() => { DeleteFile(FileName); });
+    }
 
 
-	public static void RealCreateFile(string FileName)
+    public static void RealCreateFile(string FileName)
     {
         try
         {
@@ -244,7 +244,7 @@ public class BackFunctions
     {
         try
         {
-            if (File.Exists(Path.Join(BasePath,FileName)))
+            if (File.Exists(Path.Join(BasePath, FileName)))
             {
                 File.Delete(Path.Join(BasePath, FileName));
             }
@@ -273,7 +273,7 @@ public class BackFunctions
 
     public void CreateFolder(string FolderName)
     {
-        RealCreateFolder(Path.Combine(BasePath,FolderName));
+        RealCreateFolder(Path.Combine(BasePath, FolderName));
     }
 
     internal void RealCreateFolder(string FolderName)
@@ -355,10 +355,10 @@ public class BackFunctions
     //Hawk Tuah
     public void UnzipFolder(string zipFilePath, string destinationFolder)
     {
-		zipFilePath = Path.Combine(BasePath, zipFilePath);
-		destinationFolder = Path.Combine(BasePath, destinationFolder);
+        zipFilePath = Path.Combine(BasePath, zipFilePath);
+        destinationFolder = Path.Combine(BasePath, destinationFolder);
 
-		if (!File.Exists(zipFilePath))
+        if (!File.Exists(zipFilePath))
         {
             throw new UIException($"Zip file '{zipFilePath}' does not exist.");
         }
@@ -406,7 +406,7 @@ public class BackFunctions
     {
         string fullfolderName = Path.Join(BasePath, folderName);
 
-		if (Directory.Exists(fullfolderName))
+        if (Directory.Exists(fullfolderName))
         {
             string zipFileName = folderName + ".zip";
 
@@ -442,4 +442,33 @@ public class BackFunctions
         File.Move(path, Path.Join(BasePath, Path.GetFileName(path)));
     }
 
+    public void DeleteFolder(string folderName)
+    {
+        string folderPath = Path.Combine(BasePath, folderName);
+
+        try
+        {
+            if (Directory.Exists(folderPath))
+            {
+                Directory.Delete(folderPath, true);
+                Console.WriteLine($"Folder '{folderName}' deleted successfully.");
+            }
+            else
+            {
+                throw new UIException($"Folder '{folderName}' not found.");
+            }
+        }
+        catch (UnauthorizedAccessException e)
+        {
+            throw new UIException($"Unauthorized access to folder '{folderName}'.\nDetails: {e.Message}");
+        }
+        catch (DirectoryNotFoundException e)
+        {
+            throw new UIException($"Folder '{folderName}' not found.\nDetails: {e.Message}");
+        }
+        catch (IOException e)
+        {
+            throw new UIException($"IO error while deleting folder '{folderName}'.\nDetails: {e.Message}");
+        }
+    }
 }

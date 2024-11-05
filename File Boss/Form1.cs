@@ -186,6 +186,7 @@ namespace File_Boss
 			iv.OnAllClick += Fd_OnAllClick;
 			iv.RequestUpdate += Fd_RequestUpdate;
 			iv.OnAllSingleClick += Fd_OnAllSingleClick;
+			iv.OnDelete += Fd_OnDelete;
 			iv.RequestEmaile += Fd_RequestEmaile;
 			iv.LoadFolder(di.FullName, functionHandler);
 			flowLayoutPanel1.Controls.Add(iv);
@@ -209,16 +210,55 @@ namespace File_Boss
 			flowLayoutPanel1.PerformLayout();
 		}
 
-		/// <summary>
-		/// These functions will remove an object from the flow layout panel
-		/// </summary>
-		/// <param name="arg"></param>
-		/// <returns></returns>
-		private Task Fd_OnDelete(ItemView arg)
-		{
-			RemoveObject(arg);
-			return Task.CompletedTask;
-		}
+        /// <summary>
+        /// These functions will remove an object from the flow layout panel
+        /// </summary>
+        /// <param name="arg"></param>
+        /// <returns></returns>
+        private Task Fd_OnDelete(ItemView arg)
+        {
+            if (arg.CurentFile is null)
+            {
+				var result = MessageBox.Show($"Are you sure you want to delete the folder '{arg.CurentDirectory.Name}'?",
+					"Confirm Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+				if (result == DialogResult.Yes)
+				{
+					try
+					{
+						functionHandler.DeleteFolder(arg.CurentDirectory.Name);
+						MessageBox.Show("Folder successfully deleted!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+						updateItemDisplay();
+					}
+					catch (UIException ex)
+					{
+						MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+					}
+				}
+			}
+            else
+            {
+				var result = MessageBox.Show($"Are you sure you want to delete the file '{arg.CurentFile.Name}'?",
+					"Confirm Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+				if (result == DialogResult.Yes)
+				{
+					try
+					{
+						functionHandler.DeleteFile(arg.CurentFile.Name);
+						MessageBox.Show("File successfully deleted!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+						updateItemDisplay();
+					}
+					catch (UIException ex)
+					{
+						MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+					}
+				}
+			}
+            return Task.CompletedTask;
+        }
 
 		public void RemoveObject(Control fd)
 		{
