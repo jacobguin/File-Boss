@@ -37,6 +37,7 @@ namespace File_Boss
 			openWithToolStripMenuItem = new ToolStripMenuItem();
 			deleteToolStripMenuItem = new ToolStripMenuItem();
 			copyToolStripMenuItem = new ToolStripMenuItem();
+			copyFileToolStripMenuItem = new ToolStripMenuItem();
 			renameToolStripMenuItem = new ToolStripMenuItem();
 			sendOverEmailToolStripMenuItem = new ToolStripMenuItem();
 			label1 = new Label();
@@ -61,7 +62,7 @@ namespace File_Boss
 			// contextMenuStrip1
 			// 
 			contextMenuStrip1.ImageScalingSize = new Size(20, 20);
-			contextMenuStrip1.Items.AddRange(new ToolStripItem[] { openWithToolStripMenuItem, deleteToolStripMenuItem, copyToolStripMenuItem, renameToolStripMenuItem, sendOverEmailToolStripMenuItem, propertiesToolStripMenuItem });
+			contextMenuStrip1.Items.AddRange(new ToolStripItem[] { openWithToolStripMenuItem, deleteToolStripMenuItem, copyToolStripMenuItem, copyFileToolStripMenuItem, renameToolStripMenuItem, sendOverEmailToolStripMenuItem, propertiesToolStripMenuItem });
 			contextMenuStrip1.Name = "contextMenuStrip1";
 			contextMenuStrip1.Size = new Size(211, 152);
 			contextMenuStrip1.Opening += contextMenuStrip1_Opening;
@@ -85,6 +86,13 @@ namespace File_Boss
 			copyToolStripMenuItem.Size = new Size(210, 24);
 			copyToolStripMenuItem.Text = "Copy File Path";
 			copyToolStripMenuItem.Click += copyToolStripMenuItem_Click;
+			// 
+			// copyToolStripMenuItem
+			// 
+			copyFileToolStripMenuItem.Name = "copyFileToolStripMenuItem";
+			copyFileToolStripMenuItem.Size = new Size(210, 24);
+			copyFileToolStripMenuItem.Text = "Copy";
+			copyFileToolStripMenuItem.Click += copyToolStripMenuItem1_Click;
 			// 
 			// renameToolStripMenuItem
 			// 
@@ -133,16 +141,15 @@ namespace File_Boss
 
         #endregion
 
-        private PictureBox pictureBox1;
+        public PictureBox pictureBox1;
 		private ContextMenuStrip contextMenuStrip1;
 		private ToolStripMenuItem openWithToolStripMenuItem;
 		private ToolStripMenuItem deleteToolStripMenuItem;
 		public Label label1;
         private ToolStripMenuItem renameToolStripMenuItem;
         private ToolStripMenuItem copyToolStripMenuItem;
-        private ToolStripMenuItem propertiesToolStripMenuItem;
-		public PictureBox pictureBox1;
-		public ContextMenuStrip contextMenuStrip1;
+		private ToolStripMenuItem copyFileToolStripMenuItem;
+		private ToolStripMenuItem propertiesToolStripMenuItem;
 		private ToolStripMenuItem sendOverEmailToolStripMenuItem;
 	}
 }

@@ -260,11 +260,7 @@ namespace File_Boss
             }
             Clipboard.SetFileDropList(new StringCollection { CurentFile!.FullName });
         }
-        
-        private void contextMenuStrip1_Opening(object sender, CancelEventArgs e)
-        {
-            
-        }  
+          
 		private void sendOverEmailToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			if (RequestEmaile is not null) RequestEmaile.Invoke();

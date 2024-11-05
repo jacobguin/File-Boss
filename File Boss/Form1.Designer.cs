@@ -59,7 +59,7 @@
 			// contextMenuStrip1
 			// 
 			contextMenuStrip1.ImageScalingSize = new Size(20, 20);
-			contextMenuStrip1.Items.AddRange(new ToolStripItem[] { undoToolStripMenuItem, emailSettingsToolStripMenuItem1 });
+			contextMenuStrip1.Items.AddRange(new ToolStripItem[] { undoToolStripMenuItem, pasteToolStripMenuItem, emailSettingsToolStripMenuItem1 });
 			contextMenuStrip1.Name = "contextMenuStrip1";
 			contextMenuStrip1.Size = new Size(211, 80);
 			contextMenuStrip1.Opening += contextMenuStrip1_Opening;
