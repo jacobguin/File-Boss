@@ -20,7 +20,7 @@
             base.Dispose(disposing);
         }
 
-		#region Windows Form Designer generated code
+        #region Windows Form Designer generated code
 
         /// <summary>
         ///  Required method for Designer support - do not modify
@@ -32,6 +32,7 @@
             flowLayoutPanel1 = new FlowLayoutPanel();
             contextMenuStrip1 = new ContextMenuStrip(components);
             undoToolStripMenuItem = new ToolStripMenuItem();
+            pasteToolStripMenuItem = new ToolStripMenuItem();
             button1 = new Button();
             button2 = new Button();
             pathText = new Label();
@@ -43,6 +44,7 @@
             // 
             flowLayoutPanel1.AllowDrop = true;
             flowLayoutPanel1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            flowLayoutPanel1.AutoScroll = true;
             flowLayoutPanel1.ContextMenuStrip = contextMenuStrip1;
             flowLayoutPanel1.Location = new Point(0, 72);
             flowLayoutPanel1.Name = "flowLayoutPanel1";
@@ -50,21 +52,28 @@
             flowLayoutPanel1.TabIndex = 0;
             flowLayoutPanel1.DragDrop += flowLayoutPanel1_DragDrop;
             flowLayoutPanel1.DragEnter += flowLayoutPanel1_DragEnter;
-			      flowLayoutPanel1.AutoScroll = true;
             // 
             // contextMenuStrip1
             // 
             contextMenuStrip1.ImageScalingSize = new Size(20, 20);
-            contextMenuStrip1.Items.AddRange(new ToolStripItem[] { undoToolStripMenuItem });
+            contextMenuStrip1.Items.AddRange(new ToolStripItem[] { undoToolStripMenuItem, pasteToolStripMenuItem });
             contextMenuStrip1.Name = "contextMenuStrip1";
-            contextMenuStrip1.Size = new Size(115, 28);
+            contextMenuStrip1.Size = new Size(211, 80);
+            contextMenuStrip1.Opening += contextMenuStrip1_Opening;
             // 
             // undoToolStripMenuItem
             // 
             undoToolStripMenuItem.Name = "undoToolStripMenuItem";
-            undoToolStripMenuItem.Size = new Size(114, 24);
+            undoToolStripMenuItem.Size = new Size(210, 24);
             undoToolStripMenuItem.Text = "Undo";
             undoToolStripMenuItem.Click += undoToolStripMenuItem_Click;
+            // 
+            // pasteToolStripMenuItem
+            // 
+            pasteToolStripMenuItem.Name = "pasteToolStripMenuItem";
+            pasteToolStripMenuItem.Size = new Size(210, 24);
+            pasteToolStripMenuItem.Text = "Paste";
+            pasteToolStripMenuItem.Click += pasteToolStripMenuItem_Click;
             // 
             // button1
             // 
@@ -132,9 +141,9 @@
             PerformLayout();
         }
 
-		#endregion
+        #endregion
 
-		private FlowLayoutPanel flowLayoutPanel1;
+        private FlowLayoutPanel flowLayoutPanel1;
         private Button button1;
         private Button button2;
 		private ContextMenuStrip contextMenuStrip1;
@@ -142,5 +151,6 @@
         private ToolStripMenuItem toolStripMenuItem1;
         private Label pathText;
         private Button backButton;
+        private ToolStripMenuItem pasteToolStripMenuItem;
     }
 }

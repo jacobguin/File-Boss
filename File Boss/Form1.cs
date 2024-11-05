@@ -2,6 +2,7 @@ using Middle;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
+using System.Net.Http.Headers;
 using System.Reflection;
 using System.Windows.Forms;
 using System.Windows.Forms.VisualStyles;
@@ -221,6 +222,34 @@ namespace File_Boss
             else
             {
                 e.Effect = DragDropEffects.None;
+            }
+        }
+
+
+        ItemView iv = new ItemView();
+        public DirectoryInfo? CurentDirectory;
+
+        private void pasteToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+            var colection = Clipboard.GetFileDropList();
+            foreach (var f in colection)
+            {
+                File.Copy(f!, Path.Join(functionHandler.BasePath, Path.GetFileName(f)));
+            }
+            updateItemDisplay();
+        }
+
+        private void contextMenuStrip1_Opening(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            var colection = Clipboard.GetFileDropList();
+            if (colection == null)
+            {
+                pasteToolStripMenuItem.Enabled = false;
+            }
+            else
+            {
+                pasteToolStripMenuItem.Enabled = true;
             }
         }
     }
