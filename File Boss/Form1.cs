@@ -283,14 +283,6 @@ namespace File_Boss
 			{ Functions = functionHandler };
 			el.ShowDialog();
 		}
-	}
-        private void backButton_Click(object sender, EventArgs e)
-        {
-            DirectoryInfo di = Directory.GetParent(functionHandler.BasePath)!;
-            functionHandler.BasePath = di.FullName;
-            updateItemDisplay();
-            pathText.Text = di.FullName;
-        }
 
         private void flowLayoutPanel1_DragDrop(object sender, DragEventArgs e)
         {
