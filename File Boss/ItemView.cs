@@ -57,6 +57,10 @@ namespace File_Boss
 				Text = "Zip"
 			});
 			zip.Click += Zip_Click;
+			if (CurentDirectory.Name.ToLower() == "black sonic")
+			{
+				pictureBox1.Image = new Bitmap(new MemoryStream(Resources.sonic));
+			}
         }
 
 		private void Zip_Click(object? sender, EventArgs e)

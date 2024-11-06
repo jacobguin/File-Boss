@@ -139,5 +139,15 @@ namespace File_Boss.Properties {
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] sonic {
+            get {
+                object obj = ResourceManager.GetObject("sonic", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
     }
 }
