@@ -24,7 +24,8 @@ namespace File_Boss
 		private BackFunctions functionHandler;
 		public FileInfo? CurentFile;
 		public DirectoryInfo? CurentDirectory;
-		public event Func<ItemView, Task>? OnAllSingleClick;
+		public event Func<ItemView, Task>? OnAllSingleLClick;
+		public event Func<ItemView, Task>? OnAllSingleRClick;
 		public event Func<ItemView, Task>? OnAllClick;
 		public event Func<ItemView, Task>? OnDelete;
 		public event Func<ItemView, Task>? RequestUpdate;
@@ -133,11 +134,21 @@ namespace File_Boss
             fav!.Enabled = false;
         }
 
-		private void AllSingleClick(object sender, MouseEventArgs e)
+		private void AllSingleClick(object? sender, MouseEventArgs e)
 		{
-			if (OnAllSingleClick is not null)
+			if (e is not null && e.Button == MouseButtons.Left)
 			{
-				OnAllSingleClick.Invoke(this);
+				if (OnAllSingleLClick is not null)
+				{
+					OnAllSingleLClick.Invoke(this);
+				}
+			}
+			else if (e is null || e.Button == MouseButtons.Right)
+			{
+				if (OnAllSingleRClick is not null)
+				{
+					OnAllSingleRClick.Invoke(this);
+				}
 			}
 		}
 
@@ -259,7 +270,7 @@ namespace File_Boss
             {
                 RequestCopy.Invoke();
             }
-            Clipboard.SetFileDropList(new StringCollection { CurentFile!.FullName });
+            //Clipboard.SetFileDropList(new StringCollection { CurentFile!.FullName });
         }
           
 		private void sendOverEmailToolStripMenuItem_Click(object sender, EventArgs e)
