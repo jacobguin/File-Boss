@@ -20,7 +20,7 @@
             base.Dispose(disposing);
         }
 
-        #region Windows Form Designer generated code
+		#region Windows Form Designer generated code
 
 		/// <summary>
 		///  Required method for Designer support - do not modify
@@ -34,12 +34,12 @@
 			contextMenuStrip1 = new ContextMenuStrip(components);
 			undoToolStripMenuItem = new ToolStripMenuItem();
 			pasteToolStripMenuItem = new ToolStripMenuItem();
+			emailSettingsToolStripMenuItem1 = new ToolStripMenuItem();
 			button1 = new Button();
 			button2 = new Button();
 			pathText = new Label();
 			backButton = new Button();
 			emailSettingsToolStripMenuItem = new ToolStripMenuItem();
-			emailSettingsToolStripMenuItem1 = new ToolStripMenuItem();
 			contextMenuStrip1.SuspendLayout();
 			SuspendLayout();
 			// 
@@ -55,28 +55,36 @@
 			flowLayoutPanel1.TabIndex = 0;
 			flowLayoutPanel1.DragDrop += flowLayoutPanel1_DragDrop;
 			flowLayoutPanel1.DragEnter += flowLayoutPanel1_DragEnter;
+			flowLayoutPanel1.MouseClick += flowLayoutPanel1_MouseClick;
 			// 
 			// contextMenuStrip1
 			// 
 			contextMenuStrip1.ImageScalingSize = new Size(20, 20);
 			contextMenuStrip1.Items.AddRange(new ToolStripItem[] { undoToolStripMenuItem, pasteToolStripMenuItem, emailSettingsToolStripMenuItem1 });
 			contextMenuStrip1.Name = "contextMenuStrip1";
-			contextMenuStrip1.Size = new Size(211, 80);
+			contextMenuStrip1.Size = new Size(173, 76);
 			contextMenuStrip1.Opening += contextMenuStrip1_Opening;
 			// 
 			// undoToolStripMenuItem
 			// 
 			undoToolStripMenuItem.Name = "undoToolStripMenuItem";
-			undoToolStripMenuItem.Size = new Size(210, 24);
+			undoToolStripMenuItem.Size = new Size(172, 24);
 			undoToolStripMenuItem.Text = "Undo";
 			undoToolStripMenuItem.Click += undoToolStripMenuItem_Click;
 			// 
 			// pasteToolStripMenuItem
 			// 
 			pasteToolStripMenuItem.Name = "pasteToolStripMenuItem";
-			pasteToolStripMenuItem.Size = new Size(210, 24);
+			pasteToolStripMenuItem.Size = new Size(172, 24);
 			pasteToolStripMenuItem.Text = "Paste";
 			pasteToolStripMenuItem.Click += pasteToolStripMenuItem_Click;
+			// 
+			// emailSettingsToolStripMenuItem1
+			// 
+			emailSettingsToolStripMenuItem1.Name = "emailSettingsToolStripMenuItem1";
+			emailSettingsToolStripMenuItem1.Size = new Size(172, 24);
+			emailSettingsToolStripMenuItem1.Text = "Email Settings";
+			emailSettingsToolStripMenuItem1.Click += emailSettingsToolStripMenuItem1_Click;
 			// 
 			// button1
 			// 
@@ -136,12 +144,10 @@
 			backButton.UseVisualStyleBackColor = false;
 			backButton.Click += backButton_Click;
 			// 
-			// emailSettingsToolStripMenuItem1
+			// emailSettingsToolStripMenuItem
 			// 
-			emailSettingsToolStripMenuItem1.Name = "emailSettingsToolStripMenuItem1";
-			emailSettingsToolStripMenuItem1.Size = new Size(210, 24);
-			emailSettingsToolStripMenuItem1.Text = "Email Settings";
-			emailSettingsToolStripMenuItem1.Click += emailSettingsToolStripMenuItem1_Click;
+			emailSettingsToolStripMenuItem.Name = "emailSettingsToolStripMenuItem";
+			emailSettingsToolStripMenuItem.Size = new Size(32, 19);
 			// 
 			// Form1
 			// 
@@ -160,9 +166,9 @@
 			PerformLayout();
 		}
 
-        #endregion
+		#endregion
 
-        private FlowLayoutPanel flowLayoutPanel1;
+		private FlowLayoutPanel flowLayoutPanel1;
         private Button button1;
         private Button button2;
 		private ContextMenuStrip contextMenuStrip1;

@@ -103,7 +103,8 @@ namespace File_Boss
 			fd.OnAllClick += Fd_OnAllClick;
 			fd.OnDelete += Fd_OnDelete;
 			fd.RequestUpdate += Fd_RequestUpdate;
-			fd.OnAllSingleClick += Fd_OnAllSingleClick;
+			fd.OnAllSingleLClick += Fd_OnAllSingleClick;
+			fd.OnAllSingleRClick += IV_OnAllSingleRClick;
 			fd.RequestEmaile += Fd_RequestEmaile;
 			fd.RequestCopy += Fd_RequestCopy;
 			flowLayoutPanel1.Controls.Add(fd);
@@ -138,6 +139,15 @@ namespace File_Boss
 				Functions = functionHandler
 			};
 			EP.ShowDialog();
+			return Task.CompletedTask;
+		}
+
+		private Task IV_OnAllSingleRClick(ItemView arg)
+		{
+			if (SelectedViews.Count == 0 || !SelectedViews.Contains(arg))
+			{
+				Fd_OnAllSingleClick(arg);
+			}
 			return Task.CompletedTask;
 		}
 
@@ -179,7 +189,19 @@ namespace File_Boss
 
 		private Task Fd_RequestCopy()
 		{
-			//TODO add bulk support
+		    StringCollection strings = new();
+			foreach (ItemView item in SelectedViews)
+			{
+				if (item.CurentFile is not null)
+				{
+					strings.Add(item.CurentFile.FullName);
+				}
+				else
+				{
+					strings.Add(item.CurentDirectory!.FullName);
+				}
+			}
+			Clipboard.SetFileDropList(strings);
 			return Task.CompletedTask;
 		}
 
@@ -194,7 +216,8 @@ namespace File_Boss
 			ItemView iv = new();
 			iv.OnAllClick += Fd_OnAllClick;
 			iv.RequestUpdate += Fd_RequestUpdate;
-			iv.OnAllSingleClick += Fd_OnAllSingleClick;
+			iv.OnAllSingleLClick += Fd_OnAllSingleClick;
+			iv.OnAllSingleRClick += IV_OnAllSingleRClick;
 			iv.OnDelete += Fd_OnDelete;
 			iv.RequestEmaile += Fd_RequestEmaile;
 			iv.RequestCopy += Fd_RequestCopy;
@@ -314,47 +337,56 @@ namespace File_Boss
 			updateItemDisplay();
 		}
 
-        private void flowLayoutPanel1_DragEnter(object sender, DragEventArgs e)
-        {
-            if (e.Data.GetDataPresent(DataFormats.FileDrop))
-            {
-                e.Effect = DragDropEffects.All;
-            }
-            else
-            {
-                e.Effect = DragDropEffects.None;
-            }
-        }
+		private void flowLayoutPanel1_DragEnter(object sender, DragEventArgs e)
+		{
+			if (e.Data.GetDataPresent(DataFormats.FileDrop))
+			{
+				e.Effect = DragDropEffects.All;
+			}
+			else
+			{
+				e.Effect = DragDropEffects.None;
+			}
+		}
 
 
-        ItemView iv = new ItemView();
-        public DirectoryInfo? CurentDirectory;
+		ItemView iv = new ItemView();
+		public DirectoryInfo? CurentDirectory;
 
-        private void pasteToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
+		private void pasteToolStripMenuItem_Click(object sender, EventArgs e)
+		{
 			StringCollection colection = Clipboard.GetFileDropList();
-            functionHandler.PastFiles(colection);
-            updateItemDisplay();
-        }
+			functionHandler.PastFilesAndFolders(colection);
+			updateItemDisplay();
+		}
 
-        private void contextMenuStrip1_Opening(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-            if (!Clipboard.ContainsFileDropList())
-            {
-                pasteToolStripMenuItem.Enabled = false;
-            }
-            else
-            {
-                pasteToolStripMenuItem.Enabled = true;
-            }
-        }
+		private void contextMenuStrip1_Opening(object sender, System.ComponentModel.CancelEventArgs e)
+		{
+			if (!Clipboard.ContainsFileDropList())
+			{
+				pasteToolStripMenuItem.Enabled = false;
+			}
+			else
+			{
+				pasteToolStripMenuItem.Enabled = true;
+			}
+		}
 
 		private void emailSettingsToolStripMenuItem1_Click(object sender, EventArgs e)
 		{
 			EmailLogin el = new()
 			{ Functions = functionHandler };
 			el.ShowDialog();
+		}
+
+		private void flowLayoutPanel1_MouseClick(object sender, MouseEventArgs e)
+		{
+			foreach (ItemView iv in SelectedViews)
+			{
+				iv.BackColor = SystemColors.Control;
+				iv.pictureBox1.BackColor = SystemColors.Control;
+			}
+			SelectedViews.Clear();
 		}
 	}
 }

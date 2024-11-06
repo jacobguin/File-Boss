@@ -166,35 +166,79 @@ public class BackFunctions
         }
     }
 
-    public void PastFiles(StringCollection paths)
+    public void PastFilesAndFolders(StringCollection paths)
     {
 		foreach (var f in paths)
 		{
-            if (string.IsNullOrWhiteSpace(f) || !File.Exists(f)) continue;
-            FileInfo old = new(f);
-            string name = old.Name;
-			if (File.Exists(Path.Join(BasePath, name)))
-			{
-                string ext = old.Extension;
-                name = name.Remove(name.Length - ext.Length, ext.Length);
-				void withnum(int i)
+            if (string.IsNullOrWhiteSpace(f)) continue;
+			if (!File.Exists(f) && !Directory.Exists(f)) continue;
+            if (File.Exists(f))
+            {
+				FileInfo old = new(f);
+				string name = old.Name;
+				if (File.Exists(Path.Join(BasePath, name)))
 				{
-					if (File.Exists(Path.Join(BasePath, name + $" ({i}){ext}")))
+					string ext = old.Extension;
+					name = name.Remove(name.Length - ext.Length, ext.Length);
+					void withnum(int i)
 					{
-                        withnum(i+1);
+						if (File.Exists(Path.Join(BasePath, name + $" ({i}){ext}")))
+						{
+							withnum(i + 1);
+						}
+						else
+						{
+							name += $" ({i}){ext}";
+						}
 					}
-                    else
-                    {
-                        name += $" ({i}){ext}";
-					}
+					withnum(1);
 				}
-                withnum(1);
+				File.Copy(f, Path.Join(BasePath, name));
 			}
-			File.Copy(f, Path.Join(BasePath, name));
+            else
+            {
+				DirectoryInfo old = new(f);
+				string name = old.Name;
+				if (Directory.Exists(Path.Join(BasePath, name)))
+				{
+					void withnum(int i)
+					{
+						if (Directory.Exists(Path.Join(BasePath, name + $" ({i})")))
+						{
+							withnum(i + 1);
+						}
+						else
+						{
+							name += $" ({i})";
+						}
+					}
+					withnum(1);
+				}
+				CopyDirectory(old.FullName, Path.Combine(BasePath, name));
+			}
 		}
 	}
-    
-    public void OpenWith(string Program, string FileToOpen)
+
+	private void CopyDirectory(string sourceDir, string destinationDir)
+	{
+		Directory.CreateDirectory(destinationDir);
+
+		foreach (var filePath in Directory.GetFiles(sourceDir))
+		{
+			var fileName = Path.GetFileName(filePath);
+			var destinationFilePath = Path.Combine(destinationDir, fileName);
+			File.Copy(filePath, destinationFilePath);
+		}
+
+		foreach (var dirPath in Directory.GetDirectories(sourceDir))
+		{
+			var dirName = Path.GetFileName(dirPath);
+			var destinationSubDir = Path.Combine(destinationDir, dirName);
+			CopyDirectory(dirPath, destinationSubDir);
+		}
+	}
+
+	public void OpenWith(string Program, string FileToOpen)
     {
         try
         {
