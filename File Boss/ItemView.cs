@@ -201,7 +201,7 @@ namespace File_Boss
 				Text = label1.Text
 			};
 			label1.Visible = false;
-			renameBox.Location = new System.Drawing.Point(15, 70);
+			renameBox.Location = new System.Drawing.Point(18, 95);
 			renameBox.Size = new System.Drawing.Size(70, 20);
             this.Controls.Add(renameBox);
 			renameBox.KeyPress += rename_Item;
