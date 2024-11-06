@@ -1,10 +1,7 @@
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO.Compression;
-using System.IO;
-using System.Security.Cryptography;
 using System.Collections.Specialized;
-using System.Runtime.CompilerServices;
 using System.Text.Json.Serialization.Metadata;
 using System.Text.Json;
 
@@ -133,7 +130,13 @@ public class BackFunctions
         set
         {
             if (!Path.Exists(value)) throw new UIException("The provided directory is not valid");
-            UndoCode.Push(() => { BasePath = bp; });
+            string tmp = (string)bp.Clone();
+
+			UndoCode.Push(() => 
+            {
+                bp = tmp; 
+            });
+
             bp = value;
         }
     }
@@ -166,8 +169,26 @@ public class BackFunctions
         }
     }
 
+    public void DeleteFilesAndFolders(StringCollection paths)
+    {
+        try
+        {
+            foreach (string p in paths)
+            {
+				if (File.Exists(p)) File.Delete(p);
+				if (Directory.Exists(p))
+                {
+                    Directory.Delete(p, true);
+                }
+            }
+        }
+        catch
+        { }
+    }
+
     public void PastFilesAndFolders(StringCollection paths)
     {
+        StringCollection s = new();
 		foreach (var f in paths)
 		{
             if (string.IsNullOrWhiteSpace(f)) continue;
@@ -193,6 +214,7 @@ public class BackFunctions
 					}
 					withnum(1);
 				}
+                s.Add(Path.Join(BasePath, name));
 				File.Copy(f, Path.Join(BasePath, name));
 			}
             else
@@ -214,9 +236,11 @@ public class BackFunctions
 					}
 					withnum(1);
 				}
-				CopyDirectory(old.FullName, Path.Combine(BasePath, name));
+				s.Add(Path.Join(BasePath, name));
+				CopyDirectory(old.FullName, Path.Join(BasePath, name));
 			}
 		}
+        UndoCode.Push(() => { DeleteFilesAndFolders(s); });
 	}
 
 	private void CopyDirectory(string sourceDir, string destinationDir)
@@ -502,13 +526,15 @@ public class BackFunctions
 
     public void RenameFile(String oldName, String newName)
     {
-        File.Move(oldName, newName);
+        File.Move(Path.Join(BasePath, oldName), Path.Join(BasePath, newName));
+        UndoCode.Push(() => { File.Move(Path.Join(BasePath, newName), Path.Join(BasePath, oldName)); });
     }
 
     public void RenameFolder(String oldName, String newName)
     {
-        Directory.Move(oldName, newName);
-    }
+        Directory.Move(Path.Join(BasePath, oldName), Path.Join(BasePath, newName));
+		UndoCode.Push(() => { Directory.Move(Path.Join(BasePath, newName), Path.Join(BasePath, oldName)); });
+	}
 
     public void MoveFileToCurrDirectory(String path)
     {
