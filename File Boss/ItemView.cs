@@ -220,17 +220,21 @@ namespace File_Boss
 					String defaultExt = Path.GetExtension(oldName);
 					String newName = label1.Text + defaultExt;
 					functionHandler.RenameFile(oldName, newName);
+					functionHandler.AddUIUndoAction(() => { if (RequestUpdate is not null) RequestUpdate.Invoke(this); });
+
 					MessageBox.Show(oldName + " was renamed to " + newName + ". No extension was specified. The file was defaulted to original.");
 				}
 				else
 				{
 					functionHandler.RenameFile(oldName, temp.Text);
+					functionHandler.AddUIUndoAction(() => { if (RequestUpdate is not null) RequestUpdate.Invoke(this); });
 					MessageBox.Show(oldName + " was renamed to " + temp.Text);
 				}
 			}
 			else
 			{
 				functionHandler.RenameFolder(oldName, temp.Text);
+				functionHandler.AddUIUndoAction(() => { if (RequestUpdate is not null) RequestUpdate.Invoke(this); });
 				MessageBox.Show(oldName + " was renamed to " + temp.Text);
 			}
 			Controls.Remove(temp);

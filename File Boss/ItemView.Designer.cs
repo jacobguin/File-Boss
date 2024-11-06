@@ -22,7 +22,7 @@ namespace File_Boss
 			base.Dispose(disposing);
 		}
 
-        #region Component Designer generated code
+		#region Component Designer generated code
 
 		/// <summary> 
 		/// Required method for Designer support - do not modify 
@@ -40,8 +40,8 @@ namespace File_Boss
 			copyFileToolStripMenuItem = new ToolStripMenuItem();
 			renameToolStripMenuItem = new ToolStripMenuItem();
 			sendOverEmailToolStripMenuItem = new ToolStripMenuItem();
+			propertiesToolStripMenuItem = new ToolStripMenuItem();
 			label1 = new Label();
-      propertiesToolStripMenuItem = new ToolStripMenuItem();
 			((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
 			contextMenuStrip1.SuspendLayout();
 			SuspendLayout();
@@ -64,7 +64,7 @@ namespace File_Boss
 			contextMenuStrip1.ImageScalingSize = new Size(20, 20);
 			contextMenuStrip1.Items.AddRange(new ToolStripItem[] { openWithToolStripMenuItem, deleteToolStripMenuItem, copyToolStripMenuItem, copyFileToolStripMenuItem, renameToolStripMenuItem, sendOverEmailToolStripMenuItem, propertiesToolStripMenuItem });
 			contextMenuStrip1.Name = "contextMenuStrip1";
-			contextMenuStrip1.Size = new Size(211, 152);
+			contextMenuStrip1.Size = new Size(211, 200);
 			contextMenuStrip1.Opening += contextMenuStrip1_Opening;
 			// 
 			// openWithToolStripMenuItem
@@ -76,6 +76,7 @@ namespace File_Boss
 			// deleteToolStripMenuItem
 			// 
 			deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
+			deleteToolStripMenuItem.ShortcutKeys = Keys.Delete;
 			deleteToolStripMenuItem.Size = new Size(210, 24);
 			deleteToolStripMenuItem.Text = "Delete";
 			deleteToolStripMenuItem.Click += deleteToolStripMenuItem_Click;
@@ -87,9 +88,10 @@ namespace File_Boss
 			copyToolStripMenuItem.Text = "Copy File Path";
 			copyToolStripMenuItem.Click += copyToolStripMenuItem_Click;
 			// 
-			// copyToolStripMenuItem
+			// copyFileToolStripMenuItem
 			// 
 			copyFileToolStripMenuItem.Name = "copyFileToolStripMenuItem";
+			copyFileToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.C;
 			copyFileToolStripMenuItem.Size = new Size(210, 24);
 			copyFileToolStripMenuItem.Text = "Copy";
 			copyFileToolStripMenuItem.Click += copyToolStripMenuItem1_Click;
@@ -108,6 +110,13 @@ namespace File_Boss
 			sendOverEmailToolStripMenuItem.Text = "Send Over Email";
 			sendOverEmailToolStripMenuItem.Click += sendOverEmailToolStripMenuItem_Click;
 			// 
+			// propertiesToolStripMenuItem
+			// 
+			propertiesToolStripMenuItem.Name = "propertiesToolStripMenuItem";
+			propertiesToolStripMenuItem.Size = new Size(210, 24);
+			propertiesToolStripMenuItem.Text = "Properties";
+			propertiesToolStripMenuItem.Click += propertiesToolStripMenuItem_Click;
+			// 
 			// label1
 			// 
 			label1.AutoSize = true;
@@ -117,13 +126,6 @@ namespace File_Boss
 			label1.Size = new Size(50, 20);
 			label1.TabIndex = 3;
 			label1.Text = "label1";
-            // 
-            // propertiesToolStripMenuItem
-            // 
-            propertiesToolStripMenuItem.Name = "propertiesToolStripMenuItem";
-            propertiesToolStripMenuItem.Size = new Size(210, 24);
-            propertiesToolStripMenuItem.Text = "Properties";
-            propertiesToolStripMenuItem.Click += propertiesToolStripMenuItem_Click;
 			// 
 			// ItemView
 			// 
@@ -139,9 +141,9 @@ namespace File_Boss
 			PerformLayout();
 		}
 
-        #endregion
+		#endregion
 
-        public PictureBox pictureBox1;
+		public PictureBox pictureBox1;
 		private ContextMenuStrip contextMenuStrip1;
 		private ToolStripMenuItem openWithToolStripMenuItem;
 		private ToolStripMenuItem deleteToolStripMenuItem;

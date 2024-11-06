@@ -44,6 +44,7 @@ namespace File_Boss
 				//directory
 				//TODO Work on moving to directorie
 				functionHandler.BasePath = Path.Join(functionHandler.BasePath, arg.CurentDirectory!.Name);
+				functionHandler.AddUIUndoAction(() => { updateItemDisplay(); });
 				updateItemDisplay();
 				pathText.Text = functionHandler.BasePath;
 
@@ -73,6 +74,7 @@ namespace File_Boss
 				String defaultExt = fileName + ".txt";
 				functionHandler.CreateFile(defaultExt);
 			}
+			functionHandler.AddUIUndoAction(updateItemDisplay);
 			updateItemDisplay();
 		}
 
@@ -311,6 +313,7 @@ namespace File_Boss
 			ci.ShowDialog();
 			string folderName = ci.textBox1.Text;
 			functionHandler.CreateFolder(folderName);
+			functionHandler.AddUIUndoAction(updateItemDisplay);
 			updateItemDisplay();
 		}
 
@@ -323,6 +326,7 @@ namespace File_Boss
 		{
 			DirectoryInfo di = Directory.GetParent(functionHandler.BasePath)!;
 			functionHandler.BasePath = di.FullName;
+			functionHandler.AddUIUndoAction(updateItemDisplay);
 			updateItemDisplay();
 			pathText.Text = di.FullName;
 		}
@@ -357,6 +361,7 @@ namespace File_Boss
 		{
 			StringCollection colection = Clipboard.GetFileDropList();
 			functionHandler.PastFilesAndFolders(colection);
+			functionHandler.AddUIUndoAction(() => { updateItemDisplay(); });
 			updateItemDisplay();
 		}
 

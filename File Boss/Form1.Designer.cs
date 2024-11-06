@@ -68,6 +68,7 @@
 			// undoToolStripMenuItem
 			// 
 			undoToolStripMenuItem.Name = "undoToolStripMenuItem";
+			undoToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.Z;
 			undoToolStripMenuItem.Size = new Size(172, 24);
 			undoToolStripMenuItem.Text = "Undo";
 			undoToolStripMenuItem.Click += undoToolStripMenuItem_Click;
@@ -75,6 +76,7 @@
 			// pasteToolStripMenuItem
 			// 
 			pasteToolStripMenuItem.Name = "pasteToolStripMenuItem";
+			pasteToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.V;
 			pasteToolStripMenuItem.Size = new Size(172, 24);
 			pasteToolStripMenuItem.Text = "Paste";
 			pasteToolStripMenuItem.Click += pasteToolStripMenuItem_Click;
