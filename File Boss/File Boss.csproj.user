@@ -19,5 +19,8 @@
     <Compile Update="ItemView.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Update="TabUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
   </ItemGroup>
 </Project>
