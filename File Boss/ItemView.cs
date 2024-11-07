@@ -29,9 +29,10 @@ namespace File_Boss
 		public event Func<ItemView, Task>? OnAllClick;
 		public event Func<ItemView, Task>? OnDelete;
 		public event Func<ItemView, Task>? RequestUpdate;
+		public event Func<ItemView, Task>? RequestNewTab;
 		public event Func<Task>? RequestEmaile;
 		public event Func<Task>? RequestCopy;
-		private ToolStripMenuItem? fav, zip, uzip;
+		private ToolStripMenuItem? fav, zip, uzip, Tab;
 
 		private void LoadBoth(BackFunctions functionHandler)
 		{
@@ -57,11 +58,21 @@ namespace File_Boss
 				Text = "Zip"
 			});
 			zip.Click += Zip_Click;
+			contextMenuStrip1.Items.Add(Tab = new ToolStripMenuItem()
+			{
+				Text = "Open in new tab"
+			});
+			Tab.Click += Tab_Click;
 			if (CurentDirectory.Name.ToLower() == "black sonic")
 			{
 				pictureBox1.Image = new Bitmap(new MemoryStream(Resources.sonic));
 			}
         }
+
+		private void Tab_Click(object? sender, EventArgs e)
+		{
+			if (RequestNewTab is not null) RequestNewTab.Invoke(this);
+		}
 
 		private void Zip_Click(object? sender, EventArgs e)
 		{
