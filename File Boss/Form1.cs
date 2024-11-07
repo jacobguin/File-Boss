@@ -42,11 +42,11 @@ namespace File_Boss
 
 		private Task U_RequestNewTab(ItemView arg)
 		{
-			if (arg.CurentDirectory is not null)
+			if (arg.CurrentDirectory is not null)
 			{
 				TabUI u = new()
 				{
-					functionHandler = new() { BasePath = arg.CurentDirectory.FullName },
+					functionHandler = new() { BasePath = arg.CurrentDirectory.FullName },
 					Dock = DockStyle.Fill,
 				};
 				u.RequestNewTab += U_RequestNewTab;

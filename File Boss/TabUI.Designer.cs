@@ -39,6 +39,7 @@
 			button2 = new Button();
 			button1 = new Button();
 			flowLayoutPanel1 = new FlowLayoutPanel();
+			button3 = new Button();
 			contextMenuStrip1.SuspendLayout();
 			SuspendLayout();
 			// 
@@ -90,7 +91,7 @@
 			pathText.AutoSize = true;
 			pathText.BackColor = SystemColors.ControlLight;
 			pathText.BorderStyle = BorderStyle.Fixed3D;
-			pathText.Location = new Point(145, 14);
+			pathText.Location = new Point(194, 14);
 			pathText.Name = "pathText";
 			pathText.Padding = new Padding(3);
 			pathText.Size = new Size(58, 28);
@@ -139,9 +140,27 @@
 			flowLayoutPanel1.Size = new Size(926, 566);
 			flowLayoutPanel1.TabIndex = 9;
 			flowLayoutPanel1.MouseClick += flowLayoutPanel1_MouseClick;
+			flowLayoutPanel1.Resize += flowLayoutPanel1_Resize;
+			// 
+			// button3
+			// 
+			button3.BackColor = Color.CornflowerBlue;
+			button3.BackgroundImage = (Image)resources.GetObject("button3.BackgroundImage");
+			button3.BackgroundImageLayout = ImageLayout.Zoom;
+			button3.ImageAlign = ContentAlignment.TopLeft;
+			button3.Location = new Point(145, 0);
+			button3.Margin = new Padding(3, 5, 3, 5);
+			button3.Name = "button3";
+			button3.Padding = new Padding(2);
+			button3.Size = new Size(43, 43);
+			button3.TabIndex = 10;
+			button3.TextImageRelation = TextImageRelation.TextAboveImage;
+			button3.UseVisualStyleBackColor = false;
+			button3.Click += button3_Click;
 			// 
 			// TabUI
 			// 
+			Controls.Add(button3);
 			Controls.Add(flowLayoutPanel1);
 			Controls.Add(backButton);
 			Controls.Add(pathText);
@@ -166,5 +185,6 @@
 		private Button button2;
 		private Button button1;
 		private FlowLayoutPanel flowLayoutPanel1;
+		private Button button3;
 	}
 }

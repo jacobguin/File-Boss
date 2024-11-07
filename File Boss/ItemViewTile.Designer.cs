@@ -2,7 +2,7 @@
 
 namespace File_Boss
 {
-	partial class ItemView
+	partial class ItemViewTile
 	{
 		/// <summary> 
 		/// Required designer variable.
@@ -31,7 +31,7 @@ namespace File_Boss
 		private void InitializeComponent()
 		{
 			components = new System.ComponentModel.Container();
-			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ItemView));
+			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ItemViewTile));
 			pictureBox1 = new PictureBox();
 			contextMenuStrip1 = new ContextMenuStrip(components);
 			openWithToolStripMenuItem = new ToolStripMenuItem();
@@ -64,27 +64,27 @@ namespace File_Boss
 			contextMenuStrip1.ImageScalingSize = new Size(20, 20);
 			contextMenuStrip1.Items.AddRange(new ToolStripItem[] { openWithToolStripMenuItem, deleteToolStripMenuItem, copyToolStripMenuItem, copyFileToolStripMenuItem, renameToolStripMenuItem, sendOverEmailToolStripMenuItem, propertiesToolStripMenuItem });
 			contextMenuStrip1.Name = "contextMenuStrip1";
-			contextMenuStrip1.Size = new Size(211, 200);
+			contextMenuStrip1.Size = new Size(188, 172);
 			contextMenuStrip1.Opening += contextMenuStrip1_Opening;
 			// 
 			// openWithToolStripMenuItem
 			// 
 			openWithToolStripMenuItem.Name = "openWithToolStripMenuItem";
-			openWithToolStripMenuItem.Size = new Size(210, 24);
+			openWithToolStripMenuItem.Size = new Size(187, 24);
 			openWithToolStripMenuItem.Text = "Open With";
 			// 
 			// deleteToolStripMenuItem
 			// 
 			deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
 			deleteToolStripMenuItem.ShortcutKeys = Keys.Delete;
-			deleteToolStripMenuItem.Size = new Size(210, 24);
+			deleteToolStripMenuItem.Size = new Size(187, 24);
 			deleteToolStripMenuItem.Text = "Delete";
 			deleteToolStripMenuItem.Click += deleteToolStripMenuItem_Click;
 			// 
 			// copyToolStripMenuItem
 			// 
 			copyToolStripMenuItem.Name = "copyToolStripMenuItem";
-			copyToolStripMenuItem.Size = new Size(210, 24);
+			copyToolStripMenuItem.Size = new Size(187, 24);
 			copyToolStripMenuItem.Text = "Copy File Path";
 			copyToolStripMenuItem.Click += copyToolStripMenuItem_Click;
 			// 
@@ -92,28 +92,28 @@ namespace File_Boss
 			// 
 			copyFileToolStripMenuItem.Name = "copyFileToolStripMenuItem";
 			copyFileToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.C;
-			copyFileToolStripMenuItem.Size = new Size(210, 24);
+			copyFileToolStripMenuItem.Size = new Size(187, 24);
 			copyFileToolStripMenuItem.Text = "Copy";
 			copyFileToolStripMenuItem.Click += copyToolStripMenuItem1_Click;
 			// 
 			// renameToolStripMenuItem
 			// 
 			renameToolStripMenuItem.Name = "renameToolStripMenuItem";
-			renameToolStripMenuItem.Size = new Size(210, 24);
+			renameToolStripMenuItem.Size = new Size(187, 24);
 			renameToolStripMenuItem.Text = "Rename";
 			renameToolStripMenuItem.Click += renameToolStripMenuItem_Click;
 			// 
 			// sendOverEmailToolStripMenuItem
 			// 
 			sendOverEmailToolStripMenuItem.Name = "sendOverEmailToolStripMenuItem";
-			sendOverEmailToolStripMenuItem.Size = new Size(210, 24);
+			sendOverEmailToolStripMenuItem.Size = new Size(187, 24);
 			sendOverEmailToolStripMenuItem.Text = "Send Over Email";
 			sendOverEmailToolStripMenuItem.Click += sendOverEmailToolStripMenuItem_Click;
 			// 
 			// propertiesToolStripMenuItem
 			// 
 			propertiesToolStripMenuItem.Name = "propertiesToolStripMenuItem";
-			propertiesToolStripMenuItem.Size = new Size(210, 24);
+			propertiesToolStripMenuItem.Size = new Size(187, 24);
 			propertiesToolStripMenuItem.Text = "Properties";
 			propertiesToolStripMenuItem.Click += propertiesToolStripMenuItem_Click;
 			// 
@@ -127,13 +127,13 @@ namespace File_Boss
 			label1.TabIndex = 3;
 			label1.Text = "label1";
 			// 
-			// ItemView
+			// ItemViewTile
 			// 
 			AutoScaleDimensions = new SizeF(8F, 20F);
 			AutoScaleMode = AutoScaleMode.Font;
 			Controls.Add(pictureBox1);
 			Controls.Add(label1);
-			Name = "ItemView";
+			Name = "ItemViewTile";
 			Size = new Size(109, 137);
 			((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
 			contextMenuStrip1.ResumeLayout(false);
