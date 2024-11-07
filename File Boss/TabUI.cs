@@ -59,10 +59,9 @@ public partial class TabUI : UserControl
 
 	private void flowLayoutPanel1_MouseClick(object sender, MouseEventArgs e)
 	{
-		foreach (ItemViewTile iv in SelectedViews)
+		foreach (ItemView iv in SelectedViews)
 		{
-			iv.BackColor = SystemColors.Control;
-			iv.pictureBox1.BackColor = SystemColors.Control;
+			iv.ShowNotSelected();
 		}
 		SelectedViews.Clear();
 	}
@@ -268,7 +267,7 @@ public partial class TabUI : UserControl
 	{
 		List<string> paths = new();
 		List<string> Dips = new();
-		foreach (ItemViewTile item in SelectedViews)
+		foreach (ItemView item in SelectedViews)
 		{
 			if (item.CurrentFile is not null)
 			{
@@ -298,7 +297,7 @@ public partial class TabUI : UserControl
 	private Task ItemViewRequestCopy()
 	{
 		StringCollection strings = new();
-		foreach (ItemViewTile item in SelectedViews)
+		foreach (ItemView item in SelectedViews)
 		{
 			if (item.CurrentFile is not null)
 			{
@@ -324,25 +323,24 @@ public partial class TabUI : UserControl
 	{
 		if (flowLayoutPanel1.FlowDirection == FlowDirection.LeftToRight)
 		{
+			flowLayoutPanel1.Resize += flowLayoutPanel1_Resize;
 			flowLayoutPanel1.FlowDirection = FlowDirection.TopDown;
 			flowLayoutPanel1.WrapContents = false;
 		}
 		else
 		{
+			flowLayoutPanel1.Resize -= flowLayoutPanel1_Resize;
 			flowLayoutPanel1.WrapContents = true;
 			flowLayoutPanel1.FlowDirection = FlowDirection.LeftToRight;
 		}
 		updateItemDisplay();
 	}
 
-	private void flowLayoutPanel1_Resize(object sender, EventArgs e)
+	private void flowLayoutPanel1_Resize(object? sender, EventArgs e)
 	{
-		if (flowLayoutPanel1.FlowDirection == FlowDirection.TopDown)
+		for (int i = 0; i < flowLayoutPanel1.Controls.Count; i++)
 		{
-			for (int i = 0; i < flowLayoutPanel1.Controls.Count; i++)
-			{
-				flowLayoutPanel1.Controls[i].Size = new(flowLayoutPanel1.Size.Width - SystemInformation.VerticalScrollBarWidth - SystemInformation.VerticalScrollBarWidth - 5, flowLayoutPanel1.Controls[i].Size.Height);
-			}
+			flowLayoutPanel1.Controls[i].Size = new(flowLayoutPanel1.Size.Width - SystemInformation.VerticalScrollBarWidth - SystemInformation.VerticalScrollBarWidth - 5, flowLayoutPanel1.Controls[i].Size.Height);
 		}
 	}
 }

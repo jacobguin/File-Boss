@@ -140,7 +140,6 @@
 			flowLayoutPanel1.Size = new Size(926, 566);
 			flowLayoutPanel1.TabIndex = 9;
 			flowLayoutPanel1.MouseClick += flowLayoutPanel1_MouseClick;
-			flowLayoutPanel1.Resize += flowLayoutPanel1_Resize;
 			// 
 			// button3
 			// 
