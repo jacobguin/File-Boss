@@ -131,6 +131,7 @@
 			// flowLayoutPanel1
 			// 
 			flowLayoutPanel1.AllowDrop = true;
+			flowLayoutPanel1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
 			flowLayoutPanel1.AutoScroll = true;
 			flowLayoutPanel1.ContextMenuStrip = contextMenuStrip1;
 			flowLayoutPanel1.Location = new Point(3, 51);
