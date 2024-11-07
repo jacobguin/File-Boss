@@ -18,6 +18,8 @@ public class BackFunctions
 
     private Stack<int> UILinks = new();
 
+
+
     public void AddUIUndoAction(Action a)
     {
         if (UndoCode.Count == 0) return;
@@ -569,5 +571,37 @@ public class BackFunctions
         {
             throw new UIException($"IO error while deleting folder '{folderName}'.\nDetails: {e.Message}");
         }
+    }
+    public List<string> SearchFilesAndDirectories(string currentDirectory, string searchPattern = "*.*")
+    {
+        var result = new List<string>();
+
+        try
+        {
+            foreach (var file in Directory.GetFiles(currentDirectory, searchPattern))
+            {
+                string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(file);
+
+                if (fileNameWithoutExtension.Contains(searchPattern.Trim('*'), StringComparison.OrdinalIgnoreCase))
+                {
+                    result.Add(file);
+                }
+            }
+
+            foreach (var dir in Directory.GetDirectories(currentDirectory))
+            {
+                result.AddRange(SearchFilesAndDirectories(dir, searchPattern));
+            }
+        }
+        catch (UnauthorizedAccessException e)
+        {
+            throw new UIException($"Access denied to '{currentDirectory}'.\nDetails: {e.Message}");
+        }
+        catch (Exception e)
+        {
+            throw new UIException($"Error searching in directory {currentDirectory}: {e.Message}");
+        }
+
+        return result;
     }
 }
