@@ -120,7 +120,7 @@ public partial class TabUI : UserControl
         flowLayoutPanel1.PerformLayout();
     }
 
-	private ItemView CreateBoth()
+	public ItemView CreateBoth()
 	{
 		ItemView iv;
 		if (flowLayoutPanel1.FlowDirection == FlowDirection.LeftToRight)
