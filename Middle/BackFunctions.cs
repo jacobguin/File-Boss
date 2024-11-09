@@ -18,6 +18,8 @@ public class BackFunctions
 
     private Stack<int> UILinks = new();
 
+
+
     public void AddUIUndoAction(Action a)
     {
         if (UndoCode.Count == 0) return;
@@ -145,7 +147,7 @@ public class BackFunctions
     {
         try
         {
-            if (!File.Exists(FileToOpen)) throw new UIException("The provided file is not valid");
+            if (!File.Exists(Path.Join(BasePath,FileToOpen))) throw new UIException("The provided file is not valid");
             FileInfo FI = new FileInfo(FileToOpen);
 
             if (ProgramMap.TryGetValue(FI.Extension.ToLower(), out string? Program))
@@ -153,8 +155,8 @@ public class BackFunctions
                 OpenWith(Program, FileToOpen);
                 return;
             }
-            Process.Start(FileToOpen);
-        }
+			Process.Start(new ProcessStartInfo(Path.Join(BasePath, FileToOpen)) { UseShellExecute = true });
+		}
         catch (Win32Exception e)
         {
             throw new UIException($"There was a problem starting the file '{FileToOpen}'.\n Details: {e.Message}");
@@ -266,7 +268,7 @@ public class BackFunctions
     {
         try
         {
-            if (!File.Exists(FileToOpen)) throw new UIException("The provided file is not valid");
+            if (!File.Exists(Path.Join(BasePath, FileToOpen))) throw new UIException("The provided file is not valid");
             Process p = new Process()
             {
                 StartInfo =
@@ -569,5 +571,37 @@ public class BackFunctions
         {
             throw new UIException($"IO error while deleting folder '{folderName}'.\nDetails: {e.Message}");
         }
+    }
+    public List<string> SearchFilesAndDirectories(string currentDirectory, string searchPattern = "*.*")
+    {
+        var result = new List<string>();
+
+        try
+        {
+            foreach (var file in Directory.GetFiles(currentDirectory, searchPattern))
+            {
+                string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(file);
+
+                if (fileNameWithoutExtension.Contains(searchPattern.Trim('*'), StringComparison.OrdinalIgnoreCase))
+                {
+                    result.Add(file);
+                }
+            }
+
+            foreach (var dir in Directory.GetDirectories(currentDirectory))
+            {
+                result.AddRange(SearchFilesAndDirectories(dir, searchPattern));
+            }
+        }
+        catch (UnauthorizedAccessException e)
+        {
+            throw new UIException($"Access denied to '{currentDirectory}'.\nDetails: {e.Message}");
+        }
+        catch (Exception e)
+        {
+            throw new UIException($"Error searching in directory {currentDirectory}: {e.Message}");
+        }
+
+        return result;
     }
 }
