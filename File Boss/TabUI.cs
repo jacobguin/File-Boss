@@ -322,12 +322,11 @@ public partial class TabUI : UserControl
         return Task.CompletedTask;
     }
     #endregion
-    private string startDirectory = Environment.CurrentDirectory;
 
     private void textBox1_TextChanged(object sender, EventArgs e)
     {
-    string currentDirectory = Environment.CurrentDirectory;
-    UpdateSearchResults(currentDirectory);
+        string currentDirectory = functionHandler.BasePath;
+        UpdateSearchResults(currentDirectory);
     }
 
     private void AdjustListBoxHeight(int itemCount)
@@ -346,7 +345,7 @@ public partial class TabUI : UserControl
     {
         string selectedFileName = listBoxResults.SelectedItem.ToString();
 
-        string fullFilePath = Path.Combine(startDirectory, selectedFileName);
+        string fullFilePath = Path.Combine(functionHandler.BasePath, selectedFileName);
 
         if (File.Exists(fullFilePath))
         {
