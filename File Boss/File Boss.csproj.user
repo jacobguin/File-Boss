@@ -19,8 +19,16 @@
     <Compile Update="ItemView.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Update="ItemViewTile.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Update="TabUI.cs">
       <SubType>UserControl</SubType>
     </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Update="TabUI.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
   </ItemGroup>
 </Project>

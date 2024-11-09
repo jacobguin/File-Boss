@@ -39,7 +39,8 @@
             button2 = new Button();
             button1 = new Button();
             flowLayoutPanel1 = new FlowLayoutPanel();
-            listBoxResults = new ListBox();
+			button3 = new Button();
+			listBoxResults = new ListBox();
             textBox1 = new TextBox();
             contextMenuStrip1.SuspendLayout();
             SuspendLayout();
@@ -92,7 +93,7 @@
             pathText.AutoSize = true;
             pathText.BackColor = SystemColors.ControlLight;
             pathText.BorderStyle = BorderStyle.Fixed3D;
-            pathText.Location = new Point(145, 14);
+            pathText.Location = new Point(194, 14);
             pathText.Name = "pathText";
             pathText.Padding = new Padding(3);
             pathText.Size = new Size(46, 23);
@@ -151,18 +152,35 @@
             listBoxResults.Size = new Size(158, 154);
             listBoxResults.TabIndex = 10;
             listBoxResults.SelectedIndexChanged += listBox1_SelectedIndexChanged;
-            // 
-            // textBox1
-            // 
-            textBox1.Location = new Point(641, 12);
+			// 
+			// button3
+			// 
+			button3.BackColor = Color.CornflowerBlue;
+			button3.BackgroundImage = (Image)resources.GetObject("button3.BackgroundImage");
+			button3.BackgroundImageLayout = ImageLayout.Zoom;
+			button3.ImageAlign = ContentAlignment.TopLeft;
+			button3.Location = new Point(145, 0);
+			button3.Margin = new Padding(3, 5, 3, 5);
+			button3.Name = "button3";
+			button3.Padding = new Padding(2);
+			button3.Size = new Size(43, 43);
+			button3.TabIndex = 10;
+			button3.TextImageRelation = TextImageRelation.TextAboveImage;
+			button3.UseVisualStyleBackColor = false;
+			button3.Click += button3_Click;
+			// 
+			// textBox1
+			// 
+			textBox1.Location = new Point(641, 12);
             textBox1.Name = "textBox1";
             textBox1.Size = new Size(158, 23);
             textBox1.TabIndex = 0;
             textBox1.TextChanged += textBox1_TextChanged;
-            // 
-            // TabUI
-            // 
-            Controls.Add(listBoxResults);
+			// 
+			// TabUI
+			// 
+			Controls.Add(button3);
+			Controls.Add(listBoxResults);
             Controls.Add(textBox1);
             Controls.Add(flowLayoutPanel1);
             Controls.Add(backButton);
@@ -190,5 +208,6 @@
 		private FlowLayoutPanel flowLayoutPanel1;
         private TextBox textBox1;
         private ListBox listBoxResults;
-    }
+		private Button button3;
+	}
 }
