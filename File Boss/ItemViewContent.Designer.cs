@@ -40,10 +40,8 @@ namespace File_Boss
 			renameToolStripMenuItem = new ToolStripMenuItem();
 			sendOverEmailToolStripMenuItem = new ToolStripMenuItem();
 			propertiesToolStripMenuItem = new ToolStripMenuItem();
-			label2 = new Label();
 			label3 = new Label();
 			label4 = new Label();
-			label5 = new Label();
 			label6 = new Label();
 			label7 = new Label();
 			pictureBox1 = new PictureBox();
@@ -110,17 +108,6 @@ namespace File_Boss
 			propertiesToolStripMenuItem.Text = "Properties";
 			propertiesToolStripMenuItem.Click += propertiesToolStripMenuItem_Click;
 			// 
-			// label2
-			// 
-			label2.ContextMenuStrip = contextMenuStrip1;
-			label2.ForeColor = SystemColors.GrayText;
-			label2.Location = new Point(54, 28);
-			label2.Name = "label2";
-			label2.Size = new Size(43, 20);
-			label2.TabIndex = 4;
-			label2.Text = "Type:";
-			label2.Visible = false;
-			// 
 			// label3
 			// 
 			label3.Anchor = AnchorStyles.Top | AnchorStyles.Right;
@@ -145,17 +132,6 @@ namespace File_Boss
 			label4.TabIndex = 6;
 			label4.Text = "Size:";
 			label4.Visible = false;
-			// 
-			// label5
-			// 
-			label5.AutoSize = true;
-			label5.ContextMenuStrip = contextMenuStrip1;
-			label5.Location = new Point(103, 28);
-			label5.Name = "label5";
-			label5.Size = new Size(50, 20);
-			label5.TabIndex = 7;
-			label5.Text = "label5";
-			label5.Visible = false;
 			// 
 			// label6
 			// 
@@ -213,8 +189,6 @@ namespace File_Boss
 			Controls.Add(label6);
 			Controls.Add(label4);
 			Controls.Add(label3);
-			Controls.Add(label2);
-			Controls.Add(label5);
 			Name = "ItemViewContent";
 			Size = new Size(630, 52);
 			contextMenuStrip1.ResumeLayout(false);
@@ -234,10 +208,8 @@ namespace File_Boss
 		private ToolStripMenuItem copyFileToolStripMenuItem;
 		private ToolStripMenuItem propertiesToolStripMenuItem;
 		private ToolStripMenuItem sendOverEmailToolStripMenuItem;
-		public Label label2;
 		public Label label3;
 		public Label label4;
-		public Label label5;
 		public Label label6;
 		public Label label7;
 		public PictureBox pictureBox1;
