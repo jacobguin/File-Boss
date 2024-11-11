@@ -372,7 +372,7 @@ public partial class TabUI : UserControl
 
     private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
     {
-        string selectedFileName = listBoxResults.SelectedItem.ToString();
+        string selectedFileName = big_justice[listBoxResults.SelectedIndex];
 
         string fullFilePath = Path.Combine(functionHandler.BasePath, selectedFileName);
 
@@ -385,9 +385,12 @@ public partial class TabUI : UserControl
             MessageBox.Show("File not found.");
         }
     }
+
+    private List<string> big_justice = new();
     private void UpdateSearchResults(string directory)
     {
         listBoxResults.Items.Clear();
+        big_justice.Clear();
         string searchTerm = textBox1.Text;
 
         if (!string.IsNullOrWhiteSpace(searchTerm))
@@ -399,6 +402,7 @@ public partial class TabUI : UserControl
                 foreach (var result in results)
                 {
                     string fileNameWithExtension = Path.GetFileName(result);
+                    big_justice.Add(result.Replace(functionHandler.BasePath, "").Remove(0, 1));
                     listBoxResults.Items.Add(fileNameWithExtension);
                 }
 
