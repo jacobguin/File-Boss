@@ -39,9 +39,11 @@
             button2 = new Button();
             button1 = new Button();
             flowLayoutPanel1 = new FlowLayoutPanel();
-			button3 = new Button();
-			listBoxResults = new ListBox();
+            homepage1 = new Homepage();
+            button3 = new Button();
+            listBoxResults = new ListBox();
             textBox1 = new TextBox();
+            homeButton = new Button();
             contextMenuStrip1.SuspendLayout();
             SuspendLayout();
             // 
@@ -50,13 +52,13 @@
             contextMenuStrip1.ImageScalingSize = new Size(20, 20);
             contextMenuStrip1.Items.AddRange(new ToolStripItem[] { undoToolStripMenuItem, pasteToolStripMenuItem, emailSettingsToolStripMenuItem1 });
             contextMenuStrip1.Name = "contextMenuStrip1";
-            contextMenuStrip1.Size = new Size(149, 70);
+            contextMenuStrip1.Size = new Size(173, 76);
             // 
             // undoToolStripMenuItem
             // 
             undoToolStripMenuItem.Name = "undoToolStripMenuItem";
             undoToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.Z;
-            undoToolStripMenuItem.Size = new Size(148, 22);
+            undoToolStripMenuItem.Size = new Size(172, 24);
             undoToolStripMenuItem.Text = "Undo";
             undoToolStripMenuItem.Click += undoToolStripMenuItem_Click;
             // 
@@ -64,14 +66,14 @@
             // 
             pasteToolStripMenuItem.Name = "pasteToolStripMenuItem";
             pasteToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.V;
-            pasteToolStripMenuItem.Size = new Size(148, 22);
+            pasteToolStripMenuItem.Size = new Size(172, 24);
             pasteToolStripMenuItem.Text = "Paste";
             pasteToolStripMenuItem.Click += pasteToolStripMenuItem_Click;
             // 
             // emailSettingsToolStripMenuItem1
             // 
             emailSettingsToolStripMenuItem1.Name = "emailSettingsToolStripMenuItem1";
-            emailSettingsToolStripMenuItem1.Size = new Size(148, 22);
+            emailSettingsToolStripMenuItem1.Size = new Size(172, 24);
             emailSettingsToolStripMenuItem1.Text = "Email Settings";
             emailSettingsToolStripMenuItem1.Click += emailSettingsToolStripMenuItem1_Click;
             // 
@@ -96,7 +98,7 @@
             pathText.Location = new Point(194, 14);
             pathText.Name = "pathText";
             pathText.Padding = new Padding(3);
-            pathText.Size = new Size(46, 23);
+            pathText.Size = new Size(58, 28);
             pathText.TabIndex = 7;
             pathText.Text = "label1";
             // 
@@ -137,50 +139,77 @@
             flowLayoutPanel1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             flowLayoutPanel1.AutoScroll = true;
             flowLayoutPanel1.ContextMenuStrip = contextMenuStrip1;
-            flowLayoutPanel1.Location = new Point(3, 50);
+            flowLayoutPanel1.Location = new Point(145, 50);
             flowLayoutPanel1.Name = "flowLayoutPanel1";
-            flowLayoutPanel1.Size = new Size(926, 567);
+            flowLayoutPanel1.Size = new Size(784, 567);
             flowLayoutPanel1.TabIndex = 9;
             flowLayoutPanel1.MouseClick += flowLayoutPanel1_MouseClick;
+            // 
+            // homepage1
+            // 
+            homepage1.functionHandler = null;
+            homepage1.Location = new Point(148, 50);
+            homepage1.Name = "homepage1";
+            homepage1.Size = new Size(781, 541);
+            homepage1.TabIndex = 12;
+            homepage1.Visible = false;
+            // 
+            // button3
+            // 
+            button3.BackColor = Color.CornflowerBlue;
+            button3.BackgroundImage = (Image)resources.GetObject("button3.BackgroundImage");
+            button3.BackgroundImageLayout = ImageLayout.Zoom;
+            button3.ImageAlign = ContentAlignment.TopLeft;
+            button3.Location = new Point(145, 0);
+            button3.Margin = new Padding(3, 5, 3, 5);
+            button3.Name = "button3";
+            button3.Padding = new Padding(2);
+            button3.Size = new Size(43, 43);
+            button3.TabIndex = 10;
+            button3.TextImageRelation = TextImageRelation.TextAboveImage;
+            button3.UseVisualStyleBackColor = false;
+            button3.Click += button3_Click;
             // 
             // listBoxResults
             // 
             listBoxResults.FormattingEnabled = true;
-            listBoxResults.ItemHeight = 15;
             listBoxResults.Location = new Point(641, 31);
             listBoxResults.Name = "listBoxResults";
-            listBoxResults.Size = new Size(158, 154);
+            listBoxResults.Size = new Size(158, 144);
             listBoxResults.TabIndex = 10;
             listBoxResults.SelectedIndexChanged += listBox1_SelectedIndexChanged;
-			// 
-			// button3
-			// 
-			button3.BackColor = Color.CornflowerBlue;
-			button3.BackgroundImage = (Image)resources.GetObject("button3.BackgroundImage");
-			button3.BackgroundImageLayout = ImageLayout.Zoom;
-			button3.ImageAlign = ContentAlignment.TopLeft;
-			button3.Location = new Point(145, 0);
-			button3.Margin = new Padding(3, 5, 3, 5);
-			button3.Name = "button3";
-			button3.Padding = new Padding(2);
-			button3.Size = new Size(43, 43);
-			button3.TabIndex = 10;
-			button3.TextImageRelation = TextImageRelation.TextAboveImage;
-			button3.UseVisualStyleBackColor = false;
-			button3.Click += button3_Click;
-			// 
-			// textBox1
-			// 
-			textBox1.Location = new Point(641, 12);
+            // 
+            // textBox1
+            // 
+            textBox1.Location = new Point(641, 12);
             textBox1.Name = "textBox1";
-            textBox1.Size = new Size(158, 23);
+            textBox1.Size = new Size(158, 27);
             textBox1.TabIndex = 0;
             textBox1.TextChanged += textBox1_TextChanged;
-			// 
-			// TabUI
-			// 
-			Controls.Add(button3);
-			Controls.Add(listBoxResults);
+            // 
+            // homeButton
+            // 
+            homeButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            homeButton.BackColor = Color.CornflowerBlue;
+            homeButton.BackgroundImage = (Image)resources.GetObject("homeButton.BackgroundImage");
+            homeButton.BackgroundImageLayout = ImageLayout.Zoom;
+            homeButton.ImageAlign = ContentAlignment.TopLeft;
+            homeButton.Location = new Point(886, 3);
+            homeButton.Margin = new Padding(3, 5, 3, 5);
+            homeButton.Name = "homeButton";
+            homeButton.Padding = new Padding(2);
+            homeButton.Size = new Size(43, 43);
+            homeButton.TabIndex = 11;
+            homeButton.TextImageRelation = TextImageRelation.TextAboveImage;
+            homeButton.UseVisualStyleBackColor = false;
+            homeButton.Click += homeButton_Click;
+            // 
+            // TabUI
+            // 
+            Controls.Add(homepage1);
+            Controls.Add(homeButton);
+            Controls.Add(button3);
+            Controls.Add(listBoxResults);
             Controls.Add(textBox1);
             Controls.Add(flowLayoutPanel1);
             Controls.Add(backButton);
@@ -209,5 +238,7 @@
         private TextBox textBox1;
         private ListBox listBoxResults;
 		private Button button3;
-	}
+        private Button homeButton;
+        private Homepage homepage1;
+    }
 }
