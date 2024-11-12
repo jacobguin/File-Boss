@@ -44,6 +44,7 @@
             listBoxResults = new ListBox();
             textBox1 = new TextBox();
             homeButton = new Button();
+            flowLayoutPanel2 = new FlowLayoutPanel();
             contextMenuStrip1.SuspendLayout();
             SuspendLayout();
             // 
@@ -52,13 +53,13 @@
             contextMenuStrip1.ImageScalingSize = new Size(20, 20);
             contextMenuStrip1.Items.AddRange(new ToolStripItem[] { undoToolStripMenuItem, pasteToolStripMenuItem, emailSettingsToolStripMenuItem1 });
             contextMenuStrip1.Name = "contextMenuStrip1";
-            contextMenuStrip1.Size = new Size(173, 76);
+            contextMenuStrip1.Size = new Size(149, 70);
             // 
             // undoToolStripMenuItem
             // 
             undoToolStripMenuItem.Name = "undoToolStripMenuItem";
             undoToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.Z;
-            undoToolStripMenuItem.Size = new Size(172, 24);
+            undoToolStripMenuItem.Size = new Size(148, 22);
             undoToolStripMenuItem.Text = "Undo";
             undoToolStripMenuItem.Click += undoToolStripMenuItem_Click;
             // 
@@ -66,14 +67,14 @@
             // 
             pasteToolStripMenuItem.Name = "pasteToolStripMenuItem";
             pasteToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.V;
-            pasteToolStripMenuItem.Size = new Size(172, 24);
+            pasteToolStripMenuItem.Size = new Size(148, 22);
             pasteToolStripMenuItem.Text = "Paste";
             pasteToolStripMenuItem.Click += pasteToolStripMenuItem_Click;
             // 
             // emailSettingsToolStripMenuItem1
             // 
             emailSettingsToolStripMenuItem1.Name = "emailSettingsToolStripMenuItem1";
-            emailSettingsToolStripMenuItem1.Size = new Size(172, 24);
+            emailSettingsToolStripMenuItem1.Size = new Size(148, 22);
             emailSettingsToolStripMenuItem1.Text = "Email Settings";
             emailSettingsToolStripMenuItem1.Click += emailSettingsToolStripMenuItem1_Click;
             // 
@@ -98,7 +99,7 @@
             pathText.Location = new Point(194, 14);
             pathText.Name = "pathText";
             pathText.Padding = new Padding(3);
-            pathText.Size = new Size(58, 28);
+            pathText.Size = new Size(46, 23);
             pathText.TabIndex = 7;
             pathText.Text = "label1";
             // 
@@ -149,6 +150,7 @@
             // 
             homepage1.functionHandler = null;
             homepage1.Location = new Point(148, 50);
+            homepage1.Margin = new Padding(3, 2, 3, 2);
             homepage1.Name = "homepage1";
             homepage1.Size = new Size(781, 541);
             homepage1.TabIndex = 12;
@@ -173,9 +175,10 @@
             // listBoxResults
             // 
             listBoxResults.FormattingEnabled = true;
+            listBoxResults.ItemHeight = 15;
             listBoxResults.Location = new Point(641, 31);
             listBoxResults.Name = "listBoxResults";
-            listBoxResults.Size = new Size(158, 144);
+            listBoxResults.Size = new Size(158, 139);
             listBoxResults.TabIndex = 10;
             listBoxResults.SelectedIndexChanged += listBox1_SelectedIndexChanged;
             // 
@@ -183,7 +186,7 @@
             // 
             textBox1.Location = new Point(641, 12);
             textBox1.Name = "textBox1";
-            textBox1.Size = new Size(158, 27);
+            textBox1.Size = new Size(158, 23);
             textBox1.TabIndex = 0;
             textBox1.TextChanged += textBox1_TextChanged;
             // 
@@ -204,8 +207,18 @@
             homeButton.UseVisualStyleBackColor = false;
             homeButton.Click += homeButton_Click;
             // 
+            // flowLayoutPanel2
+            // 
+            flowLayoutPanel2.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
+            flowLayoutPanel2.AutoScroll = true;
+            flowLayoutPanel2.Location = new Point(3, 50);
+            flowLayoutPanel2.Name = "flowLayoutPanel2";
+            flowLayoutPanel2.Size = new Size(139, 567);
+            flowLayoutPanel2.TabIndex = 13;
+            // 
             // TabUI
             // 
+            Controls.Add(flowLayoutPanel2);
             Controls.Add(homepage1);
             Controls.Add(homeButton);
             Controls.Add(button3);
@@ -240,5 +253,6 @@
 		private Button button3;
         private Button homeButton;
         private Homepage homepage1;
+        private FlowLayoutPanel flowLayoutPanel2;
     }
 }

@@ -25,6 +25,9 @@
     <Compile Update="ItemViewTile.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Update="SideBarItemView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Update="TabUI.cs">
       <SubType>UserControl</SubType>
     </Compile>

@@ -434,7 +434,7 @@ public partial class TabUI : UserControl
         {
             homepage1.parent = this;
             homepage1.LoadCommonDir();
-            //homepage1.LoadFavorites();
+            homepage1.functionHandler = functionHandler;
         }
         homepage1.Visible = !homepage1.Visible;
         flowLayoutPanel1.Visible = !flowLayoutPanel1.Visible;
@@ -442,6 +442,7 @@ public partial class TabUI : UserControl
         {
             Text = "Home";
             pathText.Text = "Home";
+            homepage1.LoadFavorites();
         }
         else
         {

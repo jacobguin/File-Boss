@@ -23,13 +23,16 @@ namespace File_Boss
         public void LoadFavorites()
         {
             string[] favorites = functionHandler.GetFavorites();
+            flowLayoutPanel2.Controls.Clear();
             foreach (string favorite in favorites)
             {
                 ItemView iv = parent.CreateBoth();
+                FileInfo fi = new FileInfo(favorite);
                 Icon icon = System.Drawing.Icon.ExtractAssociatedIcon(fi.FullName)!;
                 iv.LoadFile(favorite, icon, functionHandler);
                 iv.Name = favorite;
                 flowLayoutPanel2.Controls.Add(iv);
+                
             }
         }
 
