@@ -36,26 +36,34 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(15, 23);
+            label1.ForeColor = Color.White;
+            label1.Location = new Point(13, 17);
             label1.Name = "label1";
-            label1.Size = new Size(52, 20);
+            label1.Size = new Size(42, 15);
             label1.TabIndex = 0;
             label1.Text = "Name:";
             // 
             // textBox1
             // 
-            textBox1.Location = new Point(15, 46);
+            textBox1.BackColor = Color.FromArgb(64, 64, 64);
+            textBox1.BorderStyle = BorderStyle.None;
+            textBox1.ForeColor = Color.White;
+            textBox1.Location = new Point(13, 34);
+            textBox1.Margin = new Padding(3, 2, 3, 2);
             textBox1.Name = "textBox1";
-            textBox1.Size = new Size(246, 27);
+            textBox1.Size = new Size(216, 16);
             textBox1.TabIndex = 1;
             textBox1.KeyPress += TextBox_KeyPress;
             // 
             // button1
             // 
-            button1.BackColor = Color.CornflowerBlue;
-            button1.Location = new Point(167, 88);
+            button1.BackColor = Color.FromArgb(46, 204, 113);
+            button1.FlatAppearance.BorderSize = 0;
+            button1.FlatStyle = FlatStyle.Flat;
+            button1.Location = new Point(146, 66);
+            button1.Margin = new Padding(3, 2, 3, 2);
             button1.Name = "button1";
-            button1.Size = new Size(94, 29);
+            button1.Size = new Size(82, 22);
             button1.TabIndex = 2;
             button1.Text = "Create";
             button1.UseVisualStyleBackColor = false;
@@ -63,13 +71,15 @@
             // 
             // CreateItem
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(273, 129);
+            BackColor = Color.FromArgb(34, 34, 34);
+            ClientSize = new Size(239, 97);
             Controls.Add(button1);
             Controls.Add(textBox1);
             Controls.Add(label1);
             FormBorderStyle = FormBorderStyle.FixedToolWindow;
+            Margin = new Padding(3, 2, 3, 2);
             Name = "CreateItem";
             Text = "Item Creation";
             ResumeLayout(false);

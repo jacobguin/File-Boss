@@ -42,6 +42,7 @@
             // label1
             // 
             label1.AutoSize = true;
+            label1.ForeColor = Color.White;
             label1.Location = new Point(86, 53);
             label1.Name = "label1";
             label1.Size = new Size(0, 15);
@@ -51,6 +52,7 @@
             // label2
             // 
             label2.AutoSize = true;
+            label2.ForeColor = Color.White;
             label2.Location = new Point(33, 130);
             label2.Name = "label2";
             label2.Size = new Size(27, 15);
@@ -60,6 +62,7 @@
             // label3
             // 
             label3.AutoSize = true;
+            label3.ForeColor = Color.White;
             label3.Location = new Point(33, 32);
             label3.Name = "label3";
             label3.Size = new Size(39, 15);
@@ -70,6 +73,7 @@
             // label4
             // 
             label4.AutoSize = true;
+            label4.ForeColor = Color.White;
             label4.Location = new Point(33, 66);
             label4.Name = "label4";
             label4.Size = new Size(31, 15);
@@ -79,6 +83,7 @@
             // label5
             // 
             label5.AutoSize = true;
+            label5.ForeColor = Color.White;
             label5.Location = new Point(33, 100);
             label5.Name = "label5";
             label5.Size = new Size(53, 15);
@@ -90,17 +95,18 @@
             // 
             filePath.AutoSize = true;
             filePath.Cursor = Cursors.Hand;
-            filePath.ForeColor = Color.Blue;
+            filePath.ForeColor = Color.FromArgb(46, 204, 113);
             filePath.Location = new Point(134, 100);
             filePath.Name = "filePath";
             filePath.Size = new Size(53, 15);
             filePath.TabIndex = 5;
-            filePath.Text = "Loaction";
+            filePath.Text = "Location";
             filePath.Click += label6_Click;
             // 
             // fileType
             // 
             fileType.AutoSize = true;
+            fileType.ForeColor = Color.White;
             fileType.Location = new Point(134, 66);
             fileType.Name = "fileType";
             fileType.Size = new Size(31, 15);
@@ -111,6 +117,7 @@
             // fileSize
             // 
             fileSize.AutoSize = true;
+            fileSize.ForeColor = Color.White;
             fileSize.Location = new Point(134, 130);
             fileSize.Name = "fileSize";
             fileSize.Size = new Size(27, 15);
@@ -120,6 +127,7 @@
             // fileName
             // 
             fileName.AutoSize = true;
+            fileName.ForeColor = Color.White;
             fileName.Location = new Point(134, 32);
             fileName.Name = "fileName";
             fileName.Size = new Size(39, 15);
@@ -130,6 +138,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.FromArgb(34, 34, 34);
             ClientSize = new Size(620, 390);
             Controls.Add(fileName);
             Controls.Add(fileSize);

@@ -38,6 +38,7 @@ namespace File_Boss
                 tabControl1.Refresh();
                 return Task.CompletedTask;
             };
+            tp.BackColor = Color.Black;
         }
 
         private Task U_RequestNewTab(ItemView arg)
@@ -63,7 +64,9 @@ namespace File_Boss
                     tabControl1.Refresh();
                     return Task.CompletedTask;
                 };
+                tp.BackColor = Color.Black;
             }
+
 
             return Task.CompletedTask;
         }
