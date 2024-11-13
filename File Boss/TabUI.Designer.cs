@@ -20,7 +20,7 @@
 			base.Dispose(disposing);
 		}
 
-		#region Component Designer generated code
+        #region Component Designer generated code
 
 		/// <summary> 
 		/// Required method for Designer support - do not modify 
@@ -91,16 +91,18 @@
 			backButton.Text = "<";
 			backButton.UseVisualStyleBackColor = false;
 			backButton.Click += backButton_Click;
-			// 
-			// pathText
-			// 
-			pathText.AutoSize = true;
+            // 
+            // pathText
+            // 
+            pathText.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            pathText.AutoEllipsis = true;
+            pathText.AutoSize = true;
 			pathText.BackColor = SystemColors.ControlLight;
 			pathText.BorderStyle = BorderStyle.Fixed3D;
-			pathText.Location = new Point(243, 14);
+			pathText.Location = new Point(194, 14);
 			pathText.Name = "pathText";
 			pathText.Padding = new Padding(3);
-			pathText.Size = new Size(58, 28);
+			pathText.Size = new Size(488, 28);
 			pathText.TabIndex = 7;
 			pathText.Text = "label1";
 			// 
@@ -173,20 +175,26 @@
 			button3.TextImageRelation = TextImageRelation.TextAboveImage;
 			button3.UseVisualStyleBackColor = false;
 			button3.Click += button3_Click;
-			// 
-			// listBoxResults
-			// 
-			listBoxResults.FormattingEnabled = true;
-			listBoxResults.Location = new Point(641, 31);
+            // 
+            // listBoxResults
+            // 
+            listBoxResults.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            listBoxResults.BackColor = SystemColors.ControlLight;
+            listBoxResults.FormattingEnabled = true;
+			listBoxResults.Location = new Point(706, 36);
 			listBoxResults.Name = "listBoxResults";
 			listBoxResults.Size = new Size(158, 124);
 			listBoxResults.TabIndex = 10;
 			listBoxResults.SelectedIndexChanged += listBox1_SelectedIndexChanged;
-			// 
-			// textBox1
-			// 
-			textBox1.Location = new Point(641, 12);
-			textBox1.Name = "textBox1";
+            // 
+            // textBox1
+            // 
+            // 
+            textBox1.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            textBox1.BackColor = SystemColors.ControlLight;
+            textBox1.BorderStyle = BorderStyle.FixedSingle;
+            textBox1.Location = new Point(706, 14);
+            textBox1.Name = "textBox1";
 			textBox1.Size = new Size(158, 27);
 			textBox1.TabIndex = 0;
 			textBox1.TextChanged += textBox1_TextChanged;
@@ -255,9 +263,9 @@
 			PerformLayout();
 		}
 
-		#endregion
+        #endregion
 
-		private ContextMenuStrip contextMenuStrip1;
+        private ContextMenuStrip contextMenuStrip1;
 		private ToolStripMenuItem undoToolStripMenuItem;
 		private ToolStripMenuItem pasteToolStripMenuItem;
 		private ToolStripMenuItem emailSettingsToolStripMenuItem1;

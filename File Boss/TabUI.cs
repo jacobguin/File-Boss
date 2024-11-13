@@ -410,6 +410,7 @@ public partial class TabUI : UserControl
 		listBoxResults.Height = newHeight;
 	}
 
+    
 
 	private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
 	{
