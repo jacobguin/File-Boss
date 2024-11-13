@@ -93,11 +93,11 @@
             // 
             // pathText
             // 
+            pathText.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             pathText.AutoEllipsis = true;
             pathText.BackColor = SystemColors.ControlLight;
             pathText.BorderStyle = BorderStyle.Fixed3D;
             pathText.Location = new Point(194, 14);
-            pathText.MaximumSize = new Size(700, 0);
             pathText.Name = "pathText";
             pathText.Padding = new Padding(3);
             pathText.Size = new Size(488, 28);
@@ -179,7 +179,7 @@
             listBoxResults.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             listBoxResults.BackColor = SystemColors.ControlLight;
             listBoxResults.FormattingEnabled = true;
-            listBoxResults.Location = new Point(722, 36);
+            listBoxResults.Location = new Point(706, 36);
             listBoxResults.Name = "listBoxResults";
             listBoxResults.Size = new Size(158, 124);
             listBoxResults.TabIndex = 10;
@@ -190,7 +190,7 @@
             textBox1.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             textBox1.BackColor = SystemColors.ControlLight;
             textBox1.BorderStyle = BorderStyle.FixedSingle;
-            textBox1.Location = new Point(722, 14);
+            textBox1.Location = new Point(706, 14);
             textBox1.Name = "textBox1";
             textBox1.Size = new Size(158, 27);
             textBox1.TabIndex = 0;

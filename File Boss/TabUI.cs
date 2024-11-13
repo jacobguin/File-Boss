@@ -117,7 +117,6 @@ public partial class TabUI : UserControl
     {
         DirectoryInfo di = new(functionHandler.BasePath);
         pathText.Text = di.FullName;
-        //TODO pathText.Size = textBox1.Location
         Text = di.Name;
         updateItemDisplay();
     }
