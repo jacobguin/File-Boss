@@ -31,7 +31,7 @@ public partial class TabUI : UserControl
     public event Func<Task>? RequestRefreash;
 
     public required BackFunctions functionHandler { get; set; }
-    public static List<ItemView> SelectedViews { get; set; } = new();
+    public List<ItemView> SelectedViews { get; set; } = new();
 
     private void backButton_Click(object sender, EventArgs e)
     {
@@ -169,7 +169,7 @@ public partial class TabUI : UserControl
     public void addFolderDisplay(DirectoryInfo di, bool side = false)
     {
         ItemView iv = CreateBoth(side);
-        iv.LoadFolder(di.FullName, functionHandler);
+        iv.LoadFolder(di.FullName, functionHandler, this);
         (side ? flowLayoutPanel2 : flowLayoutPanel1).Controls.Add(iv);
     }
 
@@ -177,7 +177,7 @@ public partial class TabUI : UserControl
     {
         ItemView iv = CreateBoth();
         Icon icon = System.Drawing.Icon.ExtractAssociatedIcon(fi.FullName)!;
-        iv.LoadFile(fi.FullName, icon, functionHandler);
+        iv.LoadFile(fi.FullName, icon, functionHandler, this);
         flowLayoutPanel1.Controls.Add(iv);
         return iv;
     }
@@ -257,48 +257,30 @@ public partial class TabUI : UserControl
 
     private Task ItemViewRequestDelete(ItemView arg)
     {
-        if (arg.CurrentFile is null)
-        {
-            var result = MessageBox.Show($"Are you sure you want to delete the folder '{arg.CurrentDirectory.Name}'?",
-                "Confirm Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+		bool update = false;
 
-            if (result == DialogResult.Yes)
-            {
-                try
-                {
-                    functionHandler.DeleteFolder(arg.CurrentDirectory.Name);
-                    MessageBox.Show("Folder successfully deleted!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+		foreach (ItemView iv in SelectedViews)
+		{
+			try
+			{
+				if (iv is SideBarItemView) continue;
+				if (iv.CurrentFile is not null && iv.CurrentFile.Exists) iv.CurrentFile.Delete();
+				if (iv.CurrentDirectory is not null && iv.CurrentDirectory.Exists) iv.CurrentDirectory.Delete();
+				if (!homepage1.Visible)
+				{
+					flowLayoutPanel1.Controls.Remove(iv);
+				}
+				else
+				{
+					iv.Parent!.Controls.Remove(iv);
+				}
+			}
+			catch { update = true; }
+		}
 
-                    updateItemDisplay();
-                }
-                catch (UIException ex)
-                {
-                    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
-        }
-        else
-        {
-            var result = MessageBox.Show($"Are you sure you want to delete the file '{arg.CurrentFile.Name}'?",
-                "Confirm Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-
-            if (result == DialogResult.Yes)
-            {
-                try
-                {
-                    functionHandler.DeleteFile(arg.CurrentFile.Name);
-                    MessageBox.Show("File successfully deleted!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                    updateItemDisplay();
-                }
-                catch (UIException ex)
-                {
-                    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
-        }
-        return Task.CompletedTask;
-    }
+		if (update) updateItemDisplay();
+		return Task.CompletedTask;
+	}
 
     private Task ItemViewRequestEmail()
     {
@@ -319,15 +301,29 @@ public partial class TabUI : UserControl
             }
             else Dips.Add(item.CurrentDirectory!.FullName);
         }
-        string zip = Path.GetRandomFileName() + ".zip";
-        functionHandler.ZipData(zip, Dips.ToArray());
-        paths.Add(Path.Join(functionHandler.BasePath, zip));
+        string? zip = null;
+        if (Dips.Count >0)
+        {
+			zip = Path.GetRandomFileName() + ".zip";
+			functionHandler.ZipData(zip, Dips.ToArray());
+			paths.Add(Path.Join(functionHandler.BasePath, zip));
+		}
+        
         EmailPrompt EP = new()
         {
             PathsToZips = paths.ToArray(),
             Functions = functionHandler
         };
         EP.ShowDialog();
+        EP.Dispose();
+        if (zip is not null)
+        {
+            try
+            {
+                functionHandler.DeleteFile(zip);
+            }
+            catch { }
+        }
         return Task.CompletedTask;
     }
 
@@ -453,7 +449,7 @@ public partial class TabUI : UserControl
         if (homepage1.parent is null)
         {
             homepage1.parent = this;
-            homepage1.LoadCommonDir();
+            homepage1.LoadCommonDir(this);
             homepage1.functionHandler = functionHandler;
         }
         homepage1.Visible = !homepage1.Visible;
@@ -462,7 +458,7 @@ public partial class TabUI : UserControl
         {
             Text = "Home";
             pathText.Text = "Home";
-            homepage1.LoadFavorites();
+            homepage1.LoadFavorites(this);
         }
         else
         {

@@ -46,6 +46,7 @@
 			// label1
 			// 
 			label1.AutoSize = true;
+			label1.ContextMenuStrip = contextMenuStrip1;
 			label1.Location = new Point(33, 8);
 			label1.Name = "label1";
 			label1.Size = new Size(50, 20);
@@ -54,6 +55,7 @@
 			// 
 			// pictureBox1
 			// 
+			pictureBox1.ContextMenuStrip = contextMenuStrip1;
 			pictureBox1.Image = Properties.Resources.Folder_Icon;
 			pictureBox1.Location = new Point(3, 3);
 			pictureBox1.Margin = new Padding(3, 4, 3, 4);
@@ -124,6 +126,7 @@
 			// 
 			AutoScaleDimensions = new SizeF(8F, 20F);
 			AutoScaleMode = AutoScaleMode.Font;
+			ContextMenuStrip = contextMenuStrip1;
 			Controls.Add(pictureBox1);
 			Controls.Add(label1);
 			Margin = new Padding(3, 4, 3, 4);

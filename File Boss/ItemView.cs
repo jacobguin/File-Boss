@@ -5,12 +5,12 @@ namespace File_Boss;
 
 public class ItemView : UserControl
 {
-	public virtual void LoadFolder(string Folder, BackFunctions functionHandler)
+	public virtual void LoadFolder(string Folder, BackFunctions functionHandler, TabUI t)
 	{
 
 	}
 
-	public virtual void LoadFile(string File, Icon icon, BackFunctions functionHandler)
+	public virtual void LoadFile(string File, Icon icon, BackFunctions functionHandler, TabUI t)
 	{
 
 	}

@@ -49,6 +49,10 @@ namespace File_Boss
 			}
 		
 			smtp.Send(message);
+			message.Attachments.Dispose();
+			message.Dispose();
+			
+			smtp.Dispose();
 			MessageBox.Show("Email Sent");
 			Close();
 		}

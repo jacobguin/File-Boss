@@ -22,11 +22,13 @@ namespace File_Boss
         }
 
 		private BackFunctions functionHandler;
-		private ToolStripMenuItem? fav, zip, uzip, Tab;
+		private ToolStripMenuItem? fav, zip, uzip, Tab, createShortcutMenuItem;
+		private TabUI tap;
 
-		private void LoadBoth(BackFunctions functionHandler)
+		private void LoadBoth(BackFunctions functionHandler, TabUI t)
 		{
 			this.functionHandler = functionHandler;
+			tap = t;
 			this.MouseDoubleClick += AllDoubleClick;
 			label1.MouseDoubleClick += AllDoubleClick;
 			pictureBox1.MouseDoubleClick += AllDoubleClick;
@@ -35,9 +37,9 @@ namespace File_Boss
 			pictureBox1.MouseClick += AllSingleClick;
 		}
 
-		public override void LoadFolder(string Folder, BackFunctions functionHandler)
+		public override void LoadFolder(string Folder, BackFunctions functionHandler, TabUI t)
 		{
-			LoadBoth(functionHandler);
+			LoadBoth(functionHandler, t);
 			CurrentDirectory = new(Folder);
 			label1.Text = CurrentDirectory.Name;
 			contextMenuStrip1.Items.Remove(openWithToolStripMenuItem);
@@ -78,9 +80,9 @@ namespace File_Boss
 			}
 
 		}
-        public override void LoadFile(string File, Icon icon, BackFunctions functionHandler)
+        public override void LoadFile(string File, Icon icon, BackFunctions functionHandler, TabUI t)
 		{
-			LoadBoth(functionHandler);
+			LoadBoth(functionHandler, t);
 			CurrentFile = new(File);
 			label1.Text = CurrentFile.Name;
 			pictureBox1.Image = icon.ToBitmap();
@@ -90,7 +92,7 @@ namespace File_Boss
 			}
 			catch { }
 			openWithToolStripMenuItem.DropDownItems.Clear();
-            ToolStripMenuItem createShortcutMenuItem = new ToolStripMenuItem("Create Shortcut to Desktop");
+            createShortcutMenuItem = new ToolStripMenuItem("Create Shortcut to Desktop");
             contextMenuStrip1.Items.Add(createShortcutMenuItem);
             createShortcutMenuItem.Click += CreateShortcutMenuItem_Click;
             foreach (var program in functionHandler.ProgramMap.Values)
@@ -248,6 +250,28 @@ namespace File_Boss
 		private void contextMenuStrip1_Opening(object sender, CancelEventArgs e)
 		{
 			AllSingleClick(sender, null!);
+			foreach (ToolStripItem item in contextMenuStrip1.Items)
+			{
+				item.Enabled = true;
+			}
+			
+			if (tap.SelectedViews.Count > 1)
+			{
+				propertiesToolStripMenuItem.Enabled = false;
+				openWithToolStripMenuItem.Enabled = false;
+				if (zip is not null) zip.Enabled = false;
+				if (uzip is not null) uzip.Enabled = false;
+				if (Tab is not null) Tab.Enabled = false;
+				if (fav is not null) fav.Enabled = false;
+				if (createShortcutMenuItem is not null) createShortcutMenuItem.Enabled = false;
+				renameToolStripMenuItem.Enabled = false;
+				copyToolStripMenuItem.Enabled = false;
+				
+			}
+			else if (CurrentFile is not null && functionHandler.GetFavorites().Contains(CurrentFile.FullName))
+			{
+				fav!.Enabled = false;
+			}
 		}
 
         public void copyToolStripMenuItem1_Click(object sender, EventArgs e)

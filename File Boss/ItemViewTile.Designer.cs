@@ -22,7 +22,7 @@ namespace File_Boss
 			base.Dispose(disposing);
 		}
 
-        #region Component Designer generated code
+		#region Component Designer generated code
 
 		/// <summary> 
 		/// Required method for Designer support - do not modify 
@@ -121,9 +121,11 @@ namespace File_Boss
 			// 
 			label1.AutoSize = true;
 			label1.ContextMenuStrip = contextMenuStrip1;
-			label1.Location = new Point(18, 97);
+			label1.Font = new Font("Segoe UI", 8F);
+			label1.Location = new Point(18, 99);
+			label1.MaximumSize = new Size(72, 0);
 			label1.Name = "label1";
-			label1.Size = new Size(50, 20);
+			label1.Size = new Size(45, 19);
 			label1.TabIndex = 3;
 			label1.Text = "label1";
 			// 
@@ -131,6 +133,8 @@ namespace File_Boss
 			// 
 			AutoScaleDimensions = new SizeF(8F, 20F);
 			AutoScaleMode = AutoScaleMode.Font;
+			AutoSize = true;
+			ContextMenuStrip = contextMenuStrip1;
 			Controls.Add(pictureBox1);
 			Controls.Add(label1);
 			Name = "ItemViewTile";
@@ -141,9 +145,9 @@ namespace File_Boss
 			PerformLayout();
 		}
 
-        #endregion
+		#endregion
 
-        public PictureBox pictureBox1;
+		public PictureBox pictureBox1;
 		private ContextMenuStrip contextMenuStrip1;
 		private ToolStripMenuItem openWithToolStripMenuItem;
 		private ToolStripMenuItem deleteToolStripMenuItem;
