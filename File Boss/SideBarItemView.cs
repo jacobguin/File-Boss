@@ -51,7 +51,12 @@ public partial class SideBarItemView : ItemView
         CurrentFile = new(File);
         label1.Text = CurrentFile.Name;
         pictureBox1.Image = icon.ToBitmap();
-        openWithToolStripMenuItem.DropDownItems.Clear();
+		try
+		{
+			pictureBox1.Image = new Bitmap(CurrentFile.FullName);
+		}
+		catch { }
+		openWithToolStripMenuItem.DropDownItems.Clear();
         ToolStripMenuItem createShortcutMenuItem = new ToolStripMenuItem("Create Shortcut to Desktop");
         contextMenuStrip1.Items.Add(createShortcutMenuItem);
         createShortcutMenuItem.Click += CreateShortcutMenuItem_Click;
