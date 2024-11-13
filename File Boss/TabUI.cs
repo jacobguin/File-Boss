@@ -301,9 +301,10 @@ public partial class TabUI : UserControl
             }
             else Dips.Add(item.CurrentDirectory!.FullName);
         }
+        string? zip = null;
         if (Dips.Count >0)
         {
-			string zip = Path.GetRandomFileName() + ".zip";
+			zip = Path.GetRandomFileName() + ".zip";
 			functionHandler.ZipData(zip, Dips.ToArray());
 			paths.Add(Path.Join(functionHandler.BasePath, zip));
 		}
@@ -314,6 +315,15 @@ public partial class TabUI : UserControl
             Functions = functionHandler
         };
         EP.ShowDialog();
+        EP.Dispose();
+        if (zip is not null)
+        {
+            try
+            {
+                functionHandler.DeleteFile(zip);
+            }
+            catch { }
+        }
         return Task.CompletedTask;
     }
 
