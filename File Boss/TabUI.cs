@@ -12,8 +12,20 @@ public partial class TabUI : UserControl
     {
         InitializeComponent();
         listBoxResults.Visible = false;
-        string currentDirectory = Environment.CurrentDirectory;
-    }
+		string desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+		string documents = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+		string downloads = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + "\\Downloads";
+		string music = Environment.GetFolderPath(Environment.SpecialFolder.MyMusic);
+		string pictures = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures);
+		string videos = Environment.GetFolderPath(Environment.SpecialFolder.MyVideos);
+
+		addFolderDisplay(new DirectoryInfo(desktop), true);
+		addFolderDisplay(new DirectoryInfo(documents), true);
+		addFolderDisplay(new DirectoryInfo(downloads), true);
+		addFolderDisplay(new DirectoryInfo(music), true);
+		addFolderDisplay(new DirectoryInfo(pictures), true);
+		addFolderDisplay(new DirectoryInfo(videos), true);
+	}
 
     public event Func<ItemView, Task>? RequestNewTab;
     public event Func<Task>? RequestRefreash;
@@ -127,13 +139,17 @@ public partial class TabUI : UserControl
         flowLayoutPanel1.PerformLayout();
     }
 
-    public ItemView CreateBoth()
+    public ItemView CreateBoth(bool side = false)
     {
         ItemView iv;
-        if (flowLayoutPanel1.FlowDirection == FlowDirection.LeftToRight)
+		if (side)
+		{
+			iv = new SideBarItemView();
+		}
+		else if (flowLayoutPanel1.FlowDirection == FlowDirection.LeftToRight)
         {
             iv = new ItemViewTile();
-        }
+        }         
         else
         {
             iv = new ItemViewContent();
@@ -150,11 +166,11 @@ public partial class TabUI : UserControl
         return iv;
     }
 
-    public void addFolderDisplay(DirectoryInfo di)
+    public void addFolderDisplay(DirectoryInfo di, bool side = false)
     {
-        ItemView iv = CreateBoth();
+        ItemView iv = CreateBoth(side);
         iv.LoadFolder(di.FullName, functionHandler);
-        flowLayoutPanel1.Controls.Add(iv);
+        (side ? flowLayoutPanel2 : flowLayoutPanel1).Controls.Add(iv);
     }
 
     public ItemView addFileDisplay(FileInfo fi)
@@ -176,13 +192,13 @@ public partial class TabUI : UserControl
         }
         else
         {
-            if (!homepage1.Visible) functionHandler.BasePath = Path.Join(functionHandler.BasePath, arg.CurrentDirectory!.Name);
-            else
+            functionHandler.BasePath = arg.CurrentDirectory!.FullName;
+            
+            if (homepage1.Visible)
             {
-                homepage1.Visible = !homepage1.Visible;
-                flowLayoutPanel1.Visible = !flowLayoutPanel1.Visible;
-                functionHandler.BasePath = arg.CurrentDirectory!.FullName;
-            }
+				homepage1.Visible = !homepage1.Visible;
+				flowLayoutPanel1.Visible = !flowLayoutPanel1.Visible;
+			}
             functionHandler.AddUIUndoAction(() => { updateItemDisplay(); });
             updateItemDisplay();
             pathText.Text = functionHandler.BasePath;
