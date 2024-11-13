@@ -590,7 +590,7 @@ public class BackFunctions
 
             foreach (var dir in Directory.GetDirectories(currentDirectory))
             {
-                result.AddRange(SearchFilesAndDirectories(dir, searchPattern));
+               // result.AddRange(SearchFilesAndDirectories(dir, searchPattern));
             }
         }
         catch (UnauthorizedAccessException e)

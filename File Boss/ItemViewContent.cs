@@ -193,8 +193,6 @@ namespace File_Boss
 				MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 			}
 		}
-
-
 		private TextBox? renameBox;
 		private void renameToolStripMenuItem_Click(object sender, EventArgs e)
 		{
@@ -242,13 +240,11 @@ namespace File_Boss
 			label1.Visible = true;
 			CallRequestUpdate();
 		}
-
 		private void copyToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			String path = CurrentFile!.FullName;
 			Clipboard.SetText(path);
 		}
-
 		private void propertiesToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			File_Properties_Form fp = new();
@@ -259,23 +255,19 @@ namespace File_Boss
 		{
 			AllSingleClick(sender, null!);
 		}
-
 		public void copyToolStripMenuItem1_Click(object sender, EventArgs e)
 		{
 			CallRequestCopy();
 		}
-
 		private void sendOverEmailToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			CallRequestEmaile();
 		}
-
 		public override void ShowSelected()
 		{
 			BackColor = Color.CornflowerBlue;
 			pictureBox1.BackColor = Color.CornflowerBlue;
 		}
-
 		public override void ShowNotSelected()
 		{
 			BackColor = SystemColors.Control;
