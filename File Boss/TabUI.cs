@@ -257,48 +257,30 @@ public partial class TabUI : UserControl
 
     private Task ItemViewRequestDelete(ItemView arg)
     {
-        if (arg.CurrentFile is null)
-        {
-            var result = MessageBox.Show($"Are you sure you want to delete the folder '{arg.CurrentDirectory.Name}'?",
-                "Confirm Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+		bool update = false;
 
-            if (result == DialogResult.Yes)
-            {
-                try
-                {
-                    functionHandler.DeleteFolder(arg.CurrentDirectory.Name);
-                    MessageBox.Show("Folder successfully deleted!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+		foreach (ItemView iv in SelectedViews)
+		{
+			try
+			{
+				if (iv is SideBarItemView) continue;
+				if (iv.CurrentFile is not null && iv.CurrentFile.Exists) iv.CurrentFile.Delete();
+				if (iv.CurrentDirectory is not null && iv.CurrentDirectory.Exists) iv.CurrentDirectory.Delete();
+				if (!homepage1.Visible)
+				{
+					flowLayoutPanel1.Controls.Remove(iv);
+				}
+				else
+				{
+					iv.Parent!.Controls.Remove(iv);
+				}
+			}
+			catch { update = true; }
+		}
 
-                    updateItemDisplay();
-                }
-                catch (UIException ex)
-                {
-                    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
-        }
-        else
-        {
-            var result = MessageBox.Show($"Are you sure you want to delete the file '{arg.CurrentFile.Name}'?",
-                "Confirm Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-
-            if (result == DialogResult.Yes)
-            {
-                try
-                {
-                    functionHandler.DeleteFile(arg.CurrentFile.Name);
-                    MessageBox.Show("File successfully deleted!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                    updateItemDisplay();
-                }
-                catch (UIException ex)
-                {
-                    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
-        }
-        return Task.CompletedTask;
-    }
+		if (update) updateItemDisplay();
+		return Task.CompletedTask;
+	}
 
     private Task ItemViewRequestEmail()
     {
