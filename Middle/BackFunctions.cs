@@ -205,13 +205,13 @@ public class BackFunctions
 					name = name.Remove(name.Length - ext.Length, ext.Length);
 					void withnum(int i)
 					{
-						if (File.Exists(Path.Join(BasePath, name + $" ({i}){ext}")))
+						if (File.Exists(Path.Join(BasePath, name + $"({i}){ext}")))
 						{
 							withnum(i + 1);
 						}
 						else
 						{
-							name += $" ({i}){ext}";
+							name += $"({i}){ext}";
 						}
 					}
 					withnum(1);
@@ -227,13 +227,13 @@ public class BackFunctions
 				{
 					void withnum(int i)
 					{
-						if (Directory.Exists(Path.Join(BasePath, name + $" ({i})")))
+						if (Directory.Exists(Path.Join(BasePath, name + $"({i})")))
 						{
 							withnum(i + 1);
 						}
 						else
 						{
-							name += $" ({i})";
+							name += $"({i})";
 						}
 					}
 					withnum(1);
