@@ -291,7 +291,12 @@ public partial class TabUI : UserControl
 					iv.Parent!.Controls.Remove(iv);
 				}
 			}
-			catch { update = true; }
+			
+			catch (Exception eeeee)
+			{
+				MessageBox.Show(eeeee.ToString());
+				update = true;
+			}
 		}
 
 		if (update) updateItemDisplay();
