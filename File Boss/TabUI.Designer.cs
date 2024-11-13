@@ -45,6 +45,7 @@
 			textBox1 = new TextBox();
 			homeButton = new Button();
 			flowLayoutPanel2 = new FlowLayoutPanel();
+			button4 = new Button();
 			contextMenuStrip1.SuspendLayout();
 			SuspendLayout();
 			// 
@@ -96,7 +97,7 @@
 			pathText.AutoSize = true;
 			pathText.BackColor = SystemColors.ControlLight;
 			pathText.BorderStyle = BorderStyle.Fixed3D;
-			pathText.Location = new Point(194, 14);
+			pathText.Location = new Point(243, 14);
 			pathText.Name = "pathText";
 			pathText.Padding = new Padding(3);
 			pathText.Size = new Size(58, 28);
@@ -216,8 +217,25 @@
 			flowLayoutPanel2.Size = new Size(139, 567);
 			flowLayoutPanel2.TabIndex = 13;
 			// 
+			// button4
+			// 
+			button4.BackColor = Color.CornflowerBlue;
+			button4.BackgroundImage = (Image)resources.GetObject("button4.BackgroundImage");
+			button4.BackgroundImageLayout = ImageLayout.Zoom;
+			button4.ImageAlign = ContentAlignment.TopLeft;
+			button4.Location = new Point(194, 0);
+			button4.Margin = new Padding(3, 5, 3, 5);
+			button4.Name = "button4";
+			button4.Padding = new Padding(2);
+			button4.Size = new Size(43, 43);
+			button4.TabIndex = 14;
+			button4.TextImageRelation = TextImageRelation.TextAboveImage;
+			button4.UseVisualStyleBackColor = false;
+			button4.Click += button4_Click;
+			// 
 			// TabUI
 			// 
+			Controls.Add(button4);
 			Controls.Add(flowLayoutPanel2);
 			Controls.Add(homepage1);
 			Controls.Add(homeButton);
@@ -254,5 +272,6 @@
         private Button homeButton;
         private Homepage homepage1;
         private FlowLayoutPanel flowLayoutPanel2;
+        private Button button4;
     }
 }
