@@ -183,6 +183,7 @@ namespace File_Boss
 			// 
 			AutoScaleDimensions = new SizeF(8F, 20F);
 			AutoScaleMode = AutoScaleMode.Font;
+			ContextMenuStrip = contextMenuStrip1;
 			Controls.Add(label1);
 			Controls.Add(pictureBox1);
 			Controls.Add(label7);

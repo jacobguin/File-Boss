@@ -31,7 +31,7 @@ public partial class TabUI : UserControl
     public event Func<Task>? RequestRefreash;
 
     public required BackFunctions functionHandler { get; set; }
-    public static List<ItemView> SelectedViews { get; set; } = new();
+    public List<ItemView> SelectedViews { get; set; } = new();
 
     private void backButton_Click(object sender, EventArgs e)
     {
@@ -169,7 +169,7 @@ public partial class TabUI : UserControl
     public void addFolderDisplay(DirectoryInfo di, bool side = false)
     {
         ItemView iv = CreateBoth(side);
-        iv.LoadFolder(di.FullName, functionHandler);
+        iv.LoadFolder(di.FullName, functionHandler, this);
         (side ? flowLayoutPanel2 : flowLayoutPanel1).Controls.Add(iv);
     }
 
@@ -177,7 +177,7 @@ public partial class TabUI : UserControl
     {
         ItemView iv = CreateBoth();
         Icon icon = System.Drawing.Icon.ExtractAssociatedIcon(fi.FullName)!;
-        iv.LoadFile(fi.FullName, icon, functionHandler);
+        iv.LoadFile(fi.FullName, icon, functionHandler, this);
         flowLayoutPanel1.Controls.Add(iv);
         return iv;
     }
@@ -449,7 +449,7 @@ public partial class TabUI : UserControl
         if (homepage1.parent is null)
         {
             homepage1.parent = this;
-            homepage1.LoadCommonDir();
+            homepage1.LoadCommonDir(this);
             homepage1.functionHandler = functionHandler;
         }
         homepage1.Visible = !homepage1.Visible;
@@ -458,7 +458,7 @@ public partial class TabUI : UserControl
         {
             Text = "Home";
             pathText.Text = "Home";
-            homepage1.LoadFavorites();
+            homepage1.LoadFavorites(this);
         }
         else
         {

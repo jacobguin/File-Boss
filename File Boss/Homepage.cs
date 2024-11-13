@@ -18,9 +18,8 @@ namespace File_Boss
             InitializeComponent();
         }
         public BackFunctions functionHandler { get; set; }
-        public static List<ItemView> SelectedViews { get; set; } = new();
 
-        public void LoadFavorites()
+        public void LoadFavorites(TabUI t)
         {
             string[] favorites = functionHandler.GetFavorites();
             flowLayoutPanel2.Controls.Clear();
@@ -29,7 +28,7 @@ namespace File_Boss
                 ItemView iv = parent.CreateBoth();
                 FileInfo fi = new FileInfo(favorite);
                 Icon icon = System.Drawing.Icon.ExtractAssociatedIcon(fi.FullName)!;
-                iv.LoadFile(favorite, icon, functionHandler);
+                iv.LoadFile(favorite, icon, functionHandler, t);
                 iv.Name = favorite;
                 flowLayoutPanel2.Controls.Add(iv);
                 
@@ -37,7 +36,7 @@ namespace File_Boss
         }
 
         public TabUI parent;
-        public void LoadCommonDir()
+        public void LoadCommonDir(TabUI t)
         {
             string desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
             string documents = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
@@ -46,26 +45,26 @@ namespace File_Boss
             string pictures = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures);
             string videos = Environment.GetFolderPath(Environment.SpecialFolder.MyVideos);
 
-            addFolderDisplay(new DirectoryInfo(desktop));
-            addFolderDisplay(new DirectoryInfo(documents));
-            addFolderDisplay(new DirectoryInfo(downloads));
-            addFolderDisplay(new DirectoryInfo(music));
-            addFolderDisplay(new DirectoryInfo(pictures));
-            addFolderDisplay(new DirectoryInfo(videos));
+            addFolderDisplay(new DirectoryInfo(desktop), t);
+            addFolderDisplay(new DirectoryInfo(documents), t);
+            addFolderDisplay(new DirectoryInfo(downloads), t);
+            addFolderDisplay(new DirectoryInfo(music), t);
+            addFolderDisplay(new DirectoryInfo(pictures), t);
+            addFolderDisplay(new DirectoryInfo(videos), t);
         }
 
-        public void addFolderDisplay(DirectoryInfo di)
+        public void addFolderDisplay(DirectoryInfo di, TabUI t)
         {
             ItemView iv = parent.CreateBoth();
-            iv.LoadFolder(di.FullName, functionHandler);
+            iv.LoadFolder(di.FullName, functionHandler, t);
             flowLayoutPanel1.Controls.Add(iv);
         }
 
-        public ItemView addFileDisplay(FileInfo fi)
+        public ItemView addFileDisplay(FileInfo fi, TabUI t)
         {
             ItemView iv = parent.CreateBoth();
             Icon icon = System.Drawing.Icon.ExtractAssociatedIcon(fi.FullName)!;
-            iv.LoadFile(fi.FullName, icon, functionHandler);
+            iv.LoadFile(fi.FullName, icon, functionHandler, t);
             flowLayoutPanel1.Controls.Add(iv);
             return iv;
         }
