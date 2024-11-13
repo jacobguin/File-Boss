@@ -117,6 +117,7 @@ public partial class TabUI : UserControl
     {
         DirectoryInfo di = new(functionHandler.BasePath);
         pathText.Text = di.FullName;
+        //TODO pathText.Size = textBox1.Location
         Text = di.Name;
         updateItemDisplay();
     }
@@ -394,6 +395,7 @@ public partial class TabUI : UserControl
         listBoxResults.Height = newHeight;
     }
 
+    
 
     private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
     {
