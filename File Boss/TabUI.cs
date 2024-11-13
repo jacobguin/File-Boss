@@ -301,9 +301,13 @@ public partial class TabUI : UserControl
             }
             else Dips.Add(item.CurrentDirectory!.FullName);
         }
-        string zip = Path.GetRandomFileName() + ".zip";
-        functionHandler.ZipData(zip, Dips.ToArray());
-        paths.Add(Path.Join(functionHandler.BasePath, zip));
+        if (Dips.Count >0)
+        {
+			string zip = Path.GetRandomFileName() + ".zip";
+			functionHandler.ZipData(zip, Dips.ToArray());
+			paths.Add(Path.Join(functionHandler.BasePath, zip));
+		}
+        
         EmailPrompt EP = new()
         {
             PathsToZips = paths.ToArray(),
