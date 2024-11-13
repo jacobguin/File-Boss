@@ -27,7 +27,7 @@ namespace File_Boss
         public void load_file(FileInfo fi)
         {
             CurentFile = fi;           
-            filePath.Text = CurentFile.FullName;
+            location.Text = CurentFile.FullName;
             
             string fst = "";
             ulong size = (ulong)CurentFile.Length;
@@ -213,12 +213,14 @@ namespace File_Boss
 
         private void label5_Click(object sender, EventArgs e)
         {
-
+           
         }
 
         private void label6_Click(object sender, EventArgs e)
         {
             Clipboard.SetText(CurentFile.FullName);
+            //location.MaximumSize = new Size(200, 0);
+            location.AutoSize = true;
         }
 
         private void label7_Click(object sender, EventArgs e)
