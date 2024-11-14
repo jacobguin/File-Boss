@@ -93,7 +93,10 @@ namespace File_Boss
 			pictureBox1.Image = icon.ToBitmap();
 			try
 			{
-				pictureBox1.Image = new Bitmap(CurrentFile.FullName);
+				using (Bitmap tempImage = new(CurrentFile.FullName))
+				{
+					pictureBox1.Image = new Bitmap(tempImage);
+				}
 			}
 			catch { }
 			openWithToolStripMenuItem.DropDownItems.Clear();
