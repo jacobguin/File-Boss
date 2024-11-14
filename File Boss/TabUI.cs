@@ -497,4 +497,26 @@ public partial class TabUI : UserControl
 		reverse = !reverse;
 		updateItemDisplay();
 	}
+
+	private void flowLayoutPanel1_DragDrop(object sender, DragEventArgs e)
+	{
+		string[] files = (string[])e.Data!.GetData(DataFormats.FileDrop)!;
+		foreach (string file in files)
+		{
+			functionHandler.MoveFileToCurrDirectory(file);
+		}
+		updateItemDisplay();
+	}
+
+	private void flowLayoutPanel1_DragEnter(object sender, DragEventArgs e)
+	{
+		if (e.Data.GetDataPresent(DataFormats.FileDrop))
+		{
+			e.Effect = DragDropEffects.All;
+		}
+		else
+		{
+			e.Effect = DragDropEffects.None;
+		}
+	}
 }
