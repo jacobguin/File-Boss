@@ -30,7 +30,6 @@
 		{
 			components = new System.ComponentModel.Container();
 			label1 = new Label();
-			pictureBox1 = new PictureBox();
 			contextMenuStrip1 = new ContextMenuStrip(components);
 			openWithToolStripMenuItem = new ToolStripMenuItem();
 			deleteToolStripMenuItem = new ToolStripMenuItem();
@@ -39,8 +38,9 @@
 			renameToolStripMenuItem = new ToolStripMenuItem();
 			sendOverEmailToolStripMenuItem = new ToolStripMenuItem();
 			propertiesToolStripMenuItem = new ToolStripMenuItem();
-			((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+			pictureBox1 = new PictureBox();
 			contextMenuStrip1.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
 			SuspendLayout();
 			// 
 			// label1
@@ -52,6 +52,79 @@
 			label1.Size = new Size(50, 20);
 			label1.TabIndex = 0;
 			label1.Text = "label1";
+			// 
+			// contextMenuStrip1
+			// 
+			contextMenuStrip1.BackColor = Color.FromArgb(64, 64, 64);
+			contextMenuStrip1.ImageScalingSize = new Size(20, 20);
+			contextMenuStrip1.Items.AddRange(new ToolStripItem[] { openWithToolStripMenuItem, deleteToolStripMenuItem, copyToolStripMenuItem, copyFileToolStripMenuItem, renameToolStripMenuItem, sendOverEmailToolStripMenuItem, propertiesToolStripMenuItem });
+			contextMenuStrip1.Name = "contextMenuStrip1";
+			contextMenuStrip1.ShowImageMargin = false;
+			contextMenuStrip1.Size = new Size(186, 200);
+			contextMenuStrip1.Opening += contextMenuStrip1_Opening;
+			// 
+			// openWithToolStripMenuItem
+			// 
+			openWithToolStripMenuItem.BackColor = Color.FromArgb(64, 64, 64);
+			openWithToolStripMenuItem.ForeColor = Color.White;
+			openWithToolStripMenuItem.Name = "openWithToolStripMenuItem";
+			openWithToolStripMenuItem.Size = new Size(185, 24);
+			openWithToolStripMenuItem.Text = "Open With";
+			// 
+			// deleteToolStripMenuItem
+			// 
+			deleteToolStripMenuItem.BackColor = Color.FromArgb(64, 64, 64);
+			deleteToolStripMenuItem.ForeColor = Color.White;
+			deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
+			deleteToolStripMenuItem.ShortcutKeys = Keys.Delete;
+			deleteToolStripMenuItem.Size = new Size(185, 24);
+			deleteToolStripMenuItem.Text = "Delete";
+			// 
+			// copyToolStripMenuItem
+			// 
+			copyToolStripMenuItem.BackColor = Color.FromArgb(64, 64, 64);
+			copyToolStripMenuItem.ForeColor = Color.White;
+			copyToolStripMenuItem.Name = "copyToolStripMenuItem";
+			copyToolStripMenuItem.Size = new Size(185, 24);
+			copyToolStripMenuItem.Text = "Copy File Path";
+			copyToolStripMenuItem.Click += copyToolStripMenuItem_Click;
+			// 
+			// copyFileToolStripMenuItem
+			// 
+			copyFileToolStripMenuItem.BackColor = Color.FromArgb(64, 64, 64);
+			copyFileToolStripMenuItem.ForeColor = Color.White;
+			copyFileToolStripMenuItem.Name = "copyFileToolStripMenuItem";
+			copyFileToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.C;
+			copyFileToolStripMenuItem.Size = new Size(185, 24);
+			copyFileToolStripMenuItem.Text = "Copy";
+			copyFileToolStripMenuItem.Click += copyToolStripMenuItem1_Click;
+			// 
+			// renameToolStripMenuItem
+			// 
+			renameToolStripMenuItem.BackColor = Color.FromArgb(64, 64, 64);
+			renameToolStripMenuItem.ForeColor = Color.White;
+			renameToolStripMenuItem.Name = "renameToolStripMenuItem";
+			renameToolStripMenuItem.Size = new Size(185, 24);
+			renameToolStripMenuItem.Text = "Rename";
+			renameToolStripMenuItem.Click += renameToolStripMenuItem_Click;
+			// 
+			// sendOverEmailToolStripMenuItem
+			// 
+			sendOverEmailToolStripMenuItem.BackColor = Color.FromArgb(64, 64, 64);
+			sendOverEmailToolStripMenuItem.ForeColor = Color.White;
+			sendOverEmailToolStripMenuItem.Name = "sendOverEmailToolStripMenuItem";
+			sendOverEmailToolStripMenuItem.Size = new Size(185, 24);
+			sendOverEmailToolStripMenuItem.Text = "Send Over Email";
+			sendOverEmailToolStripMenuItem.Click += sendOverEmailToolStripMenuItem_Click;
+			// 
+			// propertiesToolStripMenuItem
+			// 
+			propertiesToolStripMenuItem.BackColor = Color.FromArgb(64, 64, 64);
+			propertiesToolStripMenuItem.ForeColor = Color.White;
+			propertiesToolStripMenuItem.Name = "propertiesToolStripMenuItem";
+			propertiesToolStripMenuItem.Size = new Size(185, 24);
+			propertiesToolStripMenuItem.Text = "Properties";
+			propertiesToolStripMenuItem.Click += propertiesToolStripMenuItem_Click;
 			// 
 			// pictureBox1
 			// 
@@ -65,63 +138,6 @@
 			pictureBox1.TabIndex = 1;
 			pictureBox1.TabStop = false;
 			// 
-			// contextMenuStrip1
-			// 
-			contextMenuStrip1.ImageScalingSize = new Size(20, 20);
-			contextMenuStrip1.Items.AddRange(new ToolStripItem[] { openWithToolStripMenuItem, deleteToolStripMenuItem, copyToolStripMenuItem, copyFileToolStripMenuItem, renameToolStripMenuItem, sendOverEmailToolStripMenuItem, propertiesToolStripMenuItem });
-			contextMenuStrip1.Name = "contextMenuStrip1";
-			contextMenuStrip1.Size = new Size(188, 172);
-			contextMenuStrip1.Opening += contextMenuStrip1_Opening;
-			// 
-			// openWithToolStripMenuItem
-			// 
-			openWithToolStripMenuItem.Name = "openWithToolStripMenuItem";
-			openWithToolStripMenuItem.Size = new Size(187, 24);
-			openWithToolStripMenuItem.Text = "Open With";
-			// 
-			// deleteToolStripMenuItem
-			// 
-			deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
-			deleteToolStripMenuItem.ShortcutKeys = Keys.Delete;
-			deleteToolStripMenuItem.Size = new Size(187, 24);
-			deleteToolStripMenuItem.Text = "Delete";
-			// 
-			// copyToolStripMenuItem
-			// 
-			copyToolStripMenuItem.Name = "copyToolStripMenuItem";
-			copyToolStripMenuItem.Size = new Size(187, 24);
-			copyToolStripMenuItem.Text = "Copy File Path";
-			copyToolStripMenuItem.Click += copyToolStripMenuItem_Click;
-			// 
-			// copyFileToolStripMenuItem
-			// 
-			copyFileToolStripMenuItem.Name = "copyFileToolStripMenuItem";
-			copyFileToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.C;
-			copyFileToolStripMenuItem.Size = new Size(187, 24);
-			copyFileToolStripMenuItem.Text = "Copy";
-			copyFileToolStripMenuItem.Click += copyToolStripMenuItem1_Click;
-			// 
-			// renameToolStripMenuItem
-			// 
-			renameToolStripMenuItem.Name = "renameToolStripMenuItem";
-			renameToolStripMenuItem.Size = new Size(187, 24);
-			renameToolStripMenuItem.Text = "Rename";
-			renameToolStripMenuItem.Click += renameToolStripMenuItem_Click;
-			// 
-			// sendOverEmailToolStripMenuItem
-			// 
-			sendOverEmailToolStripMenuItem.Name = "sendOverEmailToolStripMenuItem";
-			sendOverEmailToolStripMenuItem.Size = new Size(187, 24);
-			sendOverEmailToolStripMenuItem.Text = "Send Over Email";
-			sendOverEmailToolStripMenuItem.Click += sendOverEmailToolStripMenuItem_Click;
-			// 
-			// propertiesToolStripMenuItem
-			// 
-			propertiesToolStripMenuItem.Name = "propertiesToolStripMenuItem";
-			propertiesToolStripMenuItem.Size = new Size(187, 24);
-			propertiesToolStripMenuItem.Text = "Properties";
-			propertiesToolStripMenuItem.Click += propertiesToolStripMenuItem_Click;
-			// 
 			// SideBarItemView
 			// 
 			AutoScaleDimensions = new SizeF(8F, 20F);
@@ -132,8 +148,8 @@
 			Margin = new Padding(3, 4, 3, 4);
 			Name = "SideBarItemView";
 			Size = new Size(131, 36);
-			((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
 			contextMenuStrip1.ResumeLayout(false);
+			((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
 			ResumeLayout(false);
 			PerformLayout();
 		}

@@ -305,8 +305,8 @@ namespace File_Boss
 
 		public override void ShowNotSelected()
 		{
-			BackColor = SystemColors.Control;
-			pictureBox1.BackColor = SystemColors.Control;
+			BackColor = Color.FromArgb(34, 34, 34);
+			pictureBox1.BackColor = BackColor;
 		}
 	}
 }
