@@ -20,7 +20,7 @@
 			base.Dispose(disposing);
 		}
 
-		#region Component Designer generated code
+        #region Component Designer generated code
 
         /// <summary> 
         /// Required method for Designer support - do not modify 
@@ -102,9 +102,9 @@
             pathText.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             pathText.AutoEllipsis = true;
             pathText.BackColor = Color.FromArgb(64, 64, 64);
-			pathText.ForeColor = Color.White;
-			pathText.BorderStyle = BorderStyle.Fixed3D;
-            pathText.Location = new Point(243, 11);
+            pathText.BorderStyle = BorderStyle.Fixed3D;
+            pathText.ForeColor = Color.White;
+            pathText.Location = new Point(243, 9);
             pathText.Name = "pathText";
             pathText.Padding = new Padding(3);
             pathText.Size = new Size(438, 28);
@@ -160,12 +160,13 @@
             flowLayoutPanel1.Size = new Size(784, 567);
             flowLayoutPanel1.TabIndex = 9;
             flowLayoutPanel1.DragDrop += flowLayoutPanel1_DragDrop;
-			flowLayoutPanel1.DragEnter += flowLayoutPanel1_DragEnter;
-			flowLayoutPanel1.MouseClick += flowLayoutPanel1_MouseClick;
+            flowLayoutPanel1.DragEnter += flowLayoutPanel1_DragEnter;
+            flowLayoutPanel1.MouseClick += flowLayoutPanel1_MouseClick;
             // 
             // homepage1
             // 
             homepage1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            homepage1.BackColor = Color.FromArgb(34, 34, 34);
             homepage1.functionHandler = null;
             homepage1.Location = new Point(148, 50);
             homepage1.Margin = new Padding(3, 2, 3, 2);
@@ -177,10 +178,13 @@
             // button3
             // 
             button3.BackColor = Color.FromArgb(46, 204, 113);
-			button3.BackgroundImage = (Image)resources.GetObject("button3.BackgroundImage");
+            button3.BackgroundImage = (Image)resources.GetObject("button3.BackgroundImage");
             button3.BackgroundImageLayout = ImageLayout.Zoom;
+            button3.FlatAppearance.BorderColor = Color.Black;
+            button3.FlatAppearance.BorderSize = 2;
+            button3.FlatStyle = FlatStyle.Flat;
             button3.ImageAlign = ContentAlignment.TopLeft;
-            button3.Location = new Point(145, 0);
+            button3.Location = new Point(145, 2);
             button3.Margin = new Padding(3, 5, 3, 5);
             button3.Name = "button3";
             button3.Padding = new Padding(2);
@@ -194,13 +198,12 @@
             // 
             listBoxResults.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             listBoxResults.BackColor = Color.FromArgb(64, 64, 64);
-			listBoxResults.BorderStyle = BorderStyle.None;
-			listBoxResults.ForeColor = Color.White;
-			listBoxResults.FormattingEnabled = true;
-			listBoxResults.ItemHeight = 15;
-			listBoxResults.Location = new Point(706, 36);
+            listBoxResults.BorderStyle = BorderStyle.None;
+            listBoxResults.ForeColor = Color.White;
+            listBoxResults.FormattingEnabled = true;
+            listBoxResults.Location = new Point(706, 36);
             listBoxResults.Name = "listBoxResults";
-            listBoxResults.Size = new Size(158, 124);
+            listBoxResults.Size = new Size(158, 120);
             listBoxResults.TabIndex = 10;
             listBoxResults.SelectedIndexChanged += listBox1_SelectedIndexChanged;
             // 
@@ -208,22 +211,25 @@
             // 
             textBox1.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             textBox1.BackColor = Color.FromArgb(64, 64, 64);
-			textBox1.BorderStyle = BorderStyle.None;
-			textBox1.ForeColor = Color.White;
-			textBox1.Location = new Point(706, 14);
+            textBox1.BorderStyle = BorderStyle.None;
+            textBox1.ForeColor = Color.White;
+            textBox1.Location = new Point(706, 14);
             textBox1.Name = "textBox1";
-            textBox1.Size = new Size(158, 27);
+            textBox1.Size = new Size(158, 20);
             textBox1.TabIndex = 0;
             textBox1.TextChanged += textBox1_TextChanged;
             // 
             // homeButton
             // 
             homeButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            homeButton.BackColor = Color.CornflowerBlue;
+            homeButton.BackColor = Color.FromArgb(46, 204, 113);
             homeButton.BackgroundImage = (Image)resources.GetObject("homeButton.BackgroundImage");
             homeButton.BackgroundImageLayout = ImageLayout.Zoom;
+            homeButton.FlatAppearance.BorderColor = Color.Black;
+            homeButton.FlatAppearance.BorderSize = 2;
+            homeButton.FlatStyle = FlatStyle.Flat;
             homeButton.ImageAlign = ContentAlignment.TopLeft;
-            homeButton.Location = new Point(886, 3);
+            homeButton.Location = new Point(886, 5);
             homeButton.Margin = new Padding(3, 5, 3, 5);
             homeButton.Name = "homeButton";
             homeButton.Padding = new Padding(2);
@@ -237,6 +243,7 @@
             // 
             flowLayoutPanel2.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             flowLayoutPanel2.AutoScroll = true;
+            flowLayoutPanel2.BackColor = Color.FromArgb(34, 34, 34);
             flowLayoutPanel2.Location = new Point(3, 50);
             flowLayoutPanel2.Name = "flowLayoutPanel2";
             flowLayoutPanel2.Size = new Size(139, 567);
@@ -244,11 +251,14 @@
             // 
             // button4
             // 
-            button4.BackColor = Color.CornflowerBlue;
+            button4.BackColor = Color.FromArgb(46, 204, 113);
             button4.BackgroundImage = (Image)resources.GetObject("button4.BackgroundImage");
             button4.BackgroundImageLayout = ImageLayout.Zoom;
+            button4.FlatAppearance.BorderColor = Color.Black;
+            button4.FlatAppearance.BorderSize = 2;
+            button4.FlatStyle = FlatStyle.Flat;
             button4.ImageAlign = ContentAlignment.TopLeft;
-            button4.Location = new Point(194, 0);
+            button4.Location = new Point(194, 2);
             button4.Margin = new Padding(3, 5, 3, 5);
             button4.Name = "button4";
             button4.Padding = new Padding(2);
@@ -257,11 +267,11 @@
             button4.TextImageRelation = TextImageRelation.TextAboveImage;
             button4.UseVisualStyleBackColor = false;
             button4.Click += button4_Click;
-			// 
-			// TabUI
-			// 
-			BackColor = Color.FromArgb(34, 34, 34);
-			Controls.Add(button4);
+            // 
+            // TabUI
+            // 
+            BackColor = Color.FromArgb(34, 34, 34);
+            Controls.Add(button4);
             Controls.Add(flowLayoutPanel2);
             Controls.Add(homepage1);
             Controls.Add(homeButton);
@@ -281,9 +291,9 @@
             PerformLayout();
         }
 
-		#endregion
+        #endregion
 
-		private ContextMenuStrip contextMenuStrip1;
+        private ContextMenuStrip contextMenuStrip1;
 		private ToolStripMenuItem undoToolStripMenuItem;
 		private ToolStripMenuItem pasteToolStripMenuItem;
 		private ToolStripMenuItem emailSettingsToolStripMenuItem1;

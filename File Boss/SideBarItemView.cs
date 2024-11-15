@@ -300,8 +300,8 @@ public partial class SideBarItemView : ItemView
 	}
 	public override void ShowSelected()
 	{
-		BackColor = Color.CornflowerBlue;
-		pictureBox1.BackColor = Color.CornflowerBlue;
+		BackColor = Color.DimGray;
+		pictureBox1.BackColor = Color.DimGray;
 	}
 	public override void ShowNotSelected()
 	{
