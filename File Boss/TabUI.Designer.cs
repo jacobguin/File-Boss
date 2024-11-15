@@ -20,7 +20,7 @@
 			base.Dispose(disposing);
 		}
 
-        #region Component Designer generated code
+		#region Component Designer generated code
 
         /// <summary> 
         /// Required method for Designer support - do not modify 
@@ -159,7 +159,9 @@
             flowLayoutPanel1.Name = "flowLayoutPanel1";
             flowLayoutPanel1.Size = new Size(784, 567);
             flowLayoutPanel1.TabIndex = 9;
-            flowLayoutPanel1.MouseClick += flowLayoutPanel1_MouseClick;
+            flowLayoutPanel1.DragDrop += flowLayoutPanel1_DragDrop;
+			flowLayoutPanel1.DragEnter += flowLayoutPanel1_DragEnter;
+			flowLayoutPanel1.MouseClick += flowLayoutPanel1_MouseClick;
             // 
             // homepage1
             // 
@@ -279,9 +281,9 @@
             PerformLayout();
         }
 
-        #endregion
+		#endregion
 
-        private ContextMenuStrip contextMenuStrip1;
+		private ContextMenuStrip contextMenuStrip1;
 		private ToolStripMenuItem undoToolStripMenuItem;
 		private ToolStripMenuItem pasteToolStripMenuItem;
 		private ToolStripMenuItem emailSettingsToolStripMenuItem1;
