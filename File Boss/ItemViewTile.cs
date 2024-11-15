@@ -47,12 +47,16 @@ namespace File_Boss
             contextMenuStrip1.Items.Remove(copyToolStripMenuItem);
             contextMenuStrip1.Items.Add(zip = new ToolStripMenuItem()
 			{
-				Text = "Zip"
+				Text = "Zip",
+				BackColor = copyFileToolStripMenuItem.BackColor,
+				ForeColor = copyFileToolStripMenuItem.ForeColor
 			});
 			zip.Click += Zip_Click;
 			contextMenuStrip1.Items.Add(Tab = new ToolStripMenuItem()
 			{
-				Text = "Open in new tab"
+				Text = "Open in new tab",
+				BackColor = copyFileToolStripMenuItem.BackColor,
+				ForeColor = copyFileToolStripMenuItem.ForeColor
 			});
 			Tab.Click += Tab_Click;
 			if (CurrentDirectory.Name.ToLower() == "black sonic")
@@ -96,11 +100,16 @@ namespace File_Boss
 			catch { }
 			openWithToolStripMenuItem.DropDownItems.Clear();
             createShortcutMenuItem = new ToolStripMenuItem("Create Shortcut to Desktop");
-            contextMenuStrip1.Items.Add(createShortcutMenuItem);
+			createShortcutMenuItem.BackColor = copyFileToolStripMenuItem.BackColor;
+			createShortcutMenuItem.ForeColor = copyFileToolStripMenuItem.ForeColor;
+
+			contextMenuStrip1.Items.Add(createShortcutMenuItem);
             createShortcutMenuItem.Click += CreateShortcutMenuItem_Click;
             foreach (var program in functionHandler.ProgramMap.Values)
 			{
 				ToolStripMenuItem programItem = new(program);
+				programItem.BackColor = copyFileToolStripMenuItem.BackColor;
+				programItem.ForeColor = copyFileToolStripMenuItem.ForeColor;
 				openWithToolStripMenuItem.DropDownItems.Add(programItem);
 
                 programItem.Click += (s, args) =>
@@ -110,15 +119,19 @@ namespace File_Boss
             }
             contextMenuStrip1.Items.Add(fav = new ToolStripMenuItem()
             {
-                Text = "Add To Favorites"
+                Text = "Add To Favorites",
+				BackColor = copyFileToolStripMenuItem.BackColor,
+				ForeColor = copyFileToolStripMenuItem.ForeColor
             });
             fav.Click += Tsm_Click;
             if (File.ToLower().EndsWith("zip"))
             {
                 contextMenuStrip1.Items.Add(uzip = new ToolStripMenuItem()
                 {
-                    Text = "Unzip"
-                });
+                    Text = "Unzip",
+					BackColor = copyFileToolStripMenuItem.BackColor,
+					ForeColor = copyFileToolStripMenuItem.ForeColor
+				});
                 uzip.Click += Uzip_Click;
             }
         }
@@ -289,14 +302,14 @@ namespace File_Boss
 
 		public override void ShowSelected()
 		{
-			BackColor = Color.CornflowerBlue;
-			pictureBox1.BackColor = Color.CornflowerBlue;
+			BackColor = Color.DimGray;
+			pictureBox1.BackColor = Color.DimGray;
 		}
 
 		public override void ShowNotSelected()
 		{
-			BackColor = SystemColors.Control;
-			pictureBox1.BackColor = SystemColors.Control;
+			BackColor = Color.FromArgb(34, 34, 34);
+			pictureBox1.BackColor = BackColor;
 		}
 	}
 }

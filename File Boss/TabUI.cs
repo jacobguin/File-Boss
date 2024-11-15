@@ -85,14 +85,14 @@ public partial class TabUI : UserControl
 		updateItemDisplay();
 	}
 
-	private void flowLayoutPanel1_MouseClick(object sender, MouseEventArgs e)
-	{
-		foreach (ItemView iv in SelectedViews)
-		{
-			iv.ShowNotSelected();
-		}
-		SelectedViews.Clear();
-	}
+    private void flowLayoutPanel1_MouseClick(object sender, MouseEventArgs e)
+    {
+        foreach (ItemView iv in SelectedViews)
+        {
+            iv.ShowNotSelected();
+        }
+        SelectedViews.Clear();
+    }
 
 	private void emailSettingsToolStripMenuItem1_Click(object sender, EventArgs e)
 	{
@@ -231,33 +231,33 @@ public partial class TabUI : UserControl
 		return Task.CompletedTask;
 	}
 
-	private Task ItemViewSingleLeftClick(ItemView arg)
-	{
-		if (Control.ModifierKeys != Keys.Control)
-		{
-			foreach (ItemView iv in SelectedViews)
-			{
-				iv.ShowNotSelected();
-			}
-			SelectedViews.Clear();
-			arg.ShowSelected();
-			SelectedViews.Add(arg);
-		}
-		else
-		{
+    private Task ItemViewSingleLeftClick(ItemView arg)
+    {
+        if (Control.ModifierKeys != Keys.Control)
+        {
+            foreach (ItemView iv in SelectedViews)
+            {
+                iv.ShowNotSelected();
+            }
+            SelectedViews.Clear();
+            arg.ShowSelected();
+            SelectedViews.Add(arg);
+        }
+        else
+        {
 
-			if (SelectedViews.Contains(arg))
-			{
-				if (SelectedViews.Count == 1) return Task.CompletedTask;
-				arg.ShowNotSelected();
-				SelectedViews.Remove(arg);
-			}
-			else
-			{
-				arg.ShowSelected();
-				SelectedViews.Add(arg);
-			}
-		}
+            if (SelectedViews.Contains(arg))
+            {
+                if (SelectedViews.Count == 1) return Task.CompletedTask;
+                arg.ShowNotSelected();
+                SelectedViews.Remove(arg);
+            }
+            else
+            {
+                arg.ShowSelected();
+                SelectedViews.Add(arg);
+            }
+        }
 
 		return Task.CompletedTask;
 	}
@@ -348,55 +348,55 @@ public partial class TabUI : UserControl
         return Task.CompletedTask;
     }
 
-	private Task ItemViewRequestCopy()
-	{
-		StringCollection strings = new();
-		foreach (ItemView item in SelectedViews)
-		{
-			if (item.CurrentFile is not null)
-			{
-				strings.Add(item.CurrentFile.FullName);
-			}
-			else
-			{
-				strings.Add(item.CurrentDirectory!.FullName);
-			}
-		}
-		Clipboard.SetFileDropList(strings);
-		return Task.CompletedTask;
-	}
+    private Task ItemViewRequestCopy()
+    {
+        StringCollection strings = new();
+        foreach (ItemView item in SelectedViews)
+        {
+            if (item.CurrentFile is not null)
+            {
+                strings.Add(item.CurrentFile.FullName);
+            }
+            else
+            {
+                strings.Add(item.CurrentDirectory!.FullName);
+            }
+        }
+        Clipboard.SetFileDropList(strings);
+        return Task.CompletedTask;
+    }
 
-	private Task ItemViewRequestNewTab(ItemView arg)
-	{
-		if (RequestNewTab is not null) RequestNewTab.Invoke(arg);
-		return Task.CompletedTask;
-	}
-	#endregion
+    private Task ItemViewRequestNewTab(ItemView arg)
+    {
+        if (RequestNewTab is not null) RequestNewTab.Invoke(arg);
+        return Task.CompletedTask;
+    }
+    #endregion
 
-	private void button3_Click(object sender, EventArgs e)
-	{
-		if (flowLayoutPanel1.FlowDirection == FlowDirection.LeftToRight)
-		{
-			flowLayoutPanel1.Resize += flowLayoutPanel1_Resize;
-			flowLayoutPanel1.FlowDirection = FlowDirection.TopDown;
-			flowLayoutPanel1.WrapContents = false;
-		}
-		else
-		{
-			flowLayoutPanel1.Resize -= flowLayoutPanel1_Resize;
-			flowLayoutPanel1.WrapContents = true;
-			flowLayoutPanel1.FlowDirection = FlowDirection.LeftToRight;
-		}
-		updateItemDisplay();
-	}
+    private void button3_Click(object sender, EventArgs e)
+    {
+        if (flowLayoutPanel1.FlowDirection == FlowDirection.LeftToRight)
+        {
+            flowLayoutPanel1.Resize += flowLayoutPanel1_Resize;
+            flowLayoutPanel1.FlowDirection = FlowDirection.TopDown;
+            flowLayoutPanel1.WrapContents = false;
+        }
+        else
+        {
+            flowLayoutPanel1.Resize -= flowLayoutPanel1_Resize;
+            flowLayoutPanel1.WrapContents = true;
+            flowLayoutPanel1.FlowDirection = FlowDirection.LeftToRight;
+        }
+        updateItemDisplay();
+    }
 
-	private void flowLayoutPanel1_Resize(object? sender, EventArgs e)
-	{
-		for (int i = 0; i < flowLayoutPanel1.Controls.Count; i++)
-		{
-			flowLayoutPanel1.Controls[i].Size = new(flowLayoutPanel1.Size.Width - SystemInformation.VerticalScrollBarWidth - SystemInformation.VerticalScrollBarWidth - 5, flowLayoutPanel1.Controls[i].Size.Height);
-		}
-	}
+    private void flowLayoutPanel1_Resize(object? sender, EventArgs e)
+    {
+        for (int i = 0; i < flowLayoutPanel1.Controls.Count; i++)
+        {
+            flowLayoutPanel1.Controls[i].Size = new(flowLayoutPanel1.Size.Width - SystemInformation.VerticalScrollBarWidth - SystemInformation.VerticalScrollBarWidth - 5, flowLayoutPanel1.Controls[i].Size.Height);
+        }
+    }
 
 	private void textBox1_TextChanged(object sender, EventArgs e)
 	{
