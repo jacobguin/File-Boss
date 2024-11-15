@@ -159,7 +159,6 @@
             flowLayoutPanel1.Name = "flowLayoutPanel1";
             flowLayoutPanel1.Size = new Size(784, 567);
             flowLayoutPanel1.TabIndex = 9;
-            flowLayoutPanel1.Paint += flowLayoutPanel1_Paint;
             flowLayoutPanel1.MouseClick += flowLayoutPanel1_MouseClick;
             // 
             // homepage1
