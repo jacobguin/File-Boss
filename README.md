@@ -39,9 +39,9 @@ File Boss is a file management tool built with C# designed to simplify file and 
 - **Upload File**: Transfer photos and files from external devices, like cameras, to your computer.
 - **Bulk Select**: Select multiple files or folders for quick actions, such as deletion or copying.
 
-### Getting Started
+## Getting Started
 
-## From Release
+### From Release
 
 1. **Download the Latest Release**:
    - Navigate to the [Releases](https://github.com/jacobguin/File-Boss/releases) page on the GitHub repository.
@@ -52,7 +52,7 @@ File Boss is a file management tool built with C# designed to simplify file and 
 3. **Run the Application**:
    - Locate the extracted folder and double-click on `File Boss.exe` to launch the application.
 
-## Building From Source Code
+### Building From Source Code
 
 1. **Clone the Repository**:
    ```bash
