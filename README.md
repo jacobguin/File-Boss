@@ -74,5 +74,5 @@ File Boss is a file management tool built with C# designed to simplify file and 
    ```
 5. **Run App**:
    ```bash
-   exec "File Boss.exe"
+   "File Boss.exe"
    ```
