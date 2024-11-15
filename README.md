@@ -54,6 +54,8 @@ File Boss is a file management tool built with C# designed to simplify file and 
 
 ### Building From Source Code
 
+> **Note**: Ensure you have the [.NET SDK](https://dotnet.microsoft.com/download) installed before proceeding. The application requires .NET 8.0 or a compatible version.
+
 1. **Clone the Repository**:
    ```bash
    git clone https://github.com/jacobguin/File-Boss.git
