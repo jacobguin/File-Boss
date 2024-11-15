@@ -1,4 +1,4 @@
-using Microsoft.VisualBasic.Devices;
+﻿using Microsoft.VisualBasic.Devices;
 using Middle;
 using System.Collections.Specialized;
 using System.Diagnostics;
@@ -29,12 +29,12 @@ namespace File_Boss
             u.RequestNewTab += U_RequestNewTab;
             DirectoryInfo di = new(u.functionHandler.BasePath);
             TabPage tp = new();
-            tp.Text = di.Name;
+            tp.Text = di.Name + "   ​";
             tp.Controls.Add(u);
             tabControl1.TabPages.Add(tp);
             u.RequestRefreash += () =>
             {
-                tp.Text = new DirectoryInfo(u.functionHandler.BasePath).Name;
+                tp.Text = new DirectoryInfo(u.functionHandler.BasePath).Name + "   ​";
                 tabControl1.Refresh();
                 return Task.CompletedTask;
             };
@@ -60,7 +60,7 @@ namespace File_Boss
                 tabControl1.SelectedTab = tp;
                 u.RequestRefreash += () =>
                 {
-                    tp.Text = new DirectoryInfo(u.functionHandler.BasePath).Name;
+                    tp.Text = new DirectoryInfo(u.functionHandler.BasePath).Name + "   ​";
                     tabControl1.Refresh();
                     return Task.CompletedTask;
                 };
