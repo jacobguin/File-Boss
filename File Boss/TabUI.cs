@@ -1,69 +1,89 @@
 ﻿using Middle;
 using System.Collections.Specialized;
 using System.Diagnostics;
+using System.Text.RegularExpressions;
 
 namespace File_Boss;
 
 public partial class TabUI : UserControl
 {
-    private string currentDirectory;
+	private string currentDirectory;
 
-    public TabUI()
-    {
-        InitializeComponent();
-        listBoxResults.Visible = false;
-        string currentDirectory = Environment.CurrentDirectory;
-    }
+	public TabUI()
+	{
+		InitializeComponent();
+		listBoxResults.Visible = false;
+		string desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+		string documents = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+		string downloads = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + "\\Downloads";
+		string music = Environment.GetFolderPath(Environment.SpecialFolder.MyMusic);
+		string pictures = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures);
+		string videos = Environment.GetFolderPath(Environment.SpecialFolder.MyVideos);
 
-    public event Func<ItemView, Task>? RequestNewTab;
-    public event Func<Task>? RequestRefreash;
+		addFolderDisplay(new DirectoryInfo(desktop), true);
+		addFolderDisplay(new DirectoryInfo(documents), true);
+		addFolderDisplay(new DirectoryInfo(downloads), true);
+		addFolderDisplay(new DirectoryInfo(music), true);
+		addFolderDisplay(new DirectoryInfo(pictures), true);
+		addFolderDisplay(new DirectoryInfo(videos), true);
+	}
+
+	public event Func<ItemView, Task>? RequestNewTab;
+	public event Func<Task>? RequestRefreash;
 
     public required BackFunctions functionHandler { get; set; }
-    public static List<ItemView> SelectedViews { get; set; } = new();
+    public List<ItemView> SelectedViews { get; set; } = new();
 
-    private void backButton_Click(object sender, EventArgs e)
-    {
-        DirectoryInfo di = Directory.GetParent(functionHandler.BasePath)!;
-        currentDirectory = di.FullName;
-        functionHandler.BasePath = di.FullName;
-        functionHandler.AddUIUndoAction(updateItemDisplay);
-        updateItemDisplay();
-        pathText.Text = di.FullName;
-        Text = di.Name;
-        if (RequestRefreash is not null) RequestRefreash.Invoke();
-        UpdateSearchResults(currentDirectory);
-    }
+	private void backButton_Click(object sender, EventArgs e)
+	{
+		DirectoryInfo di = Directory.GetParent(functionHandler.BasePath)!;
+		try
+		{
+			currentDirectory = di.FullName;
+			functionHandler.BasePath = di.FullName;
+			functionHandler.AddUIUndoAction(updateItemDisplay);
+			updateItemDisplay();
+			pathText.Text = di.FullName;
+			Text = di.Name;
+			if (RequestRefreash is not null) RequestRefreash.Invoke();
+			UpdateSearchResults(currentDirectory);
+		}
+		catch (Exception ee)
+		{
+			MessageBox.Show($"Error: {ee.Message}");
+		}
+	}
 
 
-    private void button1_Click(object sender, EventArgs e)
-    {
-        CreateItem ci = new();
-        ci.Text = "File Create";
-        ci.ShowDialog();
-        string fileName = ci.textBox1.Text;
-        if (fileName.Contains('.'))
-        {
-            functionHandler.CreateFile(fileName);
-        }
-        else
-        {
-            String defaultExt = fileName + ".txt";
-            functionHandler.CreateFile(defaultExt);
-        }
-        functionHandler.AddUIUndoAction(updateItemDisplay);
-        updateItemDisplay();
-    }
+	private void button1_Click(object sender, EventArgs e)
+	{
+		CreateItem ci = new();
+		ci.Text = "File Create";
+		ci.ShowDialog();
+		string fileName = ci.textBox1.Text;
+		if (fileName.Contains('.'))
+		{
+			functionHandler.CreateFile(fileName);
+		}
+		else
+		{
+			String defaultExt = fileName + ".txt";
+			functionHandler.CreateFile(defaultExt);
+		}
+		functionHandler.AddUIUndoAction(updateItemDisplay);
+		updateItemDisplay();
+	}
 
-    private void button2_Click(object sender, EventArgs e)
-    {
-        CreateItem ci = new();
-        ci.Text = "Folder Create";
-        ci.ShowDialog();
-        string folderName = ci.textBox1.Text;
-        functionHandler.CreateFolder(folderName);
-        functionHandler.AddUIUndoAction(updateItemDisplay);
-        updateItemDisplay();
-    }
+	private void button2_Click(object sender, EventArgs e)
+	{
+		CreateItem ci = new();
+		ci.Text = "Folder Create";
+		ci.ShowDialog();
+		string folderName = ci.textBox1.Text;
+		functionHandler.CreateFolder(folderName);
+		functionHandler.AddUIUndoAction(updateItemDisplay);
+		updateItemDisplay();
+	}
 
     private void flowLayoutPanel1_MouseClick(object sender, MouseEventArgs e)
     {
@@ -74,117 +94,142 @@ public partial class TabUI : UserControl
         SelectedViews.Clear();
     }
 
-    private void emailSettingsToolStripMenuItem1_Click(object sender, EventArgs e)
-    {
-        EmailLogin el = new()
-        { Functions = functionHandler };
-        el.ShowDialog();
-    }
+	private void emailSettingsToolStripMenuItem1_Click(object sender, EventArgs e)
+	{
+		EmailLogin el = new()
+		{ Functions = functionHandler };
+		el.ShowDialog();
+	}
 
-    private void pasteToolStripMenuItem_Click(object sender, EventArgs e)
-    {
-        StringCollection colection = Clipboard.GetFileDropList();
-        functionHandler.PastFilesAndFolders(colection);
-        functionHandler.AddUIUndoAction(() => { updateItemDisplay(); });
-        updateItemDisplay();
-    }
+	private void pasteToolStripMenuItem_Click(object sender, EventArgs e)
+	{
+		StringCollection colection = Clipboard.GetFileDropList();
+		functionHandler.PastFilesAndFolders(colection);
+		functionHandler.AddUIUndoAction(() => { updateItemDisplay(); });
+		updateItemDisplay();
+	}
 
-    private void undoToolStripMenuItem_Click(object sender, EventArgs e)
-    {
-        functionHandler.Undo();
-    }
+	private void undoToolStripMenuItem_Click(object sender, EventArgs e)
+	{
+		functionHandler.Undo();
+	}
 
-    private void TabUI_Load(object sender, EventArgs e)
-    {
-        DirectoryInfo di = new(functionHandler.BasePath);
-        pathText.Text = di.FullName;
-        Text = di.Name;
-        updateItemDisplay();
-    }
+	private void TabUI_Load(object sender, EventArgs e)
+	{
+		DirectoryInfo di = new(functionHandler.BasePath);
+		pathText.Text = di.FullName;
+		Text = di.Name;
+		updateItemDisplay();
+	}
 
-    public void updateItemDisplay()
-    {
-        flowLayoutPanel1.SuspendLayout();
-        flowLayoutPanel1.Controls.Clear();
-        DirectoryInfo di = new DirectoryInfo(functionHandler.BasePath);
-        foreach (DirectoryInfo fi in di.GetDirectories())
-        {
-            addFolderDisplay(fi);
-        }
-        foreach (FileInfo fi in di.GetFiles())
-        {
-            addFileDisplay(fi);
-        }
-        SelectedViews.Clear();
-        flowLayoutPanel1.ResumeLayout();
-        flowLayoutPanel1.PerformLayout();
-    }
+	public void updateItemDisplay()
+	{
+		flowLayoutPanel1.SuspendLayout();
+		flowLayoutPanel1.Controls.Clear();
+		DirectoryInfo di = new(functionHandler.BasePath);
+		if (reverse)
+		{
+			foreach (DirectoryInfo fi in di.GetDirectories().OrderBy(file => Regex.Replace(file.Name, @"\d+", match => match.Value.PadLeft(4, '0'))).Reverse())
+			{
+				addFolderDisplay(fi);
+			}
+			foreach (FileInfo fi in di.GetFiles().OrderBy(file => Regex.Replace(file.Name, @"\d+", match => match.Value.PadLeft(4, '0'))).Reverse())
+			{
+				addFileDisplay(fi);
+			}
+		}
+		else
+		{
+			foreach (DirectoryInfo fi in di.GetDirectories().OrderBy(file => Regex.Replace(file.Name, @"\d+", match => match.Value.PadLeft(4, '0'))))
+			{
+				addFolderDisplay(fi);
+			}
+			foreach (FileInfo fi in di.GetFiles().OrderBy(file =>Regex.Replace(file.Name, @"\d+", match => match.Value.PadLeft(4, '0'))))
+			{
+				addFileDisplay(fi);
+			}
+		}
+		
+		SelectedViews.Clear();
+		flowLayoutPanel1.ResumeLayout();
+		flowLayoutPanel1.PerformLayout();
+	}
 
-    public ItemView CreateBoth()
-    {
-        ItemView iv;
-        if (flowLayoutPanel1.FlowDirection == FlowDirection.LeftToRight)
-        {
-            iv = new ItemViewTile();
-        }
-        else
-        {
-            iv = new ItemViewContent();
-            iv.Size = new Size(flowLayoutPanel1.Size.Width, iv.Size.Height);
-        }
-        iv.OnAllClick += ItemViewOpenClick;
-        iv.RequestUpdate += ItemViewRequestUpdate;
-        iv.OnAllSingleLClick += ItemViewSingleLeftClick;
-        iv.OnAllSingleRClick += ItemViewSingleRightClick;
-        iv.OnDelete += ItemViewRequestDelete;
-        iv.RequestEmaile += ItemViewRequestEmail;
-        iv.RequestCopy += ItemViewRequestCopy;
-        iv.RequestNewTab += ItemViewRequestNewTab;
-        return iv;
-    }
+	public ItemView CreateBoth(bool side = false)
+	{
+		ItemView iv;
+		if (side)
+		{
+			iv = new SideBarItemView();
+		}
+		else if (flowLayoutPanel1.FlowDirection == FlowDirection.LeftToRight)
+		{
+			iv = new ItemViewTile();
+		}
+		else
+		{
+			iv = new ItemViewContent();
+			iv.Size = new Size(flowLayoutPanel1.Size.Width, iv.Size.Height);
+		}
+		iv.OnAllClick += ItemViewOpenClick;
+		iv.RequestUpdate += ItemViewRequestUpdate;
+		iv.OnAllSingleLClick += ItemViewSingleLeftClick;
+		iv.OnAllSingleRClick += ItemViewSingleRightClick;
+		iv.OnDelete += ItemViewRequestDelete;
+		iv.RequestEmaile += ItemViewRequestEmail;
+		iv.RequestCopy += ItemViewRequestCopy;
+		iv.RequestNewTab += ItemViewRequestNewTab;
+		return iv;
+	}
 
-    public void addFolderDisplay(DirectoryInfo di)
+    public void addFolderDisplay(DirectoryInfo di, bool side = false)
     {
-        ItemView iv = CreateBoth();
-        iv.LoadFolder(di.FullName, functionHandler);
-        flowLayoutPanel1.Controls.Add(iv);
+        ItemView iv = CreateBoth(side);
+        iv.LoadFolder(di.FullName, functionHandler, this);
+        (side ? flowLayoutPanel2 : flowLayoutPanel1).Controls.Add(iv);
     }
 
     public ItemView addFileDisplay(FileInfo fi)
     {
         ItemView iv = CreateBoth();
         Icon icon = System.Drawing.Icon.ExtractAssociatedIcon(fi.FullName)!;
-        iv.LoadFile(fi.FullName, icon, functionHandler);
+        iv.LoadFile(fi.FullName, icon, functionHandler, this);
         flowLayoutPanel1.Controls.Add(iv);
         return iv;
     }
 
-    #region ItemViewTasks
-    private Task ItemViewOpenClick(ItemView arg)
-    {
-        if (arg.CurrentFile is not null)
-        {
-            string fileName = arg.CurrentFile.Name;
-            functionHandler.Open(fileName);
-        }
-        else
-        {
-            functionHandler.BasePath = Path.Join(functionHandler.BasePath, arg.CurrentDirectory!.Name);
-            functionHandler.AddUIUndoAction(() => { updateItemDisplay(); });
-            updateItemDisplay();
-            pathText.Text = functionHandler.BasePath;
-            Text = new DirectoryInfo(functionHandler.BasePath).Name;
-            if (RequestRefreash is not null) RequestRefreash.Invoke();
-        }
+	#region ItemViewTasks
+	private Task ItemViewOpenClick(ItemView arg)
+	{
+		if (arg.CurrentFile is not null)
+		{
+			string fileName = arg.CurrentFile.Name;
+			functionHandler.Open(fileName);
+		}
+		else
+		{
+			functionHandler.BasePath = arg.CurrentDirectory!.FullName;
 
-        return Task.CompletedTask;
-    }
+			if (homepage1.Visible)
+			{
+				homepage1.Visible = !homepage1.Visible;
+				flowLayoutPanel1.Visible = !flowLayoutPanel1.Visible;
+			}
+			functionHandler.AddUIUndoAction(() => { updateItemDisplay(); });
+			updateItemDisplay();
+			pathText.Text = functionHandler.BasePath;
+			Text = new DirectoryInfo(functionHandler.BasePath).Name;
+			if (RequestRefreash is not null) RequestRefreash.Invoke();
+		}
 
-    private Task ItemViewRequestUpdate(ItemView arg)
-    {
-        updateItemDisplay();
-        return Task.CompletedTask;
-    }
+		return Task.CompletedTask;
+	}
+
+	private Task ItemViewRequestUpdate(ItemView arg)
+	{
+		updateItemDisplay();
+		return Task.CompletedTask;
+	}
 
     private Task ItemViewSingleLeftClick(ItemView arg)
     {
@@ -214,62 +259,49 @@ public partial class TabUI : UserControl
             }
         }
 
-        return Task.CompletedTask;
-    }
+		return Task.CompletedTask;
+	}
 
-    private Task ItemViewSingleRightClick(ItemView arg)
-    {
-        if (SelectedViews.Count == 0 || !SelectedViews.Contains(arg))
-        {
-            ItemViewSingleLeftClick(arg);
-        }
-        return Task.CompletedTask;
-    }
+	private Task ItemViewSingleRightClick(ItemView arg)
+	{
+		if (SelectedViews.Count == 0 || !SelectedViews.Contains(arg))
+		{
+			ItemViewSingleLeftClick(arg);
+		}
+		return Task.CompletedTask;
+	}
 
     private Task ItemViewRequestDelete(ItemView arg)
     {
-        if (arg.CurrentFile is null)
-        {
-            var result = MessageBox.Show($"Are you sure you want to delete the folder '{arg.CurrentDirectory.Name}'?",
-                "Confirm Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+		bool update = false;
 
-            if (result == DialogResult.Yes)
-            {
-                try
-                {
-                    functionHandler.DeleteFolder(arg.CurrentDirectory.Name);
-                    MessageBox.Show("Folder successfully deleted!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+		foreach (ItemView iv in SelectedViews)
+		{
+			try
+			{
+				if (iv is SideBarItemView) continue;
+				if (iv.CurrentFile is not null && iv.CurrentFile.Exists) iv.CurrentFile.Delete();
+				if (iv.CurrentDirectory is not null && iv.CurrentDirectory.Exists) iv.CurrentDirectory.Delete();
+				if (!homepage1.Visible)
+				{
+					flowLayoutPanel1.Controls.Remove(iv);
+				}
+				else
+				{
+					iv.Parent!.Controls.Remove(iv);
+				}
+			}
+			
+			catch (Exception eeeee)
+			{
+				MessageBox.Show(eeeee.ToString());
+				update = true;
+			}
+		}
 
-                    updateItemDisplay();
-                }
-                catch (UIException ex)
-                {
-                    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
-        }
-        else
-        {
-            var result = MessageBox.Show($"Are you sure you want to delete the file '{arg.CurrentFile.Name}'?",
-                "Confirm Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-
-            if (result == DialogResult.Yes)
-            {
-                try
-                {
-                    functionHandler.DeleteFile(arg.CurrentFile.Name);
-                    MessageBox.Show("File successfully deleted!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                    updateItemDisplay();
-                }
-                catch (UIException ex)
-                {
-                    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
-        }
-        return Task.CompletedTask;
-    }
+		if (update) updateItemDisplay();
+		return Task.CompletedTask;
+	}
 
     private Task ItemViewRequestEmail()
     {
@@ -290,15 +322,29 @@ public partial class TabUI : UserControl
             }
             else Dips.Add(item.CurrentDirectory!.FullName);
         }
-        string zip = Path.GetRandomFileName() + ".zip";
-        functionHandler.ZipData(zip, Dips.ToArray());
-        paths.Add(Path.Join(functionHandler.BasePath, zip));
+        string? zip = null;
+        if (Dips.Count >0)
+        {
+			zip = Path.GetRandomFileName() + ".zip";
+			functionHandler.ZipData(zip, Dips.ToArray());
+			paths.Add(Path.Join(functionHandler.BasePath, zip));
+		}
+        
         EmailPrompt EP = new()
         {
             PathsToZips = paths.ToArray(),
             Functions = functionHandler
         };
         EP.ShowDialog();
+        EP.Dispose();
+        if (zip is not null)
+        {
+            try
+            {
+                functionHandler.DeleteFile(zip);
+            }
+            catch { }
+        }
         return Task.CompletedTask;
     }
 
@@ -352,75 +398,103 @@ public partial class TabUI : UserControl
         }
     }
 
-    private void textBox1_TextChanged(object sender, EventArgs e)
+	private void textBox1_TextChanged(object sender, EventArgs e)
+	{
+		string currentDirectory = functionHandler.BasePath;
+		UpdateSearchResults(currentDirectory);
+	}
+
+	private void AdjustListBoxHeight(int itemCount)
+	{
+		int itemHeight = listBoxResults.ItemHeight;
+		int newHeight = itemCount * itemHeight;
+
+		newHeight = Math.Min(newHeight, 200);
+		newHeight = Math.Max(newHeight, 30);
+
+		listBoxResults.Height = newHeight;
+	}
+
+    
+
+	private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
+	{
+		string selectedFileName = big_justice[listBoxResults.SelectedIndex];
+
+		string fullFilePath = Path.Combine(functionHandler.BasePath, selectedFileName);
+
+		if (File.Exists(fullFilePath))
+		{
+			Process.Start(new ProcessStartInfo(fullFilePath) { UseShellExecute = true });
+		}
+		else
+		{
+			MessageBox.Show("File not found.");
+		}
+	}
+
+	private List<string> big_justice = new();
+	private void UpdateSearchResults(string directory)
+	{
+		listBoxResults.Items.Clear();
+		big_justice.Clear();
+		string searchTerm = textBox1.Text;
+
+		if (!string.IsNullOrWhiteSpace(searchTerm))
+		{
+			List<string> results = functionHandler.SearchFilesAndDirectories(directory, $"*{searchTerm}*");
+			if (results.Count > 0)
+			{
+				listBoxResults.Visible = true;
+				foreach (var result in results)
+				{
+					string fileNameWithExtension = Path.GetFileName(result);
+					big_justice.Add(result.Replace(functionHandler.BasePath, "").Remove(0, 1));
+					listBoxResults.Items.Add(fileNameWithExtension);
+				}
+
+				AdjustListBoxHeight(results.Count);
+			}
+			else
+			{
+				listBoxResults.Visible = false;
+			}
+		}
+		else
+		{
+			listBoxResults.Visible = false;
+		}
+	}
+
+    private void homeButton_Click(object sender, EventArgs e)
     {
-        string currentDirectory = functionHandler.BasePath;
-        UpdateSearchResults(currentDirectory);
-    }
-
-    private void AdjustListBoxHeight(int itemCount)
-    {
-        int itemHeight = listBoxResults.ItemHeight;
-        int newHeight = itemCount * itemHeight;
-
-        newHeight = Math.Min(newHeight, 200);
-        newHeight = Math.Max(newHeight, 30);
-
-        listBoxResults.Height = newHeight;
-    }
-
-
-    private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
-    {
-        string selectedFileName = big_justice[listBoxResults.SelectedIndex];
-
-        string fullFilePath = Path.Combine(functionHandler.BasePath, selectedFileName);
-
-        if (File.Exists(fullFilePath))
+        if (homepage1.parent is null)
         {
-            Process.Start(new ProcessStartInfo(fullFilePath) { UseShellExecute = true });
+            homepage1.parent = this;
+            homepage1.LoadCommonDir(this);
+            homepage1.functionHandler = functionHandler;
+        }
+        homepage1.Visible = !homepage1.Visible;
+        flowLayoutPanel1.Visible = !flowLayoutPanel1.Visible;
+        if (homepage1.Visible)
+        {
+            Text = "Home";
+            pathText.Text = "Home";
+            homepage1.LoadFavorites(this);
         }
         else
         {
-            MessageBox.Show("File not found.");
+            Text = new DirectoryInfo(functionHandler.BasePath).Name;
+            pathText.Text = new DirectoryInfo(functionHandler.BasePath).FullName;
         }
+        if (RequestRefreash is not null) RequestRefreash.Invoke();
     }
 
-    private List<string> big_justice = new();
-    private void UpdateSearchResults(string directory)
-    {
-        listBoxResults.Items.Clear();
-        big_justice.Clear();
-        string searchTerm = textBox1.Text;
+	bool reverse = false;
 
-        if (!string.IsNullOrWhiteSpace(searchTerm))
-        {
-            List<string> results = functionHandler.SearchFilesAndDirectories(directory, $"*{searchTerm}*");
-            if (results.Count > 0)
-            {
-                listBoxResults.Visible = true;
-                foreach (var result in results)
-                {
-                    string fileNameWithExtension = Path.GetFileName(result);
-                    big_justice.Add(result.Replace(functionHandler.BasePath, "").Remove(0, 1));
-                    listBoxResults.Items.Add(fileNameWithExtension);
-                }
-
-                AdjustListBoxHeight(results.Count);
-            }
-            else
-            {
-                listBoxResults.Visible = false;
-            }
-        }
-        else
-        {
-            listBoxResults.Visible = false;
-        }
-    }
-
-    private void flowLayoutPanel1_Paint(object sender, PaintEventArgs e)
-    {
-
-    }
+	private void button4_Click(object sender, EventArgs e)
+	{
+		reverse = !reverse;
+		updateItemDisplay();
+	}
 }

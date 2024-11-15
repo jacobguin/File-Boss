@@ -73,6 +73,16 @@ namespace File_Boss.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Folder_Icon {
+            get {
+                object obj = ResourceManager.GetObject("Folder-Icon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Folder2 {
             get {
                 object obj = ResourceManager.GetObject("Folder2", resourceCulture);

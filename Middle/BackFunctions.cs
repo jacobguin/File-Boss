@@ -205,13 +205,13 @@ public class BackFunctions
 					name = name.Remove(name.Length - ext.Length, ext.Length);
 					void withnum(int i)
 					{
-						if (File.Exists(Path.Join(BasePath, name + $" ({i}){ext}")))
+						if (File.Exists(Path.Join(BasePath, name + $"({i}){ext}")))
 						{
 							withnum(i + 1);
 						}
 						else
 						{
-							name += $" ({i}){ext}";
+							name += $"({i}){ext}";
 						}
 					}
 					withnum(1);
@@ -227,13 +227,13 @@ public class BackFunctions
 				{
 					void withnum(int i)
 					{
-						if (Directory.Exists(Path.Join(BasePath, name + $" ({i})")))
+						if (Directory.Exists(Path.Join(BasePath, name + $"({i})")))
 						{
 							withnum(i + 1);
 						}
 						else
 						{
-							name += $" ({i})";
+							name += $"({i})";
 						}
 					}
 					withnum(1);
@@ -471,15 +471,6 @@ public class BackFunctions
         }
     }
 
-	private void AddDirectoryToArchive(ZipArchive archive, string sourceDir, string baseDir)
-	{
-		foreach (string filePath in Directory.GetFiles(sourceDir, "*", SearchOption.AllDirectories))
-		{
-			string relativePath = Path.Join(baseDir, Path.GetRelativePath(sourceDir, filePath));
-			archive.CreateEntryFromFile(filePath, relativePath);
-		}
-	}
-
 	public void ZipData(string zip, params string[] folderandfileNames)
     {
         string zippath = Path.Join(BasePath, zip);
@@ -489,14 +480,20 @@ public class BackFunctions
 
 		foreach (string fileName in folderandfileNames)
 		{
-			string path = Path.Join(BasePath, fileName);
+            string path;
+            if (!Path.Exists(fileName)) path = Path.Join(BasePath, fileName);
+            else path = fileName;
 			if (File.Exists(path))
 			{
-				archive.CreateEntryFromFile(path, fileName);
+				archive.CreateEntryFromFile(path, Path.GetFileName(fileName));
 			}
 			else if (Directory.Exists(path))
 			{
-				AddDirectoryToArchive(archive, path, fileName);
+				foreach (string filePath in Directory.GetFiles(path, "*", SearchOption.AllDirectories))
+				{
+					string relativePath = Path.GetRelativePath(Directory.GetParent(path)!.FullName, filePath);
+					archive.CreateEntryFromFile(filePath, relativePath);
+				}
 			}
 		}
         archive.Dispose();
@@ -590,7 +587,7 @@ public class BackFunctions
 
             foreach (var dir in Directory.GetDirectories(currentDirectory))
             {
-                result.AddRange(SearchFilesAndDirectories(dir, searchPattern));
+               // result.AddRange(SearchFilesAndDirectories(dir, searchPattern));
             }
         }
         catch (UnauthorizedAccessException e)

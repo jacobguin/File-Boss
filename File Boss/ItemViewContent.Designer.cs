@@ -56,7 +56,7 @@ namespace File_Boss
             contextMenuStrip1.Items.AddRange(new ToolStripItem[] { openWithToolStripMenuItem, deleteToolStripMenuItem, copyToolStripMenuItem, copyFileToolStripMenuItem, renameToolStripMenuItem, sendOverEmailToolStripMenuItem, propertiesToolStripMenuItem });
             contextMenuStrip1.Name = "contextMenuStrip1";
             contextMenuStrip1.ShowImageMargin = false;
-            contextMenuStrip1.Size = new Size(136, 158);
+            contextMenuStrip1.Size = new Size(188, 172);
             contextMenuStrip1.Opening += contextMenuStrip1_Opening;
             // 
             // openWithToolStripMenuItem
@@ -64,7 +64,7 @@ namespace File_Boss
             openWithToolStripMenuItem.BackColor = Color.FromArgb(64, 64, 64);
             openWithToolStripMenuItem.ForeColor = Color.White;
             openWithToolStripMenuItem.Name = "openWithToolStripMenuItem";
-            openWithToolStripMenuItem.Size = new Size(135, 22);
+            openWithToolStripMenuItem.Size = new Size(187, 24);
             openWithToolStripMenuItem.Text = "Open With";
             // 
             // deleteToolStripMenuItem
@@ -73,7 +73,7 @@ namespace File_Boss
             deleteToolStripMenuItem.ForeColor = Color.White;
             deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
             deleteToolStripMenuItem.ShortcutKeys = Keys.Delete;
-            deleteToolStripMenuItem.Size = new Size(135, 22);
+            deleteToolStripMenuItem.Size = new Size(187, 24);
             deleteToolStripMenuItem.Text = "Delete";
             deleteToolStripMenuItem.Click += deleteToolStripMenuItem_Click;
             // 
@@ -82,7 +82,7 @@ namespace File_Boss
             copyToolStripMenuItem.BackColor = Color.FromArgb(64, 64, 64);
             copyToolStripMenuItem.ForeColor = Color.White;
             copyToolStripMenuItem.Name = "copyToolStripMenuItem";
-            copyToolStripMenuItem.Size = new Size(135, 22);
+            copyToolStripMenuItem.Size = new Size(187, 24);
             copyToolStripMenuItem.Text = "Copy File Path";
             copyToolStripMenuItem.Click += copyToolStripMenuItem_Click;
             // 
@@ -92,7 +92,7 @@ namespace File_Boss
             copyFileToolStripMenuItem.ForeColor = Color.White;
             copyFileToolStripMenuItem.Name = "copyFileToolStripMenuItem";
             copyFileToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.C;
-            copyFileToolStripMenuItem.Size = new Size(135, 22);
+            copyFileToolStripMenuItem.Size = new Size(187, 24);
             copyFileToolStripMenuItem.Text = "Copy";
             copyFileToolStripMenuItem.Click += copyToolStripMenuItem1_Click;
             // 
@@ -101,7 +101,7 @@ namespace File_Boss
             renameToolStripMenuItem.BackColor = Color.FromArgb(64, 64, 64);
             renameToolStripMenuItem.ForeColor = Color.White;
             renameToolStripMenuItem.Name = "renameToolStripMenuItem";
-            renameToolStripMenuItem.Size = new Size(135, 22);
+            renameToolStripMenuItem.Size = new Size(187, 24);
             renameToolStripMenuItem.Text = "Rename";
             renameToolStripMenuItem.Click += renameToolStripMenuItem_Click;
             // 
@@ -110,7 +110,7 @@ namespace File_Boss
             sendOverEmailToolStripMenuItem.BackColor = Color.FromArgb(64, 64, 64);
             sendOverEmailToolStripMenuItem.ForeColor = Color.White;
             sendOverEmailToolStripMenuItem.Name = "sendOverEmailToolStripMenuItem";
-            sendOverEmailToolStripMenuItem.Size = new Size(135, 22);
+            sendOverEmailToolStripMenuItem.Size = new Size(187, 24);
             sendOverEmailToolStripMenuItem.Text = "Send Over Email";
             sendOverEmailToolStripMenuItem.Click += sendOverEmailToolStripMenuItem_Click;
             // 
@@ -119,7 +119,7 @@ namespace File_Boss
             propertiesToolStripMenuItem.BackColor = Color.FromArgb(64, 64, 64);
             propertiesToolStripMenuItem.ForeColor = Color.White;
             propertiesToolStripMenuItem.Name = "propertiesToolStripMenuItem";
-            propertiesToolStripMenuItem.Size = new Size(135, 22);
+            propertiesToolStripMenuItem.Size = new Size(187, 24);
             propertiesToolStripMenuItem.Text = "Properties";
             propertiesToolStripMenuItem.Click += propertiesToolStripMenuItem_Click;
             // 
@@ -129,9 +129,9 @@ namespace File_Boss
             label3.AutoSize = true;
             label3.ContextMenuStrip = contextMenuStrip1;
             label3.ForeColor = Color.FromArgb(46, 204, 113);
-            label3.Location = new Point(305, 2);
+            label3.Location = new Point(349, 3);
             label3.Name = "label3";
-            label3.Size = new Size(85, 15);
+            label3.Size = new Size(109, 20);
             label3.TabIndex = 5;
             label3.Text = "Date modified:";
             // 
@@ -141,9 +141,9 @@ namespace File_Boss
             label4.AutoSize = true;
             label4.ContextMenuStrip = contextMenuStrip1;
             label4.ForeColor = Color.FromArgb(46, 204, 113);
-            label4.Location = new Point(305, 21);
+            label4.Location = new Point(349, 28);
             label4.Name = "label4";
-            label4.Size = new Size(30, 15);
+            label4.Size = new Size(39, 20);
             label4.TabIndex = 6;
             label4.Text = "Size:";
             label4.Visible = false;
@@ -154,9 +154,9 @@ namespace File_Boss
             label6.AutoSize = true;
             label6.ContextMenuStrip = contextMenuStrip1;
             label6.ForeColor = Color.White;
-            label6.Location = new Point(396, 2);
+            label6.Location = new Point(452, 3);
             label6.Name = "label6";
-            label6.Size = new Size(38, 15);
+            label6.Size = new Size(50, 20);
             label6.TabIndex = 8;
             label6.Text = "label6";
             // 
@@ -166,9 +166,9 @@ namespace File_Boss
             label7.AutoSize = true;
             label7.ContextMenuStrip = contextMenuStrip1;
             label7.ForeColor = Color.White;
-            label7.Location = new Point(335, 21);
+            label7.Location = new Point(383, 28);
             label7.Name = "label7";
-            label7.Size = new Size(38, 15);
+            label7.Size = new Size(50, 20);
             label7.TabIndex = 9;
             label7.Text = "label7";
             label7.Visible = false;
@@ -182,7 +182,7 @@ namespace File_Boss
             pictureBox1.Location = new Point(3, 2);
             pictureBox1.Margin = new Padding(3, 2, 3, 2);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(39, 34);
+            pictureBox1.Size = new Size(45, 45);
             pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox1.TabIndex = 10;
             pictureBox1.TabStop = false;
@@ -200,10 +200,11 @@ namespace File_Boss
             // 
             // ItemViewContent
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(34, 34, 34);
-            Controls.Add(label1);
+			ContextMenuStrip = contextMenuStrip1;
+			Controls.Add(label1);
             Controls.Add(pictureBox1);
             Controls.Add(label7);
             Controls.Add(label6);
@@ -211,12 +212,12 @@ namespace File_Boss
             Controls.Add(label3);
             Margin = new Padding(3, 2, 3, 2);
             Name = "ItemViewContent";
-            Size = new Size(551, 39);
+            Size = new Size(630, 52);
             contextMenuStrip1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
-            ResumeLayout(false);
-            PerformLayout();
-        }
+			ResumeLayout(false);
+			PerformLayout();
+		}
 
         #endregion
 

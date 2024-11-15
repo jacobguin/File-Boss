@@ -22,7 +22,7 @@ namespace File_Boss
 			base.Dispose(disposing);
 		}
 
-        #region Component Designer generated code
+		#region Component Designer generated code
 
         /// <summary> 
         /// Required method for Designer support - do not modify 
@@ -52,10 +52,10 @@ namespace File_Boss
             pictureBox1.BackgroundImageLayout = ImageLayout.None;
             pictureBox1.ContextMenuStrip = contextMenuStrip1;
             pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
-            pictureBox1.Location = new Point(16, 10);
+            pictureBox1.Location = new Point(18, 13);
             pictureBox1.Margin = new Padding(3, 2, 3, 2);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(63, 54);
+            pictureBox1.Size = new Size(72, 72);
             pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox1.TabIndex = 2;
             pictureBox1.TabStop = false;
@@ -73,7 +73,7 @@ namespace File_Boss
             openWithToolStripMenuItem.BackColor = Color.FromArgb(64, 64, 64);
             openWithToolStripMenuItem.ForeColor = Color.White;
             openWithToolStripMenuItem.Name = "openWithToolStripMenuItem";
-            openWithToolStripMenuItem.Size = new Size(180, 22);
+            openWithToolStripMenuItem.Size = new Size(187, 24);
             openWithToolStripMenuItem.Text = "Open With";
             // 
             // deleteToolStripMenuItem
@@ -82,7 +82,7 @@ namespace File_Boss
             deleteToolStripMenuItem.ForeColor = Color.White;
             deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
             deleteToolStripMenuItem.ShortcutKeys = Keys.Delete;
-            deleteToolStripMenuItem.Size = new Size(180, 22);
+            deleteToolStripMenuItem.Size = new Size(187, 24);
             deleteToolStripMenuItem.Text = "Delete";
             deleteToolStripMenuItem.Click += deleteToolStripMenuItem_Click;
             // 
@@ -91,7 +91,7 @@ namespace File_Boss
             copyToolStripMenuItem.BackColor = Color.FromArgb(64, 64, 64);
             copyToolStripMenuItem.ForeColor = Color.White;
             copyToolStripMenuItem.Name = "copyToolStripMenuItem";
-            copyToolStripMenuItem.Size = new Size(180, 22);
+            copyToolStripMenuItem.Size = new Size(187, 24);
             copyToolStripMenuItem.Text = "Copy File Path";
             copyToolStripMenuItem.Click += copyToolStripMenuItem_Click;
             // 
@@ -101,7 +101,7 @@ namespace File_Boss
             copyFileToolStripMenuItem.ForeColor = Color.White;
             copyFileToolStripMenuItem.Name = "copyFileToolStripMenuItem";
             copyFileToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.C;
-            copyFileToolStripMenuItem.Size = new Size(180, 22);
+            copyFileToolStripMenuItem.Size = new Size(187, 24);
             copyFileToolStripMenuItem.Text = "Copy";
             copyFileToolStripMenuItem.Click += copyToolStripMenuItem1_Click;
             // 
@@ -110,7 +110,7 @@ namespace File_Boss
             renameToolStripMenuItem.BackColor = Color.FromArgb(64, 64, 64);
             renameToolStripMenuItem.ForeColor = Color.White;
             renameToolStripMenuItem.Name = "renameToolStripMenuItem";
-            renameToolStripMenuItem.Size = new Size(180, 22);
+            renameToolStripMenuItem.Size = new Size(187, 24);
             renameToolStripMenuItem.Text = "Rename";
             renameToolStripMenuItem.Click += renameToolStripMenuItem_Click;
             // 
@@ -119,7 +119,7 @@ namespace File_Boss
             sendOverEmailToolStripMenuItem.BackColor = Color.FromArgb(64, 64, 64);
             sendOverEmailToolStripMenuItem.ForeColor = Color.White;
             sendOverEmailToolStripMenuItem.Name = "sendOverEmailToolStripMenuItem";
-            sendOverEmailToolStripMenuItem.Size = new Size(180, 22);
+            sendOverEmailToolStripMenuItem.Size = new Size(187, 24);
             sendOverEmailToolStripMenuItem.Text = "Send Over Email";
             sendOverEmailToolStripMenuItem.Click += sendOverEmailToolStripMenuItem_Click;
             // 
@@ -128,7 +128,7 @@ namespace File_Boss
             propertiesToolStripMenuItem.BackColor = Color.FromArgb(64, 64, 64);
             propertiesToolStripMenuItem.ForeColor = Color.White;
             propertiesToolStripMenuItem.Name = "propertiesToolStripMenuItem";
-            propertiesToolStripMenuItem.Size = new Size(180, 22);
+            propertiesToolStripMenuItem.Size = new Size(187, 24);
             propertiesToolStripMenuItem.Text = "Properties";
             propertiesToolStripMenuItem.Click += propertiesToolStripMenuItem_Click;
             // 
@@ -137,32 +137,36 @@ namespace File_Boss
             label1.AutoSize = true;
             label1.ContextMenuStrip = contextMenuStrip1;
             label1.ForeColor = Color.White;
-            label1.Location = new Point(16, 73);
-            label1.Name = "label1";
-            label1.Size = new Size(38, 15);
+			label1.Font = new Font("Segoe UI", 8F);
+			label1.Location = new Point(18, 99);
+			label1.MaximumSize = new Size(72, 0);
+			label1.Name = "label1";
+            label1.Size = new Size(45, 19);
             label1.TabIndex = 3;
             label1.Text = "label1";
             // 
             // ItemViewTile
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackColor = Color.FromArgb(34, 34, 34);
+			AutoSize = true;
+			ContextMenuStrip = contextMenuStrip1;
+			BackColor = Color.FromArgb(34, 34, 34);
             Controls.Add(pictureBox1);
             Controls.Add(label1);
             Font = new Font("Segoe UI", 9F);
             Margin = new Padding(3, 2, 3, 2);
             Name = "ItemViewTile";
-            Size = new Size(95, 103);
+            Size = new Size(109, 137);
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             contextMenuStrip1.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
 
-        #endregion
+		#endregion
 
-        public PictureBox pictureBox1;
+		public PictureBox pictureBox1;
 		private ContextMenuStrip contextMenuStrip1;
 		private ToolStripMenuItem openWithToolStripMenuItem;
 		private ToolStripMenuItem deleteToolStripMenuItem;

@@ -34,7 +34,7 @@ namespace File_Boss
             tabControl1.TabPages.Add(tp);
             u.RequestRefreash += () =>
             {
-                tp.Text = new DirectoryInfo(u.functionHandler.BasePath).Name + "   ​";
+                tp.Text = u.Text + "   ​";
                 tabControl1.Refresh();
                 return Task.CompletedTask;
             };
@@ -60,7 +60,7 @@ namespace File_Boss
                 tabControl1.SelectedTab = tp;
                 u.RequestRefreash += () =>
                 {
-                    tp.Text = new DirectoryInfo(u.functionHandler.BasePath).Name + "   ​";
+                    tp.Text = u.Text + "   ​";
                     tabControl1.Refresh();
                     return Task.CompletedTask;
                 };
