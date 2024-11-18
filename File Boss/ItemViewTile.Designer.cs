@@ -31,7 +31,6 @@ namespace File_Boss
 		private void InitializeComponent()
 		{
 			components = new System.ComponentModel.Container();
-			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ItemViewTile));
 			pictureBox1 = new PictureBox();
 			contextMenuStrip1 = new ContextMenuStrip(components);
 			openWithToolStripMenuItem = new ToolStripMenuItem();
@@ -51,7 +50,7 @@ namespace File_Boss
 			pictureBox1.BackColor = Color.FromArgb(34, 34, 34);
 			pictureBox1.BackgroundImageLayout = ImageLayout.None;
 			pictureBox1.ContextMenuStrip = contextMenuStrip1;
-			pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
+			pictureBox1.Image = Resources.image__1_;
 			pictureBox1.Location = new Point(18, 13);
 			pictureBox1.Margin = new Padding(3, 2, 3, 2);
 			pictureBox1.Name = "pictureBox1";
@@ -66,7 +65,7 @@ namespace File_Boss
 			contextMenuStrip1.Items.AddRange(new ToolStripItem[] { openWithToolStripMenuItem, deleteToolStripMenuItem, copyToolStripMenuItem, copyFileToolStripMenuItem, renameToolStripMenuItem, sendOverEmailToolStripMenuItem, propertiesToolStripMenuItem });
 			contextMenuStrip1.Name = "contextMenuStrip1";
 			contextMenuStrip1.ShowImageMargin = false;
-			contextMenuStrip1.Size = new Size(186, 200);
+			contextMenuStrip1.Size = new Size(163, 172);
 			contextMenuStrip1.Opening += contextMenuStrip1_Opening;
 			// 
 			// openWithToolStripMenuItem
@@ -74,7 +73,7 @@ namespace File_Boss
 			openWithToolStripMenuItem.BackColor = Color.FromArgb(64, 64, 64);
 			openWithToolStripMenuItem.ForeColor = Color.White;
 			openWithToolStripMenuItem.Name = "openWithToolStripMenuItem";
-			openWithToolStripMenuItem.Size = new Size(185, 24);
+			openWithToolStripMenuItem.Size = new Size(162, 24);
 			openWithToolStripMenuItem.Text = "Open With";
 			// 
 			// deleteToolStripMenuItem
@@ -83,7 +82,7 @@ namespace File_Boss
 			deleteToolStripMenuItem.ForeColor = Color.White;
 			deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
 			deleteToolStripMenuItem.ShortcutKeys = Keys.Delete;
-			deleteToolStripMenuItem.Size = new Size(185, 24);
+			deleteToolStripMenuItem.Size = new Size(162, 24);
 			deleteToolStripMenuItem.Text = "Delete";
 			deleteToolStripMenuItem.Click += deleteToolStripMenuItem_Click;
 			// 
@@ -92,7 +91,7 @@ namespace File_Boss
 			copyToolStripMenuItem.BackColor = Color.FromArgb(64, 64, 64);
 			copyToolStripMenuItem.ForeColor = Color.White;
 			copyToolStripMenuItem.Name = "copyToolStripMenuItem";
-			copyToolStripMenuItem.Size = new Size(185, 24);
+			copyToolStripMenuItem.Size = new Size(162, 24);
 			copyToolStripMenuItem.Text = "Copy File Path";
 			copyToolStripMenuItem.Click += copyToolStripMenuItem_Click;
 			// 
@@ -102,7 +101,7 @@ namespace File_Boss
 			copyFileToolStripMenuItem.ForeColor = Color.White;
 			copyFileToolStripMenuItem.Name = "copyFileToolStripMenuItem";
 			copyFileToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.C;
-			copyFileToolStripMenuItem.Size = new Size(185, 24);
+			copyFileToolStripMenuItem.Size = new Size(162, 24);
 			copyFileToolStripMenuItem.Text = "Copy";
 			copyFileToolStripMenuItem.Click += copyToolStripMenuItem1_Click;
 			// 
@@ -111,7 +110,7 @@ namespace File_Boss
 			renameToolStripMenuItem.BackColor = Color.FromArgb(64, 64, 64);
 			renameToolStripMenuItem.ForeColor = Color.White;
 			renameToolStripMenuItem.Name = "renameToolStripMenuItem";
-			renameToolStripMenuItem.Size = new Size(185, 24);
+			renameToolStripMenuItem.Size = new Size(162, 24);
 			renameToolStripMenuItem.Text = "Rename";
 			renameToolStripMenuItem.Click += renameToolStripMenuItem_Click;
 			// 
@@ -120,7 +119,7 @@ namespace File_Boss
 			sendOverEmailToolStripMenuItem.BackColor = Color.FromArgb(64, 64, 64);
 			sendOverEmailToolStripMenuItem.ForeColor = Color.White;
 			sendOverEmailToolStripMenuItem.Name = "sendOverEmailToolStripMenuItem";
-			sendOverEmailToolStripMenuItem.Size = new Size(185, 24);
+			sendOverEmailToolStripMenuItem.Size = new Size(162, 24);
 			sendOverEmailToolStripMenuItem.Text = "Send Over Email";
 			sendOverEmailToolStripMenuItem.Click += sendOverEmailToolStripMenuItem_Click;
 			// 
@@ -129,7 +128,7 @@ namespace File_Boss
 			propertiesToolStripMenuItem.BackColor = Color.FromArgb(64, 64, 64);
 			propertiesToolStripMenuItem.ForeColor = Color.White;
 			propertiesToolStripMenuItem.Name = "propertiesToolStripMenuItem";
-			propertiesToolStripMenuItem.Size = new Size(185, 24);
+			propertiesToolStripMenuItem.Size = new Size(162, 24);
 			propertiesToolStripMenuItem.Text = "Properties";
 			propertiesToolStripMenuItem.Click += propertiesToolStripMenuItem_Click;
 			// 
