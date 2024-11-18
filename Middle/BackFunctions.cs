@@ -32,7 +32,7 @@ public class BackFunctions
         if (OperatingSystem.IsWindows())
         {
             ProgramMap.Add(".txt", "notepad.exe");
-			ProgramMap.Add(".Txt", "Code.exe");
+			ProgramMap.Add(".Txt", "C:\\Users\\camer\\AppData\\Local\\Programs\\Microsoft VS Code\\Code.exe");
 		}
         else
         {
