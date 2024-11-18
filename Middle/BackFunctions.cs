@@ -32,7 +32,8 @@ public class BackFunctions
         if (OperatingSystem.IsWindows())
         {
             ProgramMap.Add(".txt", "notepad.exe");
-        }
+			ProgramMap.Add(".Txt", "Code.exe");
+		}
         else
         {
             ProgramMap.Add(".txt", "gnome-text-editor");
