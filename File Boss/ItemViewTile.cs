@@ -107,7 +107,7 @@ namespace File_Boss
             createShortcutMenuItem.Click += CreateShortcutMenuItem_Click;
             foreach (var program in functionHandler.ProgramMap.Values)
 			{
-				ToolStripMenuItem programItem = new(program);
+				ToolStripMenuItem programItem = new(Path.GetFileName(program));
 				programItem.BackColor = copyFileToolStripMenuItem.BackColor;
 				programItem.ForeColor = copyFileToolStripMenuItem.ForeColor;
 				openWithToolStripMenuItem.DropDownItems.Add(programItem);
