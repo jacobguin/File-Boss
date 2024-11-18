@@ -211,7 +211,7 @@ public partial class TabUI : UserControl
     {
         if (arg.CurrentFile is not null)
         {
-            string fileName = arg.CurrentFile.Name;
+            string fileName = arg.CurrentFile.FullName;
             functionHandler.Open(fileName);
         }
         else

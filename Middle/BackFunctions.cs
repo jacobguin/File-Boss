@@ -147,7 +147,8 @@ public class BackFunctions
     {
         try
         {
-            if (!File.Exists(Path.Join(BasePath,FileToOpen))) throw new UIException("The provided file is not valid");
+			if (!Path.Exists(FileToOpen)) FileToOpen = Path.Join(BasePath, FileToOpen);
+			if (!File.Exists(FileToOpen)) throw new UIException("The provided file is not valid");
             FileInfo FI = new FileInfo(FileToOpen);
 
             if (ProgramMap.TryGetValue(FI.Extension.ToLower(), out string? Program))
@@ -155,7 +156,7 @@ public class BackFunctions
                 OpenWith(Program, FileToOpen);
                 return;
             }
-			Process.Start(new ProcessStartInfo(Path.Join(BasePath, FileToOpen)) { UseShellExecute = true });
+			Process.Start(new ProcessStartInfo(FileToOpen) { UseShellExecute = true });
 		}
         catch (Win32Exception e)
         {
@@ -268,13 +269,14 @@ public class BackFunctions
     {
         try
         {
-            if (!File.Exists(Path.Join(BasePath, FileToOpen))) throw new UIException("The provided file is not valid");
+			if (!Path.Exists(FileToOpen)) FileToOpen = Path.Join(BasePath, FileToOpen);
+			if (!File.Exists(FileToOpen)) throw new UIException("The provided file is not valid");
             Process p = new Process()
             {
                 StartInfo =
                 {
                     FileName = Program,
-                    Arguments = Path.Join(BasePath, FileToOpen)
+                    Arguments = FileToOpen
                 }
             };
             _ = p.Start();
