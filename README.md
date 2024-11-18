@@ -41,6 +41,8 @@ File Boss is a file management tool built with C# designed to simplify file and 
 
 ## Getting Started
 
+> File Boss is curently a Windows only product. File Boss will only run on Windows 11 heighr.
+
 ### From Release
 
 1. **Download the Latest Release**:
