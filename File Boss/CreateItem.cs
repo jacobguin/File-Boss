@@ -19,12 +19,14 @@ namespace File_Boss
 
         private void button1_Click(object sender, EventArgs e)
         {
+            DialogResult = DialogResult.OK;
             Close();
         }
 
         private void TextBox_KeyPress(object? sender, KeyPressEventArgs e)
         {
             if (e.KeyChar != (char)Keys.Enter) return;
+            DialogResult = DialogResult.OK;
             Close();
         }
     }

@@ -14,17 +14,20 @@ namespace File_Boss
 {
     public partial class Form1 : Form
     {
+        public string cd;
         public Form1()
         {
             //DO NOT TOUCH
+            cd = Directory.GetCurrentDirectory();
             InitializeComponent();
         }
         private void Form1_Load(object sender, EventArgs e)
         {
             TabUI u = new()
             {
-                functionHandler = new() { BasePath = Directory.GetCurrentDirectory() },
+                functionHandler = new() {BasePath = cd},
                 Dock = DockStyle.Fill,
+                Size = new Size(this.Size.Width, this.Size.Height),
             };
             u.RequestNewTab += U_RequestNewTab;
             DirectoryInfo di = new(u.functionHandler.BasePath);
@@ -49,6 +52,7 @@ namespace File_Boss
                 {
                     functionHandler = new() { BasePath = arg.CurrentDirectory.FullName },
                     Dock = DockStyle.Fill,
+
                 };
                 u.RequestNewTab += U_RequestNewTab;
 

@@ -28,7 +28,8 @@ namespace File_Boss
         {
             CurentFile = fi;           
             filePath.Text = CurentFile.FullName;
-            
+
+            CurentFile.Refresh();
             string fst = "";
             ulong size = (ulong)CurentFile.Length;
             if (size < 1000)

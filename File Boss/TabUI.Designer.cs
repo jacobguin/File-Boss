@@ -55,14 +55,14 @@
             contextMenuStrip1.ImageScalingSize = new Size(20, 20);
             contextMenuStrip1.Items.AddRange(new ToolStripItem[] { undoToolStripMenuItem, pasteToolStripMenuItem, emailSettingsToolStripMenuItem1 });
             contextMenuStrip1.Name = "contextMenuStrip1";
-            contextMenuStrip1.Size = new Size(173, 76);
+            contextMenuStrip1.Size = new Size(149, 70);
             // 
             // undoToolStripMenuItem
             // 
             undoToolStripMenuItem.ForeColor = Color.White;
             undoToolStripMenuItem.Name = "undoToolStripMenuItem";
             undoToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.Z;
-            undoToolStripMenuItem.Size = new Size(172, 24);
+            undoToolStripMenuItem.Size = new Size(148, 22);
             undoToolStripMenuItem.Text = "Undo";
             undoToolStripMenuItem.Click += undoToolStripMenuItem_Click;
             // 
@@ -71,7 +71,7 @@
             pasteToolStripMenuItem.ForeColor = Color.White;
             pasteToolStripMenuItem.Name = "pasteToolStripMenuItem";
             pasteToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.V;
-            pasteToolStripMenuItem.Size = new Size(172, 24);
+            pasteToolStripMenuItem.Size = new Size(148, 22);
             pasteToolStripMenuItem.Text = "Paste";
             pasteToolStripMenuItem.Click += pasteToolStripMenuItem_Click;
             // 
@@ -79,7 +79,7 @@
             // 
             emailSettingsToolStripMenuItem1.ForeColor = Color.White;
             emailSettingsToolStripMenuItem1.Name = "emailSettingsToolStripMenuItem1";
-            emailSettingsToolStripMenuItem1.Size = new Size(172, 24);
+            emailSettingsToolStripMenuItem1.Size = new Size(148, 22);
             emailSettingsToolStripMenuItem1.Text = "Email Settings";
             emailSettingsToolStripMenuItem1.Click += emailSettingsToolStripMenuItem1_Click;
             // 
@@ -99,7 +99,6 @@
             // 
             // pathText
             // 
-            pathText.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             pathText.AutoEllipsis = true;
             pathText.BackColor = Color.FromArgb(64, 64, 64);
             pathText.BorderStyle = BorderStyle.Fixed3D;
@@ -107,9 +106,10 @@
             pathText.Location = new Point(243, 9);
             pathText.Name = "pathText";
             pathText.Padding = new Padding(3);
-            pathText.Size = new Size(438, 28);
+            pathText.Size = new Size(443, 28);
             pathText.TabIndex = 7;
             pathText.Text = "label1";
+            pathText.Click += pathText_Click;
             // 
             // button2
             // 
@@ -201,6 +201,7 @@
             listBoxResults.BorderStyle = BorderStyle.None;
             listBoxResults.ForeColor = Color.White;
             listBoxResults.FormattingEnabled = true;
+            listBoxResults.ItemHeight = 15;
             listBoxResults.Location = new Point(706, 36);
             listBoxResults.Name = "listBoxResults";
             listBoxResults.Size = new Size(158, 120);
@@ -215,9 +216,10 @@
             textBox1.ForeColor = Color.White;
             textBox1.Location = new Point(706, 14);
             textBox1.Name = "textBox1";
-            textBox1.Size = new Size(158, 20);
+            textBox1.Size = new Size(158, 16);
             textBox1.TabIndex = 0;
             textBox1.TextChanged += textBox1_TextChanged;
+            textBox1.Enter += textBox1_Enter;
             // 
             // homeButton
             // 
@@ -286,6 +288,7 @@
             Name = "TabUI";
             Size = new Size(932, 620);
             Load += TabUI_Load;
+            SizeChanged += TabUI_SizeChanged;
             contextMenuStrip1.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
@@ -298,16 +301,16 @@
 		private ToolStripMenuItem pasteToolStripMenuItem;
 		private ToolStripMenuItem emailSettingsToolStripMenuItem1;
 		private Button backButton;
-		private Label pathText;
 		private Button button2;
 		private Button button1;
 		private FlowLayoutPanel flowLayoutPanel1;
-        private TextBox textBox1;
         private ListBox listBoxResults;
 		private Button button3;
         private Button homeButton;
         private Homepage homepage1;
         private FlowLayoutPanel flowLayoutPanel2;
         private Button button4;
+        public Label pathText;
+        public TextBox textBox1;
     }
 }
