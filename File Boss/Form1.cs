@@ -15,6 +15,7 @@ namespace File_Boss
     public partial class Form1 : Form
     {
         public string cd;
+        public bool cd_ = false;
         public Form1()
         {
             //DO NOT TOUCH
@@ -29,6 +30,7 @@ namespace File_Boss
                 Dock = DockStyle.Fill,
                 Size = new Size(this.Size.Width, this.Size.Height),
             };
+            if (cd_) u.AddBase(cd);
             u.RequestNewTab += U_RequestNewTab;
             DirectoryInfo di = new(u.functionHandler.BasePath);
             TabPage tp = new();
@@ -54,6 +56,7 @@ namespace File_Boss
                     Dock = DockStyle.Fill,
 
                 };
+                if (cd_) u.AddBase(cd);
                 u.RequestNewTab += U_RequestNewTab;
 
                 DirectoryInfo di = new(u.functionHandler.BasePath);

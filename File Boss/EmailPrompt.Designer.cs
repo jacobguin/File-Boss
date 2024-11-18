@@ -40,19 +40,18 @@
             SendTotextBox.BackColor = Color.FromArgb(64, 64, 64);
             SendTotextBox.BorderStyle = BorderStyle.None;
             SendTotextBox.ForeColor = Color.White;
-            SendTotextBox.Location = new Point(10, 26);
-            SendTotextBox.Margin = new Padding(3, 2, 3, 2);
+            SendTotextBox.Location = new Point(11, 35);
             SendTotextBox.Name = "SendTotextBox";
-            SendTotextBox.Size = new Size(275, 16);
+            SendTotextBox.Size = new Size(314, 20);
             SendTotextBox.TabIndex = 2;
             // 
             // label1
             // 
             label1.AutoSize = true;
             label1.ForeColor = Color.White;
-            label1.Location = new Point(12, 8);
+            label1.Location = new Point(14, 11);
             label1.Name = "label1";
-            label1.Size = new Size(54, 15);
+            label1.Size = new Size(69, 20);
             label1.TabIndex = 1;
             label1.Text = "Send To: ";
             // 
@@ -60,9 +59,9 @@
             // 
             label3.AutoSize = true;
             label3.ForeColor = Color.White;
-            label3.Location = new Point(12, 52);
+            label3.Location = new Point(14, 69);
             label3.Name = "label3";
-            label3.Size = new Size(52, 15);
+            label3.Size = new Size(65, 20);
             label3.TabIndex = 5;
             label3.Text = "Subject: ";
             // 
@@ -70,10 +69,10 @@
             // 
             SubjecttextBox2.BackColor = Color.FromArgb(64, 64, 64);
             SubjecttextBox2.BorderStyle = BorderStyle.None;
-            SubjecttextBox2.Location = new Point(10, 70);
-            SubjecttextBox2.Margin = new Padding(3, 2, 3, 2);
+            SubjecttextBox2.ForeColor = Color.White;
+            SubjecttextBox2.Location = new Point(11, 93);
             SubjecttextBox2.Name = "SubjecttextBox2";
-            SubjecttextBox2.Size = new Size(275, 16);
+            SubjecttextBox2.Size = new Size(314, 20);
             SubjecttextBox2.TabIndex = 3;
             // 
             // button1
@@ -83,10 +82,9 @@
             button1.FlatStyle = FlatStyle.Flat;
             button1.ForeColor = Color.Black;
             button1.ImageAlign = ContentAlignment.TopLeft;
-            button1.Location = new Point(12, 103);
-            button1.Margin = new Padding(3, 2, 3, 2);
+            button1.Location = new Point(14, 137);
             button1.Name = "button1";
-            button1.Size = new Size(273, 38);
+            button1.Size = new Size(312, 51);
             button1.TabIndex = 6;
             button1.Text = "Submit";
             button1.UseVisualStyleBackColor = false;
@@ -94,17 +92,16 @@
             // 
             // EmailPrompt
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(34, 34, 34);
-            ClientSize = new Size(296, 153);
+            ClientSize = new Size(338, 204);
             Controls.Add(button1);
             Controls.Add(label3);
             Controls.Add(SubjecttextBox2);
             Controls.Add(label1);
             Controls.Add(SendTotextBox);
             FormBorderStyle = FormBorderStyle.FixedToolWindow;
-            Margin = new Padding(3, 2, 3, 2);
             MaximizeBox = false;
             Name = "EmailPrompt";
             Text = "Email Infomation";

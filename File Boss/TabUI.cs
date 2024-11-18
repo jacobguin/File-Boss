@@ -28,6 +28,11 @@ public partial class TabUI : UserControl
         addFolderDisplay(new DirectoryInfo(videos), true);
     }
 
+    public void AddBase(string p)
+    {
+        addFolderDisplay(new DirectoryInfo(p), true);
+    }
+
     public event Func<ItemView, Task>? RequestNewTab;
     public event Func<Task>? RequestRefreash;
 
@@ -221,6 +226,7 @@ public partial class TabUI : UserControl
             functionHandler.AddUIUndoAction(() => { updateItemDisplay(); });
             updateItemDisplay();
             pathText.Text = functionHandler.BasePath;
+            if (arg is SideBarItemView) SelectedViews.Add(arg);
             Text = new DirectoryInfo(functionHandler.BasePath).Name;
             if (RequestRefreash is not null) RequestRefreash.Invoke();
         }

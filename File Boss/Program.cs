@@ -13,7 +13,7 @@ namespace File_Boss
             ApplicationConfiguration.Initialize();
             if (args.Count() != 0)
             {
-                Application.Run(new Form1() {cd = args[0]});
+                Application.Run(new Form1() {cd = args[0], cd_ = true});
             }
             else
             {
